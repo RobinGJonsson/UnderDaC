@@ -60,8 +60,6 @@ class Booking(models.Model):
                                  on_delete=models.SET_NULL)
     restaurant = models.ForeignKey(
         Restaurant, default=None, null=True, on_delete=models.SET_NULL)
-    # Display resturant address based on the restaurant choice
-
     guest_count = models.IntegerField(default=2, null=True)
     date = models.DateField()
     time = models.TimeField(max_length=200, null=True)
