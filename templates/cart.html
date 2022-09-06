@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Table Booking{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <br>
+            <br>
+            <table class="table">
+                <tr>
+                    <!--Total item count-->
+                    <th><h5>Items: <strong>{{ order.get_cart_item_count }}</strong></h5></th>
+                    <!--Total price-->
+                    <th><h5>Total: <strong>${{ order.get_cart_total_price|floatformat:2 }}</strong></h5></th>
+                    <th>
+                        {% if order.get_cart_item_count > 0 %}
+                        <a class="btn btn-success float-end" href="{% url 'checkout' %}">Checkout</a>
+                        {% endif %}
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <!--Header row-->
+    <div class="row border-bottom border-light">
+        <div class="col-3"></div>
+        <div class="col-3">Item</div>
+        <div class="col-2">Price</div>
+        <div class="col-2">Quantity</div>
+        <div class="col-2">Total</div>
+    </div>
+    <!--Loop through cart each cart item and give it a row-->
+    {% for item in items %}
+    <div class="row mt-3 border-bottom border-light">
+        <div class="col-3"><img class="cart-img" src="{{ item.item.image_url }}" alt=""></div>
+        <div class="col-3"><p>{{ item.item.name }}</p></div>
+        <div class="col-2"><p>${{ item.item.price|floatformat:2 }}</p></div>
+        <div class="col-2 position-relative">
+            <p>{{ item.quantity }}</p>
+            <div class="chg-quantity">
+                <img data-item="{{ item.item.id }}" data-action="add" class="chg-quantity-arrow update-cart" src="{% static 'images/arrow-up.png' %}" alt="Change quantity up">
+                <img data-item="{{ item.item.id }}" data-action="subtract" class="chg-quantity-arrow update-cart" src="{% static 'images/arrow-down.png' %}" alt="Change quantity down">
+            </div>
+        </div>
+        <div class="col-2"><p>${{ item.get_total|floatformat:2 }}</p></div>
+    </div>
+    {% endfor %}
+</div>
+<script src="{% static 'js/cart.js' %}"></script>
+
+{% endblock %}
