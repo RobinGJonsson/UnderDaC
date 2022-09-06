@@ -5,7 +5,7 @@ import json
 def check_user_auth(request):
     # Check if user is logged in
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user
         return customer
     else:
         return False
@@ -16,6 +16,7 @@ def cart_data(request):
 
     customer = check_user_auth(request)
     if customer is not False:
+        print('""""""""""""""""""""""""""""""""""""""""""""""', customer)
         order, created = Order.objects.get_or_create(
             customer=customer, complete=False)
         items = order.orderitem_set.all()

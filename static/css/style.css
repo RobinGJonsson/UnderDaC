@@ -3,6 +3,10 @@ td {
     padding: 10px;
 }
 
+a {
+    cursor: pointer;
+}
+
 
 /*------------ Backgrounds*/
 

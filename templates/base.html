@@ -2,10 +2,12 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UnderDaC | {% block title %}{% endblock %}</title>
   <!--Bootstrap CSS-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -21,16 +23,12 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" defer></script>
 
   <!--General JS -->
-  <script src="{% static 'js/base.js' %}"></script>
-
-  <!--JS variables-->
-  <script>
-        let user = '{{request.user}}'
-        let csrftoken = '{{ csrf_token }}';
+  <script src="{% static 'js/base.js' %}">
+    let user = '{{request.user}}'
+    let csrftoken = '{{ csrf_token }}';
   </script>
-
-  <title>UnderDaC | {% block title %}{% endblock %}</title>
 </head>
+
 <body class="bg-dark text-light">
   <header>
     <!--Navbar-->
@@ -39,6 +37,15 @@
         <!--Top Navbar menu-->
         <div class="collapse navbar-collapse navmenu justify-content-end">
           <ul class="navbar-nav">
+
+            <!--Display only if the user has a booking -->
+            {% if customer_booking %}
+            <div class="nav-item">
+              <a href="#" class="nav-link">Hello {{ user }} don't forget your booking on {{ customer_booking.date }},
+                {{customer_booking.time}}</a>
+            </div>
+            {% endif %}
+
             {% if user.is_authenticated %}
             <li class="nav-item">
               <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
@@ -74,7 +81,8 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container">
         <!--Logo-->
-        <a href="{% url 'home' %}" class="navbar-brand logo-img-link"><img src="{% static 'images/logo.png' %}" alt="Main logo" class="logo-img"></a>
+        <a href="{% url 'home' %}" class="navbar-brand logo-img-link"><img src="{% static 'images/logo.png' %}"
+            alt="Main logo" class="logo-img"></a>
         <a href="{% url 'home' %}" class="navbar-brand logo-brand-link">UnderDaC</a>
         <!--Toggle hamburger button-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navmenu">
@@ -145,17 +153,15 @@
 </body>
 
 <script>
-
   alertWindow = document.querySelectorAll('#msg')
 
-  if(alertWindow.length > 0) {
+  if (alertWindow.length > 0) {
     setTimeout(function () {
-        let messages = document.querySelector('#msg');
-        let alert = new bootstrap.Alert(messages);
-        alert.close();
+      let messages = document.querySelector('#msg');
+      let alert = new bootstrap.Alert(messages);
+      alert.close();
     }, 3000);
   }
-  
 </script>
 
 </html>

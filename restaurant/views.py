@@ -1,19 +1,11 @@
-from django.shortcuts import render
-from django.views.generic.base import TemplateView
-from django.views.generic.list import ListView
-from django.views.generic.detail import DetailView
-from .forms import BookingForm, ContactForm
-from .models import Restaurant
-from . import utils
-
-
-from django.shortcuts import render, redirect
-from django.http import JsonResponse
 import json
-
-from .models import *
-from .forms import *
-from .utils import *
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
+from .utils import cart_data, check_user_auth
+from .forms import BookingForm, ContactForm
+from .models import Restaurant, Order, OrderItem, MenuItem, DeliveryInfo, Booking
+from django.contrib import messages
+from time import sleep
 
 
 def home(request):
@@ -21,8 +13,14 @@ def home(request):
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
 
+    customer = check_user_auth(request)
+    customer_booking = Booking.objects.filter(customer=customer).order_by('date')
     context = {'restaurants': restaurants,
-               'cart_count': cart_count}
+               'cart_count': cart_count,
+               'customer_booking': customer_booking}
+
+    if customer_booking:
+        context['customer_booking'] = customer_booking[0]
 
     return render(request, 'home.html', context)
 
@@ -53,6 +51,8 @@ def booking(request):
             booking = form.save(commit=False)
             booking.customer = customer
             form.save()
+            messages.add_message(request, messages.INFO,
+                                 'Your Booking Has Been Sent')
             return redirect('/')
 
     context = {'form': form,
@@ -64,7 +64,18 @@ def booking(request):
 def contact(request):
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
+    customer = check_user_auth(request)
     form = ContactForm
+
+    if request.method == 'POST':
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.customer = customer
+            form.save()
+            messages.add_message(request, messages.INFO,
+                                 'Your Message Has Been Sent')
+            return redirect('/')
 
     context = {'cart_count': cart_count,
                'form': form}
@@ -131,7 +142,7 @@ def update_cart(request):
 
     if order_item.quantity <= 0:
         order_item.delete()
-
+    print(JsonResponse(safe=False))
     return JsonResponse('Item was added', safe=False)
 
 

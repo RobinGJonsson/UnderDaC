@@ -29,3 +29,4 @@
 
 ## Bugs 
 - Getting cookies all from request 
+- Closing the pop up message from before it the time out is over causes an exception because now there is nothing to close

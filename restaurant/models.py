@@ -56,21 +56,20 @@ class MenuItem(models.Model):
 
 
 class Booking(models.Model):
-    customer = models.ForeignKey(Customer, null=True,
+    customer = models.ForeignKey(User, null=True,
                                  on_delete=models.SET_NULL)
     restaurant = models.ForeignKey(
         Restaurant, default=None, null=True, on_delete=models.SET_NULL)
     guest_count = models.IntegerField(default=2, null=True)
-    datetime = models.DateTimeField(null=True)
-    # date = models.DateField()
-    # time = models.TimeField(max_length=200, null=True)
+    date = models.DateField(default=None)
+    time = models.TimeField(max_length=200, null=True)
 
     def __str__(self):
-        return self.customer
+        return str(self.customer)
 
 
 class Order(models.Model):
-    customer = models.ForeignKey(Customer, null=True, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     restaurant = models.ForeignKey(
         Restaurant, null=True, on_delete=models.SET_NULL)
     delivery_time = models.TimeField(null=True)
@@ -111,7 +110,7 @@ class OrderItem(models.Model):
 
 class DeliveryInfo(models.Model):
     customer = models.ForeignKey(
-        Customer, on_delete=models.SET_NULL, null=True)
+        User, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
     firstName = models.CharField(max_length=200, null=True)
     lastName = models.CharField(max_length=200, null=True)
@@ -124,7 +123,7 @@ class DeliveryInfo(models.Model):
 
 
 class Contact(models.Model):
-    customer = models.ForeignKey(Customer, null=True, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
     subject = models.CharField(max_length=200, null=True)
     message = models.TextField(null=True)
 
