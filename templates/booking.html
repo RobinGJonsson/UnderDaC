@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Table Booking{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-1 text-center text-light">Book a Table</h1>
+        </div>
+    </div>
+    <div class="row border-top border-3 border-light">
+        <div class="col-lg-7 border-end border-3 border-light">
+            <form method="POST" action="{% url 'booking' %}">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input type="submit" value="Make Booking">
+            </form>
+        </div>
+        <div class="col-lg-5 fs-1">
+            <div class="dropdown m-3">
+                <button class="btn btn-lg btn-secondary" data-bs-toggle="dropdown" type="button">Resturant</button>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                    <li><a href="#" class="dropdown-item">Resturant 1</a>
+                    <li><a href="#" class="dropdown-item">Resturant 2</a>
+                    <li><a href="#" class="dropdown-item">Resturant 3</a>
+
+                </ul>
+            </div>
+            <div class="m-3">Call Us: <span>Insert number here</span></div>
+            <div class="m-3">Address: <span>Insert address here</span></div>
+            <h3 class="m-3">Open Hours: </h3>
+            <table class="fs-6 w-100 border border-1 border-light m-3">
+                <tr class="work-days">
+                    <td class="day">Monday - Friday</td>
+                    <td class="time">Insert Time here</td>
+                </tr>
+                <tr class="weekends border-top border-1 border-light">
+                    <td class="day">Saturday - Sunday</td>
+                    <td class="time">Insert Time here</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

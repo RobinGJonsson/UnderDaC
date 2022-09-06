@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row mt-5">
+        <div class="col-6">
+            <h2>Delivery Information</h2>
+            <hr>
+            <form class="form">
+                {% csrf_token %}
+                <!--Ask if customer wants delivery-->
+                <div class="form-check form-switch">
+                    <input class="form-check-input" type="checkbox" name="delivery" role="switch" id="flexSwitchCheckDefault">
+                    <label class="form-check-label" for="flexSwitchCheckDefault">Delivery</label>
+                </div>
+                <div class="input-field">
+                    <select name="restaurant" id="restaurant" required>
+                        {% for restaurant in restaurants %}
+                        <option value="{{restaurant}}">{{restaurant}}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="restaurant">Restaurant</label>
+                </div>
+                <div class="input-field">
+                    <input name="delivery_time" type="time" placeholder="Pickup Time.." required>
+                </div>
+                <!--Ask for customer info if they are not logged in -->
+                {% if user.is_authenticated == False %}
+                <div class="customer-info">
+                    <div class="input-field">
+                        <input name="fname" type="text" placeholder="First Name.." required>
+                    </div>
+                    <div class="input-field">
+                        <input name="lname" type="text" placeholder="Last Name.." required>
+                    </div>
+                    <div class="input-field">
+                        <input id="email" name="email" type="email" placeholder="Email.." required>
+                    </div>
+                    <div class="input-field">
+                        <input id="phone" name="phone" type="tel" placeholder="Phone.." required>-
+                    </div>
+                </div>
+                {% endif %}
+                <div class="delivery-info d-none">
+                    <div class="input-field">
+                        <input name="city" type="text" placeholder="City..">
+                    </div>
+                    <div class="input-field">
+                        <input name="address" type="text" placeholder="Address..">
+                    </div>
+                </div>
+                <input class="submit-form btn btn-success" type="submit" value="Continue">
+            </form>
+
+            <div class="payment-options d-none">
+                <button class="make-payment btn btn-success" type="submit">Make Payment</button>
+            </div>
+        </div>
+        
+        <!--Order Summary-->
+        <div class="col-6">
+            <h2>Order Summary</h2>
+            <hr>
+            <div class="row border-bottom border-light">
+                <div class="col-3"></div>
+                <div class="col-3">Item</div>
+                <div class="col-2">Price</div>
+                <div class="col-2">Quantity</div>
+                <div class="col-2">Total</div>
+            </div>
+            {% for item in items %}
+            <div class="row mt-3 border-bottom border-light">
+                <div class="col-3"><img class="cart-img" src="{{ item.item.image_url }}" alt=""></div>
+                <div class="col-3"><p>{{ item.item.name }}</p></div>
+                <div class="col-2"><p>${{ item.item.price|floatformat:2 }}</p></div>
+                <div class="col-2 position-relative">
+                    <p>{{ item.quantity }}</p>
+                    <div class="chg-quantity">
+                        <img data-item="{{ item.item.id }}" data-action="add" class="chg-quantity-arrow update-cart" src="{% static 'images/arrow-up.png' %}" alt="Change quantity up">
+                        <img data-item="{{ item.item.id }}" data-action="subtract" class="chg-quantity-arrow update-cart" src="{% static 'images/arrow-down.png' %}" alt="Change quantity down">
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+            <br>       
+            <h5>Total: {{ order.get_cart_total_price|floatformat:2}}</h5>
+            <h5>Items: {{ order.get_cart_item_count }}</h5>
+        </div>
+    </div>
+</div>
+<script src="{% static '/js/checkout.js' %}"></script>
+
+{% endblock %}
