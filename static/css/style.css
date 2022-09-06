@@ -1,0 +1,180 @@
+/*------------Elements */
+td {
+    padding: 10px;
+}
+
+
+/*------------ Backgrounds*/
+
+.banner {
+    height: 90vh; 
+    background-repeat: no-repeat; 
+    background-size: cover;
+    background-position: center;
+}
+
+.banner-1 {
+    background-image: url('/static/images/home-specials.webp');
+}
+
+.banner-2 {
+    background-image: url('/static/images/kids-offer.webp'); 
+}
+
+
+/*------------Navbar*/
+
+.cart-item-count {
+    display: inline-block;
+    text-align: center;
+    line-height: 18px;
+    background-color: rgb(237, 29, 29);
+    color: #fff;
+    width: 15px;
+    height: 18px;
+    border-radius: 50%;
+    vertical-align: top;
+}
+
+/*------------Home page */
+
+.specials-header h2, 
+.booking-header h2,
+.kids-offer h2 {
+    font-weight: 500;
+    font-family: 'Brush Script MT', cursive;
+    color: rgb(210, 79, 13);
+}
+
+.specials-header,
+.booking-header {
+    padding: 30px;
+    position: absolute;
+    background-color: hsla(50, 100%, 59%, 0.9);
+    border-radius: 50%;
+    display: flex;
+    text-align: center;
+    align-items: center;
+}
+
+.kids-offer {
+    position: absolute;
+    top: 30%;
+    left: 10%;
+    padding: 30px;
+    background-color: hsla(0, 0%, 0%, 0.7);
+    border-radius: 50%;
+    text-align: center;
+}
+
+
+/*-------------- Cart page */
+
+.cart-img {
+    width: 40%;
+}
+
+.chg-quantity {
+    position: absolute;
+    top: 0;
+    left: 25px;
+    cursor: pointer;
+}
+
+.chg-quantity-arrow {
+    display: block;
+    height: 7px;
+    margin: 5px;
+}
+
+.chg-quantity-arrow:hover{
+	opacity: .6;
+}
+
+.table {
+    --bs-table-color: #fff;
+}
+
+
+/*-------------- Footer */
+
+.footer-icon  {
+    color: white;
+    transition: all 0.2s ease-in;
+}
+
+.bi-instagram:hover {
+    color: blueviolet;
+}
+
+.bi-facebook:hover {
+    color: blue;
+}
+
+.bi-github:hover {
+    color: black;
+}
+
+.bi-linkedin:hover {
+    color: blue;
+}
+
+
+/*----------Language Select*/
+.es::before {
+    background-image: url("https://flagcdn.com/w80/es.png");
+}
+
+.sv::before {
+    background-image: url("https://flagcdn.com/w80/se.png");
+}
+
+.us::before {
+    background-image: url("https://flagcdn.com/w80/us.png");
+}
+
+.selected-lang::before {
+    background-image: url("https://flagcdn.com/w80/us.png");
+}
+
+.lang::before {
+    content: '';
+    display: inline-block;
+    height: 20px;
+    width: 32px;
+    margin-right: 10px;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+
+/*----------Logo*/
+
+.logo-img {
+    position: absolute;
+    top: -50px;
+    border-radius: 50%;
+    height: 150px;
+    z-index: 1;
+}
+
+.logo-brand-link {
+    display: none;
+    font-family: 'Brush Script MT', cursive;
+    font-weight: 500;
+    font-size: 4rem;
+}
+
+
+/*----------Media Queries*/
+
+@media (max-width: 768px) {
+    .logo-img-link {
+        display: none;
+    }
+
+    .logo-brand-link {
+        display: block;
+    }
+}
