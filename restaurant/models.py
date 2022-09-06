@@ -61,8 +61,9 @@ class Booking(models.Model):
     restaurant = models.ForeignKey(
         Restaurant, default=None, null=True, on_delete=models.SET_NULL)
     guest_count = models.IntegerField(default=2, null=True)
-    date = models.DateField()
-    time = models.TimeField(max_length=200, null=True)
+    datetime = models.DateTimeField(null=True)
+    # date = models.DateField()
+    # time = models.TimeField(max_length=200, null=True)
 
     def __str__(self):
         return self.customer

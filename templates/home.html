@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!--Displays navigation to table booking and menu-->
+<section class="mx-5 position-relative banner banner-1">
+    <a href="{% url 'booking' %}" class="text-decoration-none">
+        <div class="booking-header m-sm-5 position-absolute top-0 start-0">
+            <h2 class="display-1">Book a table</h2>
+        </div>
+    </a>
+    <a href="{% url 'menu' %}" class="text-decoration-none">
+        <div class="specials-header m-sm-5 position-absolute bottom-0 end-0">
+            <h2 class="display-1">Today's Special</h2>
+        </div>
+    </a>
+</section>
+
+<!-- Kids section -->
+<section class="mx-5 position-relative banner banner-2">
+    <div class="kids-offer">
+        <h2 class="display-1">Kids Eat For Half the Price</h2>
+    </div>
+</section>
+
+<!--Restaurant section-->
+<section class="bg-dark text-light mx-md-5 mx-sm-3">
+    <div class="container">
+        <div class="accordion accordion-flush" id="map-accordion">
+            <div class="row text-center">
+                {% for restaurant in restaurants %}
+                    <div class="col-sm-12 col-md-6 col-lg-4 mx-auto py-3">
+                        <div class="card bg-dark text-light">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ restaurant.name }}</h5>
+                                <img class="img-fluid card-img" src={{restaurant.image.url}} alt="Image of restaurant">
+                                <!-- Description -->
+                                <p class="card-text text-start lh-lg">
+                                    <strong>Address:</strong> {{ restaurant.address }}
+                                    <br>
+                                    <strong>Phone:</strong> {{ restaurant.phone }}
+                                    <br>
+                                    <strong>Open Hours: </strong>{{ restaurant.open_times }}
+                                    <br>
+                                </p>
+                                <!-- Map of address -->
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header" id="heading{{restaurant.map}}">
+                                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{restaurant.map}}" aria-expanded="true" aria-controls="collapse{{restaurant.map}}">
+                                            Map
+                                        </button>
+                                    </h2>
+                                    <div id="collapse{{restaurant.map}}" class="accordion-collapse collapse" aria-labelledby="heading{{restaurant.map}}">
+                                        <div class="accordion-body">
+                                            <div id='map{{restaurant.map}}' style='width: 300px; height: 300px; border-radius: 10px;'></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
+
+<!--Maps to restaurants-->
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1Ijoicm9iaW45NCIsImEiOiJjbDcyMWU5ZDEwN2k3M29tdDljMmFqdGF4In0.vVn3Av05sE9QZnS_noxQPA';
+    const map1 = new mapboxgl.Map({
+        container: 'map1',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [139.74649932649214, 35.71480730222833],
+        zoom: 15, // starting zoom
+        projection: 'globe'
+    });
+
+    const map2 = new mapboxgl.Map({
+        container: 'map2',
+        style: 'mapbox://styles/mapbox/streets-v11',
+        center: [-73.9904925682394, 40.72205890951183],
+        zoom: 15,
+        projection: 'globe'
+    });
+
+    const map3 = new mapboxgl.Map({
+        container: 'map3',
+        style: 'mapbox://styles/mapbox/streets-v11', // style URL
+        center: [-157.85893694257192, 21.29607724060857],
+        zoom: 15, // starting zoom
+        projection: 'globe'
+    });
+</script>
+
+{% endblock %}

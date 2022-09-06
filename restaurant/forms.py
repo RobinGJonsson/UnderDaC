@@ -2,13 +2,14 @@ from .models import Contact, Booking
 from django import forms
 
 
-class ContactForm(form.ModelForm):
+class ContactForm(forms.ModelForm):
     
     class Meta:
         model = Contact
         fields = ('subject', 'message',)
 
-class BookingForm(form.ModelForm):
+
+class BookingForm(forms.ModelForm):
     
     class Meta:
         model = Booking
