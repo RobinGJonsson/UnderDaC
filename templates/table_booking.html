@@ -44,10 +44,13 @@
         {% endif %}
         <div class="row border-top border-3 border-light">
             <div class="col-lg-7 border-end border-3 border-light">
+                <h2 class="text-center">Make a Reservation</h2>
+                <hr>
                 <form method="POST" action="">
                     {% csrf_token %}
                     {{ form|crispy }}
                     <input type="submit" value="Make Booking">
+                    <input type="submit" value="Delete Booking"
                 </form>
             </div>
             <div class="col-lg-5 fs-1">

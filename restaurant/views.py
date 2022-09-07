@@ -149,15 +149,17 @@ def update_booking(request, pk):
             form.save()
             messages.add_message(request, messages.INFO,
                                  'Your Booking Has Been Updated')
-            return redirect('/table_booking/')
+            return redirect('table_booking')
 
     context = {'form': form}
     return render(request, 'table_booking.html', context)
 
 
 def delete_booking(request, pk):
-    context = {'form': form}
-    return render(request, 'table_booking.html', context)
+    booking = Booking.objects.get(id=pk)
+    booking.delete()
+
+    return redirect('table_booking')
 
 
 def update_cart(request):
