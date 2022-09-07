@@ -5,7 +5,6 @@ from .utils import cart_data, check_user_auth
 from .forms import BookingForm, ContactForm
 from .models import Restaurant, Order, OrderItem, MenuItem, DeliveryInfo, Booking
 from django.contrib import messages
-from time import sleep
 
 
 def home(request):
@@ -13,14 +12,15 @@ def home(request):
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
 
-    customer = check_user_auth(request)
-    customer_booking = Booking.objects.filter(customer=customer).order_by('date')
     context = {'restaurants': restaurants,
-               'cart_count': cart_count,
-               'customer_booking': customer_booking}
+               'cart_count': cart_count}
 
-    if customer_booking:
-        context['customer_booking'] = customer_booking[0]
+    customer = check_user_auth(request)
+    customer_bookings = Booking.objects.filter(
+        customer=customer).order_by('date')
+
+    if customer_bookings:
+        context['customer_bookings'] = customer_bookings
 
     return render(request, 'home.html', context)
 
@@ -36,10 +36,16 @@ def menu(request):
                'categories': categories,
                'cart_count': cart_count}
 
+    customer = check_user_auth(request)
+    customer_bookings = Booking.objects.filter(
+        customer=customer).order_by('date')
+
+    if customer_bookings:
+        context['customer_bookings'] = customer_bookings
     return render(request, 'menu.html', context)
 
 
-def booking(request):
+def table_booking(request):
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
     customer = check_user_auth(request)
@@ -58,7 +64,14 @@ def booking(request):
     context = {'form': form,
                'cart_count': cart_count}
 
-    return render(request, 'booking.html', context)
+    customer = check_user_auth(request)
+    customer_bookings = Booking.objects.filter(
+        customer=customer).order_by('date')
+
+    if customer_bookings:
+        context['customer_bookings'] = customer_bookings
+
+    return render(request, 'table_booking.html', context)
 
 
 def contact(request):
@@ -79,6 +92,13 @@ def contact(request):
 
     context = {'cart_count': cart_count,
                'form': form}
+
+    customer = check_user_auth(request)
+    customer_bookings = Booking.objects.filter(
+        customer=customer).order_by('date')
+
+    if customer_bookings:
+        context['customer_bookings'] = customer_bookings
 
     return render(request, 'contact.html', context)
 
@@ -109,7 +129,35 @@ def cart(request):
     context = {'items': items,
                'order': order,
                'cart_count': cart_count}
+
+    customer = check_user_auth(request)
+    customer_bookings = Booking.objects.filter(
+        customer=customer).order_by('date')
+
+    if customer_bookings:
+        context['customer_bookings'] = customer_bookings
     return render(request, 'cart.html', context)
+
+
+def update_booking(request, pk):
+    booking = Booking.objects.get(id=pk)
+    form = BookingForm(instance=booking)
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST, instance=booking)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request, messages.INFO,
+                                 'Your Booking Has Been Updated')
+            return redirect('/table_booking/')
+
+    context = {'form': form}
+    return render(request, 'table_booking.html', context)
+
+
+def delete_booking(request, pk):
+    context = {'form': form}
+    return render(request, 'table_booking.html', context)
 
 
 def update_cart(request):

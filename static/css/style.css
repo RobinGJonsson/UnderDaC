@@ -72,6 +72,13 @@ a {
 }
 
 
+/*-------------- Booking page */
+
+.customer-booking img {
+    max-width: 200px;
+    float: right;
+}
+
 /*-------------- Cart page */
 
 .cart-img {
