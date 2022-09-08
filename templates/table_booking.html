@@ -59,13 +59,11 @@
         <div class="col-lg-7 border-end border-3 border-light">
             <h2 class="text-center mt-3">Make a Reservation</h2>
             <hr>
-            {% if user.is_authenticated %}
             <form method="POST" action="">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <input class="mt-3 btn btn-success" type="submit" value="Make Booking">
             </form>
-            {% endif %}
         </div>
         <div class="col-lg-5 mt-3 fs-5 text-center">
             <h2>You Can Also Call Us, Pick a Restaurant Below</h2>

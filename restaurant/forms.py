@@ -13,7 +13,7 @@ class BookingForm(forms.ModelForm):
     
     class Meta:
         model = Booking
-        fields = ('restaurant', 'guest_count', 'date', 'time',)
+        fields = ('restaurant', 'firstName', 'lastName', 'phone', 'email', 'guest_count', 'date', 'time',)
 
 
 class CustomerForm(forms.ModelForm):

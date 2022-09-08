@@ -5,6 +5,8 @@ from .utils import cart_data, check_user_auth
 from .forms import BookingForm, ContactForm, CustomerForm
 from .models import Restaurant, Order, OrderItem, MenuItem, DeliveryInfo, Booking, Customer
 from django.contrib import messages
+from django.core.mail import send_mail
+from django.conf import settings
 
 
 def home(request):
@@ -51,15 +53,24 @@ def table_booking(request):
     customer = check_user_auth(request)
 
     form = BookingForm()
-
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
             booking = form.save(commit=False)
-            booking.customer = customer
+            if customer:
+                booking.customer = customer
             booking.save()
+
+            # Send email confirmation
+            send_mail(
+                f'{booking.restaurant} Booking Confirmation',
+                f'Hello {booking.firstName} your booking to {booking.restaurant} has been made for {booking.date} at {booking.time}',
+                'c.robin.g.j@gmail.com',
+                [str(booking.email)],
+                fail_silently=False,
+            )
             messages.add_message(request, messages.INFO,
-                                 'Your Booking Has Been Made')
+                                 'The Booking Confirmation Has Been Sent to Your Email')
 
     context = {'form': form,
                'restaurants': Restaurant.objects.all(),

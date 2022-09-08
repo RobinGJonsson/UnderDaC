@@ -63,6 +63,7 @@ class Booking(models.Model):
     firstName = models.CharField(max_length=200, null=True)
     lastName = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
+    email = models.EmailField(null=True)
     restaurant = models.ForeignKey(
         Restaurant, default=None, null=True, on_delete=models.SET_NULL)
     guest_count = models.IntegerField(default=2, null=True)
@@ -70,7 +71,7 @@ class Booking(models.Model):
     time = models.TimeField(max_length=200, null=True)
 
     def __str__(self):
-        return str(self.customer)
+        return f'{self.firstName} {self.lastName}'
 
 
 class Order(models.Model):
