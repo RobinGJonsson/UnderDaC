@@ -1,18 +1,20 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractBaseUser
+from django.contrib.auth.models import PermissionsMixin
 from cloudinary.models import CloudinaryField
 
 
 # Will complement the default user information upon signup
-class Customer(models.Model):
-    user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    firstName = models.CharField(max_length=200, null=True, blank=True)
-    lastName = models.CharField(max_length=200, null=True, blank=True)
+class Customer(models.Model): # AbstractBaseUser, PermissionsMixin
+    customer = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
+    first_name = models.CharField(max_length=200, null=True, blank=True)
+    last_name = models.CharField(max_length=200, null=True, blank=True)
     phone = models.CharField(max_length=200, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
+    email = models.EmailField(null=True, unique=True)
 
     def __str__(self):
-        return str(self.user)
+        return str(self.first_name)
 
 
 class Restaurant(models.Model):
@@ -60,8 +62,8 @@ class MenuItem(models.Model):
 class Booking(models.Model):
     customer = models.ForeignKey(User, null=True,
                                  on_delete=models.SET_NULL)
-    firstName = models.CharField(max_length=200, null=True)
-    lastName = models.CharField(max_length=200, null=True)
+    first_name = models.CharField(max_length=200, null=True)
+    last_name = models.CharField(max_length=200, null=True)
     phone = models.CharField(max_length=200, null=True)
     email = models.EmailField(null=True)
     restaurant = models.ForeignKey(
@@ -71,7 +73,7 @@ class Booking(models.Model):
     time = models.TimeField(max_length=200, null=True)
 
     def __str__(self):
-        return f'{self.firstName} {self.lastName}'
+        return f'{self.first_name} {self.last_name}'
 
 
 class Order(models.Model):
@@ -118,8 +120,8 @@ class DeliveryInfo(models.Model):
     customer = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True)
     order = models.ForeignKey(Order, on_delete=models.SET_NULL, null=True)
-    firstName = models.CharField(max_length=200, null=True)
-    lastName = models.CharField(max_length=200, null=True)
+    first_name = models.CharField(max_length=200, null=True)
+    last_name = models.CharField(max_length=200, null=True)
     address = models.CharField(max_length=200, null=True)
     city = models.CharField(max_length=200, null=True)
     date_ordered = models.DateTimeField(auto_now_add=True)

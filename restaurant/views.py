@@ -2,7 +2,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .utils import cart_data, check_user_auth
-from .forms import BookingForm, ContactForm, CustomerForm
+from .forms import BookingForm, ContactForm, SignupForm
 from .models import Restaurant, Order, OrderItem, MenuItem, DeliveryInfo, Booking, Customer
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -154,7 +154,7 @@ def profile(request):
     cart_count = cart_info['cart_count']
     user = check_user_auth(request)
 
-    form = CustomerForm()
+    form = SignupForm()
     context = {'form': form}
 
     return render(request, 'profile.html', context)
