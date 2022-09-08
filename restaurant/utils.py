@@ -16,7 +16,6 @@ def cart_data(request):
 
     customer = check_user_auth(request)
     if customer is not False:
-        print('""""""""""""""""""""""""""""""""""""""""""""""', customer)
         order, created = Order.objects.get_or_create(
             customer=customer, complete=False)
         items = order.orderitem_set.all()

@@ -23,8 +23,9 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" defer></script>
 
   <!--General JS -->
-  <script src="{% static 'js/base.js' %}">
-    let user = '{{request.user}}'
+  <script src="{% static 'js/base.js' %}"></script>
+  <script type="text/javascript">
+    let user = '{{ request.user }}'
     let csrftoken = '{{ csrf_token }}';
   </script>
 </head>
@@ -39,16 +40,19 @@
           <ul class="navbar-nav">
 
             <!--Display the earliest booking of the user if the user has a booking -->
-            {% if customer_booking %}
-            <div class="nav-item">
-              <a href="#" class="nav-link">Hello {{ user }} don't forget your booking on {{ customer_booking.0.date }},
-                {{customer_booking.0.time}}</a>
+            {% if customer_bookings %}
+            <div class="nav-item me-5">
+              <a href="{% url 'table_booking' %}" class="nav-link">Hello {{ user }} don't forget your booking on {{ customer_bookings.0.date }},
+                {{customer_bookings.0.time}}</a>
             </div>
             {% endif %}
 
             {% if user.is_authenticated %}
             <li class="nav-item">
               <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
+            </li>
+            <li class="nav-item">
+              <a href="{% url 'profile' %}" class="nav-link"><i class="bi bi-person-fill"></i></a>
             </li>
             {% else %}
             <li class="nav-item">
@@ -109,6 +113,7 @@
       </div>
     </nav>
     <!--Alert pop-up-->
+    <div class="update-cart-alert"></div>
     <div class="container">
       <div class="row">
         <div class="col-md-8 offset-md-2">

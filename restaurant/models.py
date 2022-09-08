@@ -6,11 +6,13 @@ from cloudinary.models import CloudinaryField
 # Will complement the default user information upon signup
 class Customer(models.Model):
     user = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
-    phone = models.CharField(max_length=200, null=True)
-    address = models.CharField(max_length=200, null=True)
+    firstName = models.CharField(max_length=200, null=True, blank=True)
+    lastName = models.CharField(max_length=200, null=True, blank=True)
+    phone = models.CharField(max_length=200, null=True, blank=True)
+    address = models.CharField(max_length=200, null=True, blank=True)
 
     def __str__(self):
-        return self.user.get_full_name()
+        return str(self.user)
 
 
 class Restaurant(models.Model):
@@ -58,6 +60,9 @@ class MenuItem(models.Model):
 class Booking(models.Model):
     customer = models.ForeignKey(User, null=True,
                                  on_delete=models.SET_NULL)
+    firstName = models.CharField(max_length=200, null=True)
+    lastName = models.CharField(max_length=200, null=True)
+    phone = models.CharField(max_length=200, null=True)
     restaurant = models.ForeignKey(
         Restaurant, default=None, null=True, on_delete=models.SET_NULL)
     guest_count = models.IntegerField(default=2, null=True)

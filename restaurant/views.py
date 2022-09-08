@@ -2,8 +2,8 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from .utils import cart_data, check_user_auth
-from .forms import BookingForm, ContactForm
-from .models import Restaurant, Order, OrderItem, MenuItem, DeliveryInfo, Booking
+from .forms import BookingForm, ContactForm, CustomerForm
+from .models import Restaurant, Order, OrderItem, MenuItem, DeliveryInfo, Booking, Customer
 from django.contrib import messages
 
 
@@ -49,6 +49,7 @@ def table_booking(request):
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
     customer = check_user_auth(request)
+
     form = BookingForm()
 
     if request.method == 'POST':
@@ -56,21 +57,19 @@ def table_booking(request):
         if form.is_valid():
             booking = form.save(commit=False)
             booking.customer = customer
-            form.save()
+            booking.save()
             messages.add_message(request, messages.INFO,
-                                 'Your Booking Has Been Sent')
-            return redirect('/')
+                                 'Your Booking Has Been Made')
 
     context = {'form': form,
+               'restaurants': Restaurant.objects.all(),
                'cart_count': cart_count}
 
-    customer = check_user_auth(request)
     customer_bookings = Booking.objects.filter(
         customer=customer).order_by('date')
 
     if customer_bookings:
         context['customer_bookings'] = customer_bookings
-
     return render(request, 'table_booking.html', context)
 
 
@@ -85,7 +84,7 @@ def contact(request):
         if form.is_valid():
             contact = form.save(commit=False)
             contact.customer = customer
-            form.save()
+            contact.save()
             messages.add_message(request, messages.INFO,
                                  'Your Message Has Been Sent')
             return redirect('/')
@@ -139,6 +138,17 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 
+def profile(request):
+    cart_info = cart_data(request)
+    cart_count = cart_info['cart_count']
+    user = check_user_auth(request)
+
+    form = CustomerForm()
+    context = {'form': form}
+
+    return render(request, 'profile.html', context)
+
+
 def update_booking(request, pk):
     booking = Booking.objects.get(id=pk)
     form = BookingForm(instance=booking)
@@ -151,7 +161,8 @@ def update_booking(request, pk):
                                  'Your Booking Has Been Updated')
             return redirect('table_booking')
 
-    context = {'form': form}
+    context = {'form': form,
+               'update': True}
     return render(request, 'table_booking.html', context)
 
 
@@ -159,6 +170,8 @@ def delete_booking(request, pk):
     booking = Booking.objects.get(id=pk)
     booking.delete()
 
+    messages.add_message(request, messages.INFO,
+                         'Your Booking Has Been Deleted')
     return redirect('table_booking')
 
 
@@ -172,7 +185,7 @@ def update_cart(request):
     print('ItemID: ', itemID)
 
     # Asign a customer
-    customer = request.user.customer
+    customer = request.user
     # Get the specific menu item that was clicked
     item = MenuItem.objects.get(id=itemID)
     # Get or create an order and asign it to the current customer already has an order
@@ -192,7 +205,6 @@ def update_cart(request):
 
     if order_item.quantity <= 0:
         order_item.delete()
-    print(JsonResponse(safe=False))
     return JsonResponse('Item was added', safe=False)
 
 
@@ -212,7 +224,7 @@ def process_order(request):
         order.complete = True
         order.save()
 
-        if order.delivery == True:
+        if order.delivery:
             DeliveryInfo.objects.create(
                 customer=customer,
                 order=order,
@@ -225,3 +237,10 @@ def process_order(request):
     else:
         print('User is not logged in')
     return JsonResponse('Payment Complete', safe=False)
+
+
+def restaurant_booking(request, name):
+    restaurant = Restaurant.objects.get(name=name)
+    context = {'restaurants': Restaurant.objects.all(),
+               'restaurant': restaurant}
+    return render(request, 'restaurant_details.html', context)

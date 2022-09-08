@@ -107,6 +107,15 @@ a {
 }
 
 
+.restaurant-img-container {
+    text-align: center;
+}
+
+.restaurant-img-container img {
+    width: 60%;
+}
+
+
 /*-------------- Footer */
 
 .footer-icon  {
@@ -166,7 +175,7 @@ a {
     position: absolute;
     top: -50px;
     border-radius: 50%;
-    height: 150px;
+    height: 100px;
     z-index: 1;
 }
 
