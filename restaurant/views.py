@@ -17,13 +17,6 @@ def home(request):
     context = {'restaurants': restaurants,
                'cart_count': cart_count}
 
-    customer = check_user_auth(request)
-    customer_bookings = Booking.objects.filter(
-        customer=customer).order_by('date')
-
-    if customer_bookings:
-        context['customer_bookings'] = customer_bookings
-
     return render(request, 'home.html', context)
 
 
@@ -38,12 +31,6 @@ def menu(request):
                'categories': categories,
                'cart_count': cart_count}
 
-    customer = check_user_auth(request)
-    customer_bookings = Booking.objects.filter(
-        customer=customer).order_by('date')
-
-    if customer_bookings:
-        context['customer_bookings'] = customer_bookings
     return render(request, 'menu.html', context)
 
 
@@ -51,6 +38,17 @@ def table_booking(request):
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
     customer = check_user_auth(request)
+
+    # claculate number of hours open in restaurant
+    # Add number of tables to restaurant
+    # Add open and close times to restaurant
+    # add one button for each half hour
+
+    # Iterate through each hour
+    # Add two buttons for each hour; whole and half hour
+    #
+
+    # for i in range()
 
     form = BookingForm()
     if request.method == 'POST':
@@ -64,7 +62,7 @@ def table_booking(request):
             # Send email confirmation
             send_mail(
                 f'{booking.restaurant} Booking Confirmation',
-                f'Hello {booking.firstName} your booking to {booking.restaurant} has been made for {booking.date} at {booking.time}',
+                f'Hello {booking.first_name} your booking to {booking.restaurant} has been made for {booking.date} at {booking.time}',
                 'c.robin.g.j@gmail.com',
                 [str(booking.email)],
                 fail_silently=False,
@@ -76,11 +74,6 @@ def table_booking(request):
                'restaurants': Restaurant.objects.all(),
                'cart_count': cart_count}
 
-    customer_bookings = Booking.objects.filter(
-        customer=customer).order_by('date')
-
-    if customer_bookings:
-        context['customer_bookings'] = customer_bookings
     return render(request, 'table_booking.html', context)
 
 
@@ -102,13 +95,6 @@ def contact(request):
 
     context = {'cart_count': cart_count,
                'form': form}
-
-    customer = check_user_auth(request)
-    customer_bookings = Booking.objects.filter(
-        customer=customer).order_by('date')
-
-    if customer_bookings:
-        context['customer_bookings'] = customer_bookings
 
     return render(request, 'contact.html', context)
 
@@ -140,29 +126,15 @@ def cart(request):
                'order': order,
                'cart_count': cart_count}
 
-    customer = check_user_auth(request)
-    customer_bookings = Booking.objects.filter(
-        customer=customer).order_by('date')
-
-    if customer_bookings:
-        context['customer_bookings'] = customer_bookings
     return render(request, 'cart.html', context)
 
 
-def profile(request):
+def update_booking(request, pk, html, restaurant_name):
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
-    user = check_user_auth(request)
-
-    form = SignupForm()
-    context = {'form': form}
-
-    return render(request, 'profile.html', context)
-
-
-def update_booking(request, pk):
     booking = Booking.objects.get(id=pk)
     form = BookingForm(instance=booking)
+    restaurant = booking.restaurant
 
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
@@ -170,20 +142,23 @@ def update_booking(request, pk):
             form.save()
             messages.add_message(request, messages.INFO,
                                  'Your Booking Has Been Updated')
-            return redirect('table_booking')
 
     context = {'form': form,
-               'update': True}
-    return render(request, 'table_booking.html', context)
+               'restaurant': restaurant,
+               'update': True,
+               'cart_count': cart_count}
+
+    return render(request, 'restaurant_booking.html', context)
 
 
-def delete_booking(request, pk):
+def delete_booking(request, pk, html, restaurant_name):
     booking = Booking.objects.get(id=pk)
     booking.delete()
+    print(html)
 
     messages.add_message(request, messages.INFO,
                          'Your Booking Has Been Deleted')
-    return redirect('table_booking')
+    return redirect(f'{html}.{restaurant_name}')
 
 
 def update_cart(request):
@@ -251,7 +226,86 @@ def process_order(request):
 
 
 def restaurant_booking(request, name):
+    cart_info = cart_data(request)
+    cart_count = cart_info['cart_count']
+    customer = check_user_auth(request)
+
     restaurant = Restaurant.objects.get(name=name)
-    context = {'restaurants': Restaurant.objects.all(),
-               'restaurant': restaurant}
-    return render(request, 'restaurant_details.html', context)
+    customer_bookings = Booking.objects.filter(
+        customer=customer, restaurant=restaurant).order_by('date')
+
+    # claculate number of hours open in restaurant
+    # Add number of tables to restaurant
+    # Add open and close times to restaurant
+    # add one button for each half hour
+
+    # Iterate through each hour
+    # Add two buttons for each hour; whole and half hour
+    #
+
+    # for i in range()
+
+    form = BookingForm()
+
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            booking = form.save(commit=False)
+            if customer:
+                booking.customer = customer
+            booking.restaurant = restaurant
+            booking.save()
+
+            # Send email confirmation
+            send_mail(
+                f'{booking.restaurant} Booking Confirmation',
+                f'Hello {booking.first_name} your booking to {booking.restaurant} has been made for {booking.date} at {booking.time}',
+                'c.robin.g.j@gmail.com',
+                [str(booking.email)],
+                fail_silently=False,
+            )
+            messages.add_message(request, messages.INFO,
+                                 'The Booking Confirmation Has Been Sent to Your Email')
+
+    context = {'restaurant': restaurant,
+               'form': form,
+               'cart_count': cart_count,
+               'customer_bookings': customer_bookings}
+    if customer_bookings:
+        context['customer_bookings'] = customer_bookings
+    return render(request, 'restaurant_booking.html', context)
+
+
+def my_bookings(request):
+    cart_info = cart_data(request)
+    cart_count = cart_info['cart_count']
+    customer = check_user_auth(request)
+
+    customer_bookings = Booking.objects.filter(customer=customer)
+
+    context = {'cart_count': cart_count,
+               'cart_count': cart_count}
+
+    customer_bookings = Booking.objects.filter(
+        customer=customer).order_by('date')
+    if customer_bookings:
+        context['customer_bookings'] = customer_bookings
+
+    return render(request, 'my_bookings.html', context)
+
+
+def my_details(request):
+    cart_info = cart_data(request)
+    cart_count = cart_info['cart_count']
+    customer = check_user_auth(request)
+
+    customer_details = Customer.objects.get(customer=customer)
+    context = {'customer_details': customer_details,
+               'cart_count': cart_count}
+    return render(request, 'my_details.html', context)
+
+
+def update_details(request, pk):
+    
+    context = {}
+    render(request, '', context)

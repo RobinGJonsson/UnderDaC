@@ -13,7 +13,8 @@ urlpatterns = [
     path('process_order/', views.process_order, name='process_order'),
     path('update_booking/<str:pk>/', views.update_booking, name='update_booking'),
     path('delete_booking/<str:pk>/', views.delete_booking, name='delete_booking'),
-    path('profile/', views.profile, name='profile'),
+    path('my_bookings/', views.my_bookings, name='my_bookings'),
+    path('my_details/', views.my_details, name='my_details'),
     path('restaurant_booking/<str:name>/', views.restaurant_booking, name='restaurant_booking'),
 
 ]

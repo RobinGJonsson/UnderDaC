@@ -1,11 +1,10 @@
 from django.db import models
-from django.contrib.auth.models import User, AbstractBaseUser
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
 
 
 # Will complement the default user information upon signup
-class Customer(models.Model): # AbstractBaseUser, PermissionsMixin
+class Customer(models.Model):
     customer = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
@@ -22,7 +21,7 @@ class Restaurant(models.Model):
     phone = models.CharField(max_length=200, null=True)
     address = models.CharField(max_length=200, null=True)
     image = CloudinaryField('image', default='placeholder')
-    map = models.IntegerField(null=True)
+    map_num = models.IntegerField(null=True)
     open_times = models.CharField(max_length=200, null=True)
 
     def __str__(self):
@@ -137,3 +136,4 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.subject
+

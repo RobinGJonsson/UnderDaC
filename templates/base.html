@@ -52,7 +52,13 @@
               <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'profile' %}" class="nav-link"><i class="bi bi-person-fill"></i></a>
+              <div class="dropdown">
+                <i class="bi bi-person-fill" data-bs-toggle="dropdown" type="button"></i>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                  <li><a class="dropdown-item" href="{% url 'my_bookings' %}">My Bookings</a></li>
+                  <li><a class="dropdown-item" href="{% url 'my_details' %}">My Details</a></li>
+                </ul>
+              </div>
             </li>
             {% else %}
             <li class="nav-item">
@@ -103,7 +109,14 @@
               <a href="{% url 'menu' %}" class="nav-link">Menu</a>
             </li>
             <li class="nav-item">
-              <a href="{% url 'table_booking' %}" class="nav-link">Book Table</a>
+              <a href="#" class="nav-link" data-bs-toggle="dropdown">Book Table</a>
+              <div class="dropdown">
+                <ul class="dropdown-menu dropdown-menu-dark">
+                  <li><a class="dropdown-item" href="{% url 'restaurant_booking' 'Atlantic' %}">Atlantic</a></li>
+                  <li><a class="dropdown-item" href="{% url 'restaurant_booking' 'Indian' %}">Indian</a></li>
+                  <li><a class="dropdown-item" href="{% url 'restaurant_booking' 'Pacific' %}">Pacific</a></li>
+                </ul>
+              </div>
             </li>
             <li class="nav-item">
               <a href="{% url 'contact' %}" class="nav-link">Contact Us</a>
