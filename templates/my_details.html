@@ -10,21 +10,46 @@
         <div class="col-md-8 offset-md-2">
             <div class="card">
                 <ul class="list-group list-group-flush">
-                  <li class="list-group-item">Name: {{ customer_details.first_name }} {{ customer_details.last_name }}</li>
-                  <li class="list-group-item">Phone: {{ customer_details.phone }}</li>
-                  <li class="list-group-item">Email: {{ customer_details.email }}</li>
-                  <li class="list-group-item">Address: {{ customer_details.address }}</li>
+                    <li class="list-group-item">Name: {{ customer_details.first_name }} {{ customer_details.last_name }}
+                    </li>
+                    <li class="list-group-item">Phone: {{ customer_details.phone }}</li>
+                    <li class="list-group-item">Email: {{ customer_details.email }}</li>
+                    <li class="list-group-item">Address: {{ customer_details.address }}</li>
                 </ul>
                 <div class="card-footer">
-                    <a href="{% url 'update_details' customer_details.id %}" class="btn btn-success">Change Information</a>
-                    <a href="{% url 'delete_account' customer_details.id %}"><button class="btn btn-danger float-end" type="submit">Delete Account</button></a>
+                    <a href="{% url 'update_details' customer_details.id %}" class="btn btn-success">Change
+                        Information</a>
+
+                    <button class="btn btn-danger float-end" data-bs-toggle="modal" data-bs-target="#delete_modal">Delete</button>
+                    <div class="modal fade text-dark" id="delete_modal" tabindex="-1">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Are You Sure You Want to Delete Your Account?</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>Your Account Will Not Be Retrivable After It Has Been Deleted!</p>
+                                </div>
+                                <hr>
+                                <div class="pb-3 px-4">
+                                    <button type="button" class="btn btn-secondary float-start"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <a href="{% url 'delete_account' customer_details.id %}"><button class="btn btn-danger float-end" type="submit">Delete Account</button></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--Ask if the user is sure they want to delete their account -->
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 
-        
+
 
 
 {% endblock %}
