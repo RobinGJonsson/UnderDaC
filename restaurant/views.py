@@ -6,7 +6,7 @@ from .forms import BookingForm, ContactForm, SignupForm
 from .models import Restaurant, Order, OrderItem, MenuItem, DeliveryInfo, Booking, Customer
 from django.contrib import messages
 from django.core.mail import send_mail
-from django.conf import settings
+from django.contrib.auth import logout
 
 
 def home(request):
@@ -32,49 +32,6 @@ def menu(request):
                'cart_count': cart_count}
 
     return render(request, 'menu.html', context)
-
-
-def table_booking(request):
-    cart_info = cart_data(request)
-    cart_count = cart_info['cart_count']
-    customer = check_user_auth(request)
-
-    # claculate number of hours open in restaurant
-    # Add number of tables to restaurant
-    # Add open and close times to restaurant
-    # add one button for each half hour
-
-    # Iterate through each hour
-    # Add two buttons for each hour; whole and half hour
-    #
-
-    # for i in range()
-
-    form = BookingForm()
-    if request.method == 'POST':
-        form = BookingForm(request.POST)
-        if form.is_valid():
-            booking = form.save(commit=False)
-            if customer:
-                booking.customer = customer
-            booking.save()
-
-            # Send email confirmation
-            send_mail(
-                f'{booking.restaurant} Booking Confirmation',
-                f'Hello {booking.first_name} your booking to {booking.restaurant} has been made for {booking.date} at {booking.time}',
-                'c.robin.g.j@gmail.com',
-                [str(booking.email)],
-                fail_silently=False,
-            )
-            messages.add_message(request, messages.INFO,
-                                 'The Booking Confirmation Has Been Sent to Your Email')
-
-    context = {'form': form,
-               'restaurants': Restaurant.objects.all(),
-               'cart_count': cart_count}
-
-    return render(request, 'table_booking.html', context)
 
 
 def contact(request):
@@ -129,7 +86,7 @@ def cart(request):
     return render(request, 'cart.html', context)
 
 
-def update_booking(request, pk, html, restaurant_name):
+def update_booking(request, pk):
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
     booking = Booking.objects.get(id=pk)
@@ -151,14 +108,14 @@ def update_booking(request, pk, html, restaurant_name):
     return render(request, 'restaurant_booking.html', context)
 
 
-def delete_booking(request, pk, html, restaurant_name):
+def delete_booking(request, pk, name):
     booking = Booking.objects.get(id=pk)
     booking.delete()
-    print(html)
 
     messages.add_message(request, messages.INFO,
                          'Your Booking Has Been Deleted')
-    return redirect(f'{html}.{restaurant_name}')
+
+    return redirect(f'/restaurant_booking/{name}')
 
 
 def update_cart(request):
@@ -302,10 +259,38 @@ def my_details(request):
     customer_details = Customer.objects.get(customer=customer)
     context = {'customer_details': customer_details,
                'cart_count': cart_count}
+
+    print(customer_details.id)
     return render(request, 'my_details.html', context)
 
 
 def update_details(request, pk):
-    
-    context = {}
-    render(request, '', context)
+    cart_info = cart_data(request)
+    cart_count = cart_info['cart_count']
+
+    customer_details = Customer.objects.get(id=pk)
+    form = SignupForm(instance=customer_details)
+
+    if request.method == 'POST':
+        form = SignupForm(request.POST, instance=customer_details)
+        if form.is_valid:
+            form.save()
+            messages.add_message(request, messages.INFO,
+                                 'Your Details Have Been Updated')
+            return redirect('/my_details/')
+
+    context = {'form': form,
+               'customer_details': customer_details,
+               'cart_count': cart_count}
+    return render(request, 'update_details.html', context)
+
+
+def delete_account(request, pk):
+    customer = Customer.objects.get(id=pk)
+    logout(request)
+    customer.customer.delete()
+
+    messages.add_message(request, messages.INFO,
+                         'Your Account Has Been Deleted')
+
+    return redirect('/')

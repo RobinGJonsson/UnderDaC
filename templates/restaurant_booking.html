@@ -54,7 +54,7 @@
                     </div>
                     <div class="card-footer">
                         <a href="{% url 'update_booking' booking.id %}" class="btn btn-info">Change Booking</a>
-                        <a href="{% url 'delete_booking' booking.id %}" class="btn btn-danger float-end">Delete Booking</a>
+                        <a href="{% url 'delete_booking' booking.id booking.restaurant.name %}" class="btn btn-danger float-end">Delete Booking</a>
                     </div>
                 </div>
                 <br>

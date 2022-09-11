@@ -16,8 +16,8 @@
                   <li class="list-group-item">Address: {{ customer_details.address }}</li>
                 </ul>
                 <div class="card-footer">
-                    <a href="#" class="btn btn-success">Change Information</a>
-                    <a href="#" class="btn btn-danger float-end">Delete Account</a>
+                    <a href="{% url 'update_details' customer_details.id %}" class="btn btn-success">Change Information</a>
+                    <a href="{% url 'delete_account' customer_details.id %}"><button class="btn btn-danger float-end" type="submit">Delete Account</button></a>
                 </div>
             </div>
         </div>

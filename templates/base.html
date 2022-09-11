@@ -42,7 +42,7 @@
             <!--Display the earliest booking of the user if the user has a booking -->
             {% if customer_bookings %}
             <div class="nav-item me-5">
-              <a href="{% url 'table_booking' %}" class="nav-link">Hello {{ user }} don't forget your booking on {{ customer_bookings.0.date }},
+              <a href="{% url 'my_bookings' %}" class="nav-link">Hello {{ user }} don't forget your booking on {{ customer_bookings.0.date }},
                 {{customer_bookings.0.time}}</a>
             </div>
             {% endif %}
