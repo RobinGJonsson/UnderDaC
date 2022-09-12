@@ -5,43 +5,38 @@
 
 {% block content %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            {% if customer_bookings %}
-            <div class="container">
-                <h2>Your Bookings</h2>
-                {% for booking in customer_bookings %}
-                <div class="card bg-dark text-light">
-                    <div class="card-body customer-booking">
-                        <h5 class="card-title">Restaurant {{ booking.restaurant }}</h5>
-                        <img class="img-fluid card-img" src={{booking.restaurant.image.url}} alt="Image of restaurant">
-                        <!-- Description -->
-                        <p class="card-text text-start lh-lg">
-                            <strong>Date:</strong> {{ booking.date }}
-                            <br>
-                            <strong>Time:</strong> {{ booking.time }}
-                            <br>
-                            <strong>Number of Guests: </strong>{{ booking.guest_count }}
-                            <br>
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{% url 'update_booking' booking.id %}" class="btn btn-info">Change Booking</a>
-                        <a href="{% url 'delete_booking' booking.id booking.restaurant.name %}" class="btn btn-danger float-end">Delete Booking</a>
-                    </div>
-                </div>
-                <br>
-                {% endfor %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <!--Display the users active bookings-->
+        {% if customer_bookings %}
+        <h2>Your Bookings</h2>
+        {% for booking in customer_bookings %}
+        <div class="card bg-dark text-light">
+            <div class="card-body customer-booking">
+                <h5 class="card-title">Restaurant {{ booking.restaurant }}</h5>
+                <img class="img-fluid card-img" src={{booking.restaurant.image.url}} alt="Image of restaurant">
+                <!-- Description -->
+                <p class="card-text text-start lh-lg">
+                    <strong>Date:</strong> {{ booking.date }}
+                    <br>
+                    <strong>Time:</strong> {{ booking.time }}
+                    <br>
+                    <strong>Number of Guests: </strong>{{ booking.guest_count }}
+                    <br>
+                </p>
             </div>
-            {% else %}
-            <h2 class="m-5 text-center">You Have No Active Bookings</h2>
-            {% endif %}       
+            <div class="card-footer">
+                <a href="{% url 'update_booking' booking.id %}" class="btn btn-info">Change Booking</a>
+                <a href="{% url 'delete_booking' booking.id booking.restaurant.name %}"
+                    class="btn btn-danger float-end">Delete Booking</a>
+            </div>
         </div>
+        <br>
+        {% endfor %}
+        {% else %}
+        <h2 class="m-5 text-center">You Have No Active Bookings</h2>
+        {% endif %}
     </div>
 </div>
-
-        
-
 
 {% endblock %}

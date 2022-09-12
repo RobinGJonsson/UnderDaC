@@ -4,44 +4,46 @@
 
 {% block content %}
 
-<div class="container">
-    {% for category in categories %}
-    <div class="row mt-5">
-        <h1 class="text-light text-center">{{category}}</h1>
-        {% for item in menu_items %}
-        {% if item.category == category %}
-        <div class="col-md-4 col-sm-12">
-            <div class="card bg-dark text-light">
-                <div class="card-body">
-                    <img src={{item.image_url}} alt="" class="card-img">
-                    <h5 class="card-title">{{item.name}}</h5>
-                    {% if category == 'Kids Menu' %}
-                    <p class="card-text">
-                        {{ item.description }}
-                        <strong>
-                            <h3><span class="text-decoration-line-through">${{ item.price }}</span>
-                                <span>{{ item.half_price }}</span>
-                            </h3>
-                        </strong>
-                    </p>
-                    {% else %}
-                    <p class="card-text">
-                        {{ item.description }}
-                        <strong>
-                            <h3>${{ item.price }}</h3>
-                        </strong>
-                    </p>
-                    {% endif %}
-                    <input data-item="{{item.id}}" data-action="add" class="btn btn-primary update-cart"
-                        type="submit" value="Add To Order">
-                </div>
+<!--Give each menu category a row-->
+{% for category in categories %}
+<div class="row mt-5">
+    <h1 class="text-light text-center">{{category}}</h1>
+    <!--Loop through each menu item and place them on the row if it has the right menu category-->
+    {% for item in menu_items %}
+    {% if item.category == category %}
+    <div class="col-md-4 col-sm-12">
+        <div class="card bg-dark text-light">
+            <div class="card-body">
+                <img src={{item.image_url}} alt="Image of {{ item.name }}" class="card-img">
+                <h5 class="card-title">{{item.name}}</h5>
+                <!--Show half price of kid's menu-->
+                {% if category == 'Kids Menu' %}
+                <p class="card-text">
+                    {{ item.description }}
+                    <strong>
+                        <h3><span class="text-decoration-line-through">${{ item.price }}</span>
+                            <span>{{ item.half_price }}</span>
+                        </h3>
+                    </strong>
+                </p>
+                {% else %}
+                <p class="card-text">
+                    {{ item.description }}
+                    <strong>
+                        <h3>${{ item.price }}</h3>
+                    </strong>
+                </p>
+                {% endif %}
+                <!--Add item to cart-->
+                <input data-item="{{item.id}}" data-action="add" class="btn btn-primary update-cart" type="submit"
+                    value="Add To Order">
             </div>
         </div>
-        {% endif %}
-        {% endfor %}
     </div>
+    {% endif %}
     {% endfor %}
 </div>
+{% endfor %}
 <script src="{% static 'js/cart.js' %}"></script>
 
 {% endblock %}

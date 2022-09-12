@@ -5,7 +5,7 @@
 {% block content %}
 
 <!--Displays navigation to table booking and menu-->
-<section class="mx-5 position-relative banner banner-1">
+<section class="mt-5 position-relative banner banner-1">
     <a href="{% url 'restaurant_booking' 'Atlantic' %}" class="text-decoration-none">
         <div class="booking-header m-sm-5 position-absolute top-0 start-0">
             <h2 class="display-1">Book a table</h2>
@@ -19,7 +19,7 @@
 </section>
 
 <!-- Kids section -->
-<section class="mx-5 position-relative banner banner-2">
+<section class="position-relative banner banner-2">
     <div class="kids-offer">
         <h2 class="display-1">Kids Eat For Half the Price</h2>
     </div>
@@ -34,7 +34,7 @@
                     <div class="col-sm-12 col-md-6 col-lg-4 mx-auto py-3">
                         <div class="card bg-dark text-light">
                             <div class="card-body">
-                                <h5 class="card-title">{{ restaurant.name }}</h5>
+                                <a href="{% url 'restaurant_booking' restaurant.name %}" class="text-decoration-none text-reset"><h5 class="card-title">{{ restaurant.name }}</h5></a>
                                 <img class="img-fluid card-img" src={{restaurant.image.url}} alt="Image of restaurant">
                                 <!-- Description -->
                                 <p class="card-text text-start lh-lg">

@@ -115,7 +115,7 @@ def delete_booking(request, pk, name):
     messages.add_message(request, messages.INFO,
                          'Your Booking Has Been Deleted')
 
-    return redirect(f'/restaurant_booking/{name}')
+    return redirect('/my_bookings/')
 
 
 def update_cart(request):
