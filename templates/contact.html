@@ -4,9 +4,15 @@
 {% block title %}Contact Us{% endblock %}
 
 {% block content %}
-<form method="POST">
-    {% csrf_token %}
-    {{ form | crispy }}
-    <button type="submit" class="btn btn-signup btn-lg">Send</button>
-</form>
+<div class="row">
+    <div class="col-6 offset-3">
+        <h1 class="display-1 text-center">Contact Us</h1>
+        <hr>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <button type="submit" class="btn btn-signup btn-lg">Send</button>
+        </form>
+    </div>
+</div>
 {% endblock %}

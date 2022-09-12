@@ -47,7 +47,7 @@ def contact(request):
             contact.customer = customer
             contact.save()
             messages.add_message(request, messages.INFO,
-                                 'Your Message Has Been Sent')
+                                 'Your Message Has Been Sent, We Will Get Back To You Shortly')
             return redirect('/')
 
     context = {'cart_count': cart_count,
@@ -119,7 +119,7 @@ def delete_booking(request, pk, name):
 
 
 def update_cart(request):
-    # Unpack json data from collected from add to cart buttons
+    # Unpack json data collected from add to cart buttons
     data = json.loads(request.body)
     itemID = data['itemID']
     action = data['action']
@@ -131,7 +131,7 @@ def update_cart(request):
     customer = request.user
     # Get the specific menu item that was clicked
     item = MenuItem.objects.get(id=itemID)
-    # Get or create an order and asign it to the current customer already has an order
+    # Get or create an order and asign it to the current customer
     order, created = Order.objects.get_or_create(
         customer=customer, complete=False)
 
@@ -240,8 +240,7 @@ def my_bookings(request):
 
     customer_bookings = Booking.objects.filter(customer=customer)
 
-    context = {'cart_count': cart_count,
-               'cart_count': cart_count}
+    context = {'cart_count': cart_count}
 
     customer_bookings = Booking.objects.filter(
         customer=customer).order_by('date')
@@ -257,10 +256,10 @@ def my_details(request):
     customer = check_user_auth(request)
 
     customer_details = Customer.objects.get(customer=customer)
+    
     context = {'customer_details': customer_details,
                'cart_count': cart_count}
 
-    print(customer_details.id)
     return render(request, 'my_details.html', context)
 
 

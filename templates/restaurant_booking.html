@@ -5,6 +5,18 @@
 
 {% block content %}
 
+
+<div class="row my-3">
+    <div class="col">
+        <h2 class="display-3 text-center">Restaurants</h2>
+        <hr>
+        <div class="d-flex justify-content-center">
+            <a href="{% url 'restaurant_booking' 'Atlantic' %}" class="btn btn-danger btn-lg mx-5">The Atlantic</a>
+            <a href="{% url 'restaurant_booking' 'Indian' %}" class="btn btn-danger btn-lg mx-5">The Indian</a>
+            <a href="{% url 'restaurant_booking' 'Pacific' %}" class="btn btn-danger btn-lg mx-5">The Pacific</a>
+        </div>
+    </div>
+</div>
 <div class="row">
     <div class="col-12">
         <h1 class="display-1 text-center text-light">The {{ restaurant.name }}</h1>
