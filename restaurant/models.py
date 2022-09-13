@@ -22,7 +22,8 @@ class Restaurant(models.Model):
     address = models.CharField(max_length=200, null=True)
     image = CloudinaryField('image', default='placeholder')
     map_num = models.IntegerField(null=True)
-    open_times = models.CharField(max_length=200, null=True)
+    open_times_weekdays = models.CharField(max_length=200, null=True)
+    open_times_weekends = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.name

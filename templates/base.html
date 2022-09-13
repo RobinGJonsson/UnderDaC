@@ -51,7 +51,7 @@
             <!--Display the earliest booking of the user if the user has a booking -->
             {% if customer_bookings %}
             <div class="nav-item me-5">
-              <a href="{% url 'my_bookings' %}" class="nav-link">Hello {{ user }}, don't forget your booking on {{ customer_bookings.0.date }},
+              <a href="{% url 'my_bookings' %}" class="nav-link">Hello {{ user.first_name|capfirst }}, don't forget your booking at The {{ customer_bookings.0.restaurant.name }} on {{ customer_bookings.0.date }},
                 {{customer_bookings.0.time}}</a>
             </div>
             {% endif %}
@@ -61,7 +61,7 @@
             <li class="nav-item">
               <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item mt-2">
               <div class="dropdown">
                 <i class="bi bi-person-fill" data-bs-toggle="dropdown" type="button"></i>
                 <ul class="dropdown-menu dropdown-menu-dark">
@@ -84,7 +84,7 @@
             <!--Link to cart-->
             <li class="nav-item">
               <a href="{% url 'cart' %}" class="nav-link"><i class="bi bi-cart"></i>
-                <span class="cart-item-count">{{ cart_count }}</span>
+                <span class="cart-item-count">{% if cart_count %}{{ cart_count }}{% else %}0{% endif %}</span>
               </a>
             </li>
             <!--Page Language selection-->
@@ -170,8 +170,10 @@
       <div class="row">
         <div class="col">
           <div class="copyright text-center">
-            <p>© UnderDaC 2022</p>
-            <p>Developed by Robin Jonsson</p>
+            <small>
+              <p>© UnderDaC 2022</p>
+              <p>Developed by Robin Jonsson</p>
+            </small>
           </div>
         </div>
       </div>

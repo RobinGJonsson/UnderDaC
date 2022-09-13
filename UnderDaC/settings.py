@@ -181,3 +181,5 @@ EMAIL_PORT = 1025
 
 # AUTH_USER_MODEL = 'restaurant.Customer'
 ACCOUNT_SIGNUP_FORM_CLASS = 'restaurant.forms.SignupForm'
+
+TIME_INPUT_FORMATS = ('%H:%M',)
