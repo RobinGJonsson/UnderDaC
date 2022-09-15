@@ -123,8 +123,14 @@ def restaurant_booking(request, name):
     #
 
     # for i in range()
-
-    form = BookingForm()
+    if customer:
+        data = {'first_name': customer.customer.first_name,
+                'last_name': customer.customer.last_name,
+                'phone': customer.customer.phone,
+                'email': customer.customer.email}
+        form = BookingForm(initial=data)
+    else:
+        form = BookingForm()
 
     if request.method == 'POST':
         form = BookingForm(request.POST)
