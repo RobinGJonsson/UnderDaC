@@ -1,7 +1,7 @@
 import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from .utils import cart_data, check_user_auth, navbar
+from .utils import cart_data, check_user_auth, navbar, booking_validation
 from .forms import BookingForm, ContactForm, SignupForm
 from .models import Restaurant, Order, OrderItem, MenuItem, DeliveryInfo, Booking, Customer
 from django.contrib import messages
@@ -126,33 +126,11 @@ def restaurant_booking(request, name):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            new_booking = form.save(commit=False)
-            booking_date = new_booking.date
-            booking_time = new_booking.time
-
-            if customer:
-                customer_bookings = Booking.objects.filter(
-                    customer=customer)
-            else:
-                customer_bookings = Booking.objects.filter(
-                    first_name=new_booking.first_name,
-                    last_name=new_booking.last_name,
-                    phone=new_booking.phone,
-                    email=new_booking.email)
-
-            # Don't allow bookings 3 hours before or after an existing booking 
-            # belonging to the current customer
-            for booking in customer_bookings:
-                if booking.date == booking_date:
-                    booking.time.hour*60 + booking.time.minute
-                    booking_time.hour*60 + booking_time.minute
-                    hour_time_dif = abs((
-                        booking.time.hour*60 + booking.time.minute
-                    ) - (booking_time.hour*60 + booking_time.minute)) / 60
-                    if hour_time_dif <= 3:
-                        messages.add_message(request, messages.INFO,
-                                             'The Time of Your Booking is Too Close to Another Booking You Have.. Bookings Must Be at Least 3 Hours Apart')
-                        return (redirect(f'/restaurant_booking/{name}'))
+            new_booking = booking_validation(form, customer, restaurant)
+            if not new_booking:
+                messages.add_message(request, messages.WARNING,
+                                    'The Time of Your Booking is Too Close to Another Booking You Have. Bookings Must Be at Least 3 Hours Apart')
+                return redirect(f'/restaurant_booking/{name}/')
 
             if customer:
                 new_booking.customer = customer
@@ -242,18 +220,24 @@ def update_details(request):
 
 
 def update_booking(request, pk):
-    context = navbar(request)
-
+    customer = check_user_auth(request)
     booking = Booking.objects.get(id=pk)
     form = BookingForm(instance=booking)
     restaurant = booking.restaurant
+    context = navbar(request, name=restaurant.name)
 
     if request.method == 'POST':
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
-            form.save()
+            new_booking = booking_validation(form, customer, restaurant)
+            if not new_booking:
+                messages.add_message(request, messages.WARNING,
+                                     'The Time of Your Booking is Too Close to Another Booking You Have. Bookings Must Be at Least 3 Hours Apart')
+                return redirect(f'/restaurant_booking/{restaurant.name}/')
+            new_booking.save()
             messages.add_message(request, messages.INFO,
                                  'Your Booking Has Been Updated')
+            return redirect(f'/restaurant_booking/{restaurant.name}/')
 
     context.update({'form': form,
                     'restaurant': restaurant,
@@ -261,20 +245,23 @@ def update_booking(request, pk):
     return render(request, 'restaurant_booking.html', context)
 
 
-def delete_booking(request, pk, name):
+def delete_booking(request, pk, name=None):
     booking = Booking.objects.get(id=pk)
     booking.delete()
 
     messages.add_message(request, messages.INFO,
                          'Your Booking Has Been Deleted')
 
-    return redirect('/my_bookings/')
+    if name == 'None':
+        return redirect('/my_bookings/')
+    else:
+        return redirect(f'/restaurant_booking/{name}/')
 
 
-def delete_account(request, pk):
-    customer = Customer.objects.get(id=pk)
+def delete_account(request):
+    user = request.user
     logout(request)
-    customer.customer.delete()
+    user.delete()
 
     messages.add_message(request, messages.INFO,
                          'Your Account Has Been Deleted')

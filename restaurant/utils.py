@@ -75,3 +75,34 @@ def navbar(request, name=None):
         context['customer_bookings'] = customer_bookings
     return context
 
+
+def booking_validation(form, customer, restaurant):    
+    new_booking = form.save(commit=False)
+    booking_date = new_booking.date
+    booking_time = new_booking.time
+
+    if customer:
+        customer_bookings = Booking.objects.filter(
+            customer=customer, restaurant=restaurant)
+    else:
+        customer_bookings = Booking.objects.filter(
+            first_name=new_booking.first_name,
+            last_name=new_booking.last_name,
+            phone=new_booking.phone,
+            email=new_booking.email, 
+            restaurant=restaurant)
+
+    # Don't allow bookings 3 hours before or after an existing booking 
+    # belonging to the current customer
+    for booking in customer_bookings:
+        if booking.date == booking_date:
+            booking.time.hour*60 + booking.time.minute
+            booking_time.hour*60 + booking_time.minute
+            hour_time_dif = abs((
+                booking.time.hour*60 + booking.time.minute
+            ) - (booking_time.hour*60 + booking_time.minute)) / 60
+            if hour_time_dif <= 3:
+                return False
+
+    return new_booking
+
