@@ -1,21 +1,26 @@
 from .models import Contact, Booking, Customer
+import datetime
 from django import forms
+from django.core.validators import MinValueValidator
 
 
 class ContactForm(forms.ModelForm):
-    
+
     class Meta:
         model = Contact
         fields = ('subject', 'message',)
 
 
 class BookingForm(forms.ModelForm):
-    date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}))
+    # Only allow to pick dates from today and forward
+    date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}),
+                           validators=[MinValueValidator(datetime.date.today)])
     time = forms.TimeField(widget=forms.TextInput(attrs={'type': 'time'}))
-    
+
     class Meta:
         model = Booking
-        fields = ('first_name', 'last_name', 'phone', 'email', 'guest_count', 'date', 'time',)
+        fields = ('first_name', 'last_name', 'phone',
+                  'email', 'guest_count', 'date', 'time',)
 
 
 class SignupForm(forms.ModelForm):

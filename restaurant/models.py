@@ -131,7 +131,7 @@ class DeliveryInfo(models.Model):
 
 
 class Contact(models.Model):
-    customer = models.ForeignKey(User, null=True, on_delete=models.CASCADE)
+    customer = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     subject = models.CharField(max_length=200, null=True)
     message = models.TextField(null=True)
 

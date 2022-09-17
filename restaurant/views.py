@@ -39,7 +39,8 @@ def contact(request):
         form = ContactForm(request.POST)
         if form.is_valid():
             contact = form.save(commit=False)
-            contact.customer = request.user
+            if request.user.is_authenticated:
+                contact.customer = request.user
             contact.save()
             messages.add_message(request, messages.INFO,
                                  'Your Message Has Been Sent, We Will Get Back To You Shortly')
@@ -109,20 +110,10 @@ def process_order(request):
 
 
 def restaurant_booking(request, name):
-    context = navbar(request)
+    context = navbar(request, name=name)
     customer = check_user_auth(request)
     restaurant = Restaurant.objects.get(name=name)
 
-    # claculate number of hours open in restaurant
-    # Add number of tables to restaurant
-    # Add open and close times to restaurant
-    # add one button for each half hour
-
-    # Iterate through each hour
-    # Add two buttons for each hour; whole and half hour
-    #
-
-    # for i in range()
     if customer:
         data = {'first_name': customer.customer.first_name,
                 'last_name': customer.customer.last_name,
@@ -135,22 +126,50 @@ def restaurant_booking(request, name):
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            booking = form.save(commit=False)
+            new_booking = form.save(commit=False)
+            booking_date = new_booking.date
+            booking_time = new_booking.time
+
             if customer:
-                booking.customer = customer
-            booking.restaurant = restaurant
-            booking.save()
+                customer_bookings = Booking.objects.filter(
+                    customer=customer)
+            else:
+                customer_bookings = Booking.objects.filter(
+                    first_name=new_booking.first_name,
+                    last_name=new_booking.last_name,
+                    phone=new_booking.phone,
+                    email=new_booking.email)
+
+            # Don't allow bookings 3 hours before or after an existing booking 
+            # belonging to the current customer
+            for booking in customer_bookings:
+                if booking.date == booking_date:
+                    booking.time.hour*60 + booking.time.minute
+                    booking_time.hour*60 + booking_time.minute
+                    hour_time_dif = abs((
+                        booking.time.hour*60 + booking.time.minute
+                    ) - (booking_time.hour*60 + booking_time.minute)) / 60
+                    if hour_time_dif <= 3:
+                        messages.add_message(request, messages.INFO,
+                                             'The Time of Your Booking is Too Close to Another Booking You Have.. Bookings Must Be at Least 3 Hours Apart')
+                        return (redirect(f'/restaurant_booking/{name}'))
+
+            if customer:
+                new_booking.customer = customer
+            new_booking.restaurant = restaurant
+            new_booking.save()
 
             # Send email confirmation
             send_mail(
-                f'{booking.restaurant} Booking Confirmation',
-                f'Hello {booking.first_name} your booking to {booking.restaurant} has been made for {booking.date} at {booking.time}',
+                f'{new_booking.restaurant} Booking Confirmation',
+                f'Hello {new_booking.first_name} your booking to {new_booking.restaurant} has been made for {new_booking.date} at {new_booking.time}',
                 'c.robin.g.j@gmail.com',
-                [str(booking.email)],
+                [str(new_booking.email)],
                 fail_silently=False,
             )
             messages.add_message(request, messages.INFO,
                                  'The Booking Confirmation Has Been Sent to Your Email')
+            return (redirect(f'/restaurant_booking/{name}'))
 
     context.update({'restaurant': restaurant,
                     'form': form})

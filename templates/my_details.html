@@ -18,7 +18,7 @@
             </ul>
             <div class="card-footer">
                 <!--Button to change user details-->
-                <a href="{% url 'update_details' customer_details.id %}" class="btn btn-success">Change
+                <a href="{% url 'update_details' %}" class="btn btn-success">Change
                     Information</a>
                 <!--Button to delete user account-->
                 <button class="btn btn-danger float-end" data-bs-toggle="modal"
@@ -39,7 +39,7 @@
                             <div class="pb-3 px-4">
                                 <button type="button" class="btn btn-secondary float-start"
                                     data-bs-dismiss="modal">Close</button>
-                                <a href="{% url 'delete_account' customer_details.id %}"><button
+                                <a href="{% url 'delete_account' %}"><button
                                         class="btn btn-danger float-end" type="submit">Delete Account</button></a>
                             </div>
                         </div>

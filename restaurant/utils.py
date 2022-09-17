@@ -59,11 +59,16 @@ def cart_data(request):
     return {'order': order, 'items': items, 'cart_count': cart_count}
 
 
-def navbar(request):
+def navbar(request, name=None):
     customer = check_user_auth(request)
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
-    customer_bookings = Booking.objects.filter(customer=customer).order_by('date')
+
+    if name is not None:
+        restaurant = Restaurant.objects.get(name=name)
+        customer_bookings = Booking.objects.filter(customer=customer, restaurant=restaurant).order_by('date')
+    else:
+        customer_bookings = Booking.objects.filter(customer=customer).order_by('date')
 
     context = {'cart_count': cart_count}
     if customer_bookings:
