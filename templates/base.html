@@ -38,7 +38,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container">
         <!--Logo-->
-        <a href="{% url 'home' %}" class="navbar-brand logo-img-link"><img src="{% static 'images/logo.png' %}"
+        <a href="{% url 'home' %}" class="navbar-brand logo-img-link"><img src="https://res.cloudinary.com/dcyv0gszf/image/upload/v1663501639/logo_wnvckb.png"
           alt="Main logo" class="logo-img"></a>
         <a href="{% url 'home' %}" class="navbar-brand logo-brand-link">UnderDaC</a>
         <!--Toggle hamburger button-->
@@ -149,7 +149,7 @@
     </div>
   </header>
   <main>
-    <div class="container">
+    <div class="container-fluid">
     {% block content %}
     {% endblock %}
     </div>
