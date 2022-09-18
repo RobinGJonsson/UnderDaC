@@ -31,7 +31,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['underdac.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['underdac.herokuapp.com', 'localhost', '8080-robingjonsson-underdac-640c8tie6zy.ws-eu64.gitpod.io']
 
 
 # Application definition
