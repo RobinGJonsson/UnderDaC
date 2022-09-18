@@ -10,10 +10,16 @@
     <div class="col">
         <h2 class="display-3 text-center">Restaurants</h2>
         <hr>
-        <div class="d-flex justify-content-center">
-            <a href="{% url 'restaurant_booking' 'Atlantic' %}" class="btn btn-danger btn-lg mx-5">The Atlantic</a>
-            <a href="{% url 'restaurant_booking' 'Indian' %}" class="btn btn-danger btn-lg mx-5">The Indian</a>
-            <a href="{% url 'restaurant_booking' 'Pacific' %}" class="btn btn-danger btn-lg mx-5">The Pacific</a>
+        <div class="row text-center">
+            <div class="col my-1">
+                <a href="{% url 'restaurant_booking' 'Atlantic' %}" class="btn btn-danger btn-lg">The Atlantic</a>
+            </div>
+            <div class="col my-1">
+                <a href="{% url 'restaurant_booking' 'Indian' %}" class="btn btn-danger btn-lg">The Indian</a>
+            </div>
+            <div class="col my-1">
+                <a href="{% url 'restaurant_booking' 'Pacific' %}" class="btn btn-danger btn-lg">The Pacific</a>
+            </div>
         </div>
     </div>
 </div>
@@ -25,22 +31,30 @@
 <!--Display restaurant information-->
 <div class="row border-top border-3 border-light">
     <div class="col fs-5">
-        <div class="restaurant-img-container">
-            <img src="{{ restaurant.image.url }}">
+        <div class="container text-center">
+            <img class="mw-100" src="{{ restaurant.image.url }}">
         </div>
-        <div class="m-3">Call Us: {{ restaurant.phone }}</div>
-        <div class="m-3">Address: {{ restaurant.address }}</div>
-        <h3 class="m-3">Open Hours: </h3>
-        <table class="fs-6 w-75 border border-1 border-light m-3">
-            <tr class="work-days">
-                <td class="day">Monday - Friday</td>
-                <td class="time">{{ restaurant.open_times_weekdays }}</td>
-            </tr>
-            <tr class="weekends border-top border-1 border-light">
-                <td class="day">Saturday - Sunday</td>
-                <td class="time">{{ restaurant.open_times_weekends }}</td>
-            </tr>
-        </table>
+        <div class="container">
+            <div class="m-3">Call Us: {{ restaurant.phone }}</div>
+            <div class="m-3">Address: {{ restaurant.address }}</div>
+            <div class="row">
+                <div class="col-lg-2 col-md-4 col-sm-12">
+                    <h3 class="m-3">Open Hours: </h3>
+                </div>
+                <div class="col-lg-10 col-md-8 col-sm-12">
+                    <table class="fs-6 w-75 border border-1 border-light m-3">
+                        <tr class="work-days">
+                            <td class="day">Monday - Friday</td>
+                            <td class="time">{{ restaurant.open_times_weekdays }}</td>
+                        </tr>
+                        <tr class="weekends border-top border-1 border-light">
+                            <td class="day">Saturday - Sunday</td>
+                            <td class="time">{{ restaurant.open_times_weekends }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <br>
@@ -79,7 +93,7 @@
     </div>
     {% endif %}
     <div class="row border-top border-3 border-light">
-        <div class="col-lg-6 offset-3">
+        <div class="col-lg-8 offset-lg-2">
             {% if update %}
             <h2 class="text-center mt-3">Change Reservation</h2>
             {% else %}
