@@ -1,1 +1,1 @@
-web: gunicorn UnderDaC.wsgi
+web: gunicorn underdac.wsgi
