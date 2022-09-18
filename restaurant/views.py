@@ -33,7 +33,10 @@ def menu(request):
 def contact(request):
     context = navbar(request)
 
-    form = ContactForm
+    if request.user.is_authenticated:
+        form = ContactForm(initial={'email': request.user.email})
+    else:
+        form = ContactForm()
 
     if request.method == 'POST':
         form = ContactForm(request.POST)
@@ -129,7 +132,7 @@ def restaurant_booking(request, name):
             new_booking = booking_validation(form, customer, restaurant)
             if not new_booking:
                 messages.add_message(request, messages.WARNING,
-                                    'The Time of Your Booking is Too Close to Another Booking You Have. Bookings Must Be at Least 3 Hours Apart')
+                                     'The Time of Your Booking is Too Close to Another Booking You Have. Bookings Must Be at Least 3 Hours Apart')
                 return redirect(f'/restaurant_booking/{name}/')
 
             if customer:

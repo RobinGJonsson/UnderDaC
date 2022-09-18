@@ -8,6 +8,11 @@ a {
 }
 
 
+.card {
+    --bs-card-border-color: #41464b;    
+}
+
+
 /*------------ Backgrounds*/
 
 .banner {
