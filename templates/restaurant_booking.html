@@ -100,7 +100,7 @@
             <h2 class="text-center mt-3">Make a Reservation</h2>
             {% endif %}
             <hr>
-            <form method="POST" action="">
+            <form method="POST" id="booking_form">
                 {% csrf_token %}
                 {{ form|crispy }}
                 <input class="mt-3 btn btn-success" type="submit" value="{% if update %}Update Reservation{% else %}Make Reservation{% endif %}">
@@ -109,3 +109,4 @@
     </div>
 
     {% endblock %}
+
