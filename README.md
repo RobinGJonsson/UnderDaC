@@ -7,7 +7,15 @@ UnderDaC is a small restaurant chain focusing on seafood. On the website you are
 Picture of website on different devices
 
 ### Live Website
-A deployed link to the website can be found [here](https://undedac.herokuapp.com/)
+A deployed link to the website can be found [here](https://underdac.herokuapp.com/)
+
+# Table of Contents
+- [Table of Contents](#table-of-contents)
+- [Introduction](#introduction)
+- [Credits](#credits)
+
+
+
 
 ## Media
 - Home page specials picture from https://www.iheart.com/content/2022-02-08-this-san-dimas-restaurant-has-the-best-seafood-in-southern-california/
