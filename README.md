@@ -1,5 +1,14 @@
 # UnderDaC
 
+## Introduction
+UnderDaC is a small restaurant chain focusing on seafood. On the website you are able to reserve tables and place ordersfor pickup or delivery, the user is also able to create an account for faster booking and checkout. All information that is saved to the database will be readable, editable, updateable and deletable by the creator and/or the admin accounts. 
+
+## Showcase
+Picture of website on different devices
+
+### Live Website
+A deployed link to the website can be found [here](https://undedac.herokuapp.com/)
+
 ## Media
 - Home page specials picture from https://www.iheart.com/content/2022-02-08-this-san-dimas-restaurant-has-the-best-seafood-in-southern-california/
 - Home page kids offer picture from https://www.renfrewshire24.co.uk/2021/04/23/kids-give-their-opinion-on-new-redhurst-hotel-junior-menu/
@@ -28,5 +37,10 @@
 
 
 ## Bugs 
-- Getting cookies all from request 
+- Getting all cookies from a request 
 - Closing the pop up message from before it the time out is over causes an exception because now there is nothing to close
+- Maps don't resize on home page
+
+## Fixed Bugs
+- Static files doesn't get uploaded with heroku
+- Could not deploy to heroku because the main folder "underdac" was called "UnderDaC" in the Procfile and the settings 

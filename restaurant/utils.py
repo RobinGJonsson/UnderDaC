@@ -89,7 +89,7 @@ def booking_validation(form, customer, restaurant):
             first_name=new_booking.first_name,
             last_name=new_booking.last_name,
             phone=new_booking.phone,
-            email=new_booking.email, 
+            email=new_booking.email,
             restaurant=restaurant)
 
     # Don't allow bookings 3 hours before or after an existing booking 
@@ -101,8 +101,6 @@ def booking_validation(form, customer, restaurant):
             hour_time_dif = abs((
                 booking.time.hour*60 + booking.time.minute
             ) - (booking_time.hour*60 + booking_time.minute)) / 60
-            print(new_booking.id)
-            print(booking.id)
             if hour_time_dif <= 3 and (new_booking.id != booking.id):
                 return False
 
