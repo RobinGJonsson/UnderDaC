@@ -45,16 +45,6 @@ class MenuItem(models.Model):
     def half_price(self):
         return self.price / 2
 
-    # Catch error of no image in menu item, which otherwise would crash the page
-    @property
-    def image_url(self):
-        try:
-            url = self.image.url
-        except:
-            url = ''
-
-        return url
-
     def __str__(self):
         return self.name
 
@@ -81,7 +71,7 @@ class Order(models.Model):
     restaurant = models.ForeignKey(
         Restaurant, null=True, on_delete=models.SET_NULL)
     delivery_time = models.TimeField(null=True)
-    date_ordered = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField(auto_now_add=True)
     complete = models.BooleanField(default=False)
     delivery = models.BooleanField(default=False)
 
@@ -124,7 +114,7 @@ class DeliveryInfo(models.Model):
     last_name = models.CharField(max_length=200, null=True)
     address = models.CharField(max_length=200, null=True)
     city = models.CharField(max_length=200, null=True)
-    date_ordered = models.DateTimeField(auto_now_add=True)
+    created_on = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.address
