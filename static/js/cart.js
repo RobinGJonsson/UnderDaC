@@ -1,6 +1,8 @@
 
 //Add eventlistener to all update cart buttons
 let updateCartBtns = document.querySelectorAll('.update-cart');
+let addToCartBtns = document.querySelectorAll('.add-to-cart');
+
 
 for (let btn of updateCartBtns) {
     btn.addEventListener('click', function() {
@@ -17,6 +19,7 @@ for (let btn of updateCartBtns) {
         }
     }); 
 };
+
 
 function addCookieItem(itemID, action) {
     console.log('Not logged in..')

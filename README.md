@@ -67,8 +67,12 @@ The Contact table stores messages regarding whatever the customer wants to tell 
 ### Navbar
 The main navbar contains a logo, a top navbar and a bottom navbar. If the user is logged in, then the top navbar contains a logout button, a profile button, and if the user has an active booking it also displays a notification to remind the user of the upcoming reservation. If the useris not logged in it will display a login and a sign up button. And wheather or not the user is logged in it will always display the language selction and a cart. The bottom navbar contains links to all the main pages of the site; Home, Menu, Booking Table and Contact Us.
 
+![Preview](docs/navbar.png)
+
 ### Footer 
 The footer contains copyright information and links to social media
+
+![Preview](docs/footer.png)
 
 ### Home Page
 The home page displays a two sections; one for offers and specials and the other for restaurant info. The first section has two banners. The first banner has two links, the first link says "Today's special" and goes to the menu page, and the second link says "Book a table" and takes the user to the table booking page. The second banner displays an offer that says that "Kids eat for half price". The restaurant section that shows each restaurant's details and also has a dropdown that shows the restaurants locations on a map.
@@ -76,23 +80,154 @@ The home page displays a two sections; one for offers and specials and the other
 ### Menu Page 
 The menu page displays all menu items seperated by the categories Menu, Vegan menu and kids menu. The admin can add as many items as they want and the page will accomadate for it. Each menu item has an "add to order" button.
 
+![Preview](docs/menu_page.png)
+
 ### Book Table Page
 The book table page has at the top a row of buttons that each take the user to the respective restaurant booking page. The page displays a large image of the restaurant and benath it all the current reservations the user has for this particular restaurant  and beneath that a form for reserving a table. Next to the form there is a phone number so that the customer can reserve a table by phone. Beneath that there is information about the restaurants address and its open hours.
+
+![Preview](docs/booking_page.png)
 
 ### Contact Us Page
 This page has a form for anyone to message the company's about questions or complaints
 
+![Preview](docs/contact_page.png)
+
 ### Cart Page
 This page shows a summary of everything the customer has added to their order, and a checkout button that takes the user to the checkout page. The user has the ability to add or subtract from the menu items they've added.
+
+![Preview](docs/cart_page.png)
 
 ### Checkout Page
 The checkout page displays a summary of the order before the customer finally makes the purchase. The customer can choose restaurant and pickup/delivery time, they can also choose to get the order delivered or if they rather want to pick it up at the restaurant, if they want it delivered they need to fill out their city and address as well. When everything is filled out the can click the conrinue button that will then display payment options.
 
-### My Bookings
+![Preview](docs/checkout_page.png)
+
+### My Reservations
 This page is reached through the profile button in the navbar. The page will display all bookings that the customer has across all the restaurants. Here the user can edit or delete their reservations
+
+![Preview](docs/my_reservations_page.png)
 
 ### My Details
 Here the user can edit their information or delete their account 
+
+![Preview](docs/my_details_page.png)
+
+### Signup Page
+Here the user is asked to fill out a form and upon submiting will save their profile to the data base and be logged in
+
+![Preview](docs/signup_page.png)
+
+### Login Page
+Here the user will fill out username and password, if the username and password are correct the user will be logged in. If they are not correct the user will be notified that the username or password is not correct.
+
+![Preview](docs/login_page.png)
+
+### Logout Page
+After the user has clicked the logout button they will be taken to the logout page which will ask the user if they are sure they want to logout. If they click "Sign out" they will be logged out.
+
+![Preview](docs/logout_page.png)
+
+### Notifications
+After any action that is sent from the user the user will get a notification at the top of the page. Notifications exist for: Adding to order, signing up, logging in, logging out, making, updating and deleting a reservation,  updating and deleting an account, making invalid reservations, upon sending a "contact us" message.
+
+![Preview](docs/notification.png)
+
+### Reservations
+After a reservation has been made the inputed email in the reservation will recive an email confirmation.
+
+### Language selection
+The user can select the page language in the top right corner of the navbar. Upon clicking a dropdown of the language options will appear.
+
+![Preview](docs/language_select.png)
+
+
+## Technologies Used
+### Languages Used
+  * [HTML5]
+  * [CSS3]
+  * [JavaScript]
+  * [Python]
+
+### Frameworks, Libraries & Programs Used
+* [amiresponsive](http://ami.responsivedesign.is/) to see how responsive the site is on different devices.
+* [LucidChart](https://lucidchart.com/) was used to create the Wireframes.
+* [MapBox](https://www.mapbox.com/)) was used to for generating maps.
+* [Cloudinary](https://cloudinary.com/) was used to upload, store, manage, manipulate, and deliver images.
+* [Django](https://www.djangoproject.com/) was the framework used for this project
+* [Bootstrap 5](https://getbootstrap.com/)) was used for icons and most styling on the site
+* [Git](https://git-scm.com/) was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
+* [GitHub](https://github.com/) Used to store the projects code after being pushed from Git.
+* [Gitpod](https://www.gitpod.io/) Used to write my code.
+* [Google Chrome Dev tools](https://developer.chrome.com/docs/devtools/) for debugging.
+* [Google Lighthouse](https://developers.google.com/web/tools/lighthouse) used for audits to measure the quality of web pages.
+* [Heroku](https://www.heroku.com/) used to deploy this app.
+* [ShareX](https://www.sharex.com/) Images for this project were sourced from ShareX.
+* [a11y](https://color.a11y.com/) Color Contrast Accessibility Validator.
+
+
+
+## Testing
+
+### Validation Testing
+|  | Validations |  Pass/Fail |
+| ------------- |-------------|  :----: |
+| Chrome   | Lighthouse Report | Pass |
+| HTML   | W3C Markup Validator | Pass |
+| CSS   | W3C CSS Validator | Pass |
+| Python   | PEP8 online | Pass |
+| JS   | JSHint | Pass |
+| Color Contrast   | a11y | Pass |
+
+### Lighthouse Report
+* Ran Lighthouse reports audits to gauge performance, accessibility, and SEO. Gain actionable and reportable insights in real time.
+ <details>
+  <summary>Click here to see the Lighthouse Report</summary>
+
+  ![](docs/lighthouse_result.PNG)
+
+  </details>
+
+### The W3C Markup Validator
+  <details>
+  <summary>Checked using W3C Markup Validator ensuring there were no errors or warnings present. Click here to see the W3C Markup Validator result</summary>
+
+  ![](docs/w3c_html_validator_result.PNG)
+
+  </details>
+
+### W3C CSS Validator
+  <details>
+  <summary>Checked using W3C CSS Validator ensuring there were no errors or warnings present. Click here to see the W3C CSS Validator result</summary>
+
+  ![](docs/w3c_css_validator_result.PNG)
+
+  </details>
+
+  ### PEP8 online 
+  <details>
+  <summary>Checked Python code is formatted according to the PEP 8 standards</summary>
+
+  ![](docs/pep8online_result.PNG)
+
+  </details>
+
+  ### JSHint 
+  <details>
+  <summary>Checked JavaScript source code complies with coding rules</summary>
+
+  ![](docs/jshint_result.PNG)
+
+  </details>
+
+   ### Color Contrast Accessibility Validator 
+  <details>
+  <summary>Checked color contrast analysis accessibility</summary>
+
+  ![](docs/color_contrast_accessibility_validator.PNG)
+
+  </details> 
+
+
 
 
 

@@ -113,7 +113,17 @@ a {
     --bs-table-color: #fff;
 }
 
+/*-------------- Checkout page*/
 
+
+
+.input-field input, 
+.input-field select {
+    margin: 10px 0;
+    height: 35px;
+    width: 75%;
+    border-radius: 7px;
+}
 
 /*-------------- Footer */
 

@@ -27,6 +27,11 @@ def menu(request):
     context.update({'menu_items': menu_items,
                     'categories': categories})
 
+    if request.method == 'POST':
+        messages.add_message(request, messages.INFO,
+                             'Item Added To Your Order')
+        return redirect('/')
+
     return render(request, 'menu.html', context)
 
 
@@ -47,7 +52,7 @@ def contact(request):
             contact.save()
             messages.add_message(request, messages.INFO,
                                  'Your Message Has Been Sent, We Will Get Back To You Shortly')
-            return redirect('/')
+            return redirect('/home/')
 
     context['form'] = form
     return render(request, 'contact.html', context)
