@@ -20,17 +20,19 @@
                 {% if category == 'Kids Menu' %}
                 <p class="card-text">
                     {{ item.description }}
-                    <strong>
-                        <h3><span class="text-decoration-line-through">${{ item.price }} {{ item.half_price }}</span></h3>
-                    </strong>
                 </p>
+                <h3>
+                    <strong>
+                        ${{ item.price }}<span class="text-decoration-line-through">{{ item.half_price }}</span>
+                    </strong>
+                </h3>
                 {% else %}
                 <p class="card-text">
                     {{ item.description }}
-                    <strong>
-                        <h3>${{ item.price }}</h3>
-                    </strong>
                 </p>
+                <h3>
+                    <strong>${{ item.price }}</strong>
+                </h3>
                 {% endif %}
                 <!--Add item to cart-->
                 <form method="POST">

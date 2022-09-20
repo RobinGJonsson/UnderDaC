@@ -28,11 +28,6 @@
 
   <!--Base JS -->
   <script src="{% static 'js/base.js' %}" defer></script>
-  <!--Global JS variables-->
-  <script>
-    let user = '{{ request.user }}'
-    let csrftoken = '{{ csrf_token }}';
-  </script>
 </head>
 
 <body class="bg-dark text-light">
@@ -181,17 +176,18 @@
       </div>
     </div>
   </footer>
+  <script>
+    let user = '{{ request.user }}'
+    let csrftoken = '{{ csrf_token }}';
+    alertWindow = document.querySelectorAll('#msg')
+  
+    if (alertWindow.length > 0) {
+      setTimeout(function () {
+        let messages = document.querySelector('#msg');
+        let alert = new bootstrap.Alert(messages);
+        alert.close();
+      }, 3000);
+    }
+  </script>
 </body>
-<script>
-  alertWindow = document.querySelectorAll('#msg')
-
-  if (alertWindow.length > 0) {
-    setTimeout(function () {
-      let messages = document.querySelector('#msg');
-      let alert = new bootstrap.Alert(messages);
-      alert.close();
-    }, 3000);
-  }
-</script>
-
 </html>

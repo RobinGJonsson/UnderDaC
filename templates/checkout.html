@@ -13,14 +13,15 @@
             <form class="form">
                 {% csrf_token %}
                 <div class="input-field">
-                    <select name="restaurant" id="restaurant" placeholder="Restaurant" required>
+                    <select name="restaurant" id="restaurant" required>
+                        <option value="">Restaurant</option>
                         {% for restaurant in restaurants %}
                         <option value="{{restaurant}}">{{restaurant}}</option>
                         {% endfor %}
                     </select>
                 </div>
                 <div class="input-field">
-                    <input name="delivery_time" type="time" placeholder="Pickup Time.." required>
+                    <input name="delivery_time" type="time" required>
                 </div>
                 <!--Ask for customer info if they are not logged in -->
                 {% if not user.is_authenticated %}
