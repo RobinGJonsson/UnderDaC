@@ -1,3 +1,16 @@
+//Let's JS access the user 
+let user = '{{ request.user }}';
+
+//Auto close bootstrap messages
+alertWindow = document.querySelectorAll('#msg');
+
+if (alertWindow.length > 0) {
+  setTimeout(function () {
+    let messages = document.querySelector('#msg');
+    let alert = new bootstrap.Alert(messages);
+    alert.close();
+  }, 3000);
+}
 
 function getCookie(name) {
     // Split cookie string and get all individual name=value pairs in an array
@@ -19,14 +32,13 @@ function getCookie(name) {
     return null; 
   }
   
-  let cart = JSON.parse(getCookie('cart'))
+  let cart = JSON.parse(getCookie('cart'));
   
   //If there is no cart, set it to an empty object
   if (cart == undefined){
-    cart = {}
-    console.log('Cart Created!', cart)
-    document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/"
+    cart = {};
+    console.log('Cart Created!', cart);
+    document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/";
   }
-  console.log('Cart:', cart)
+  console.log('Cart:', cart);
 
-  

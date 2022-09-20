@@ -1,4 +1,4 @@
-from .models import *
+from .models import Order, Booking, MenuItem, Restaurant
 import json
 
 
@@ -12,7 +12,8 @@ def check_user_auth(request):
 
 
 def cart_data(request):
-    '''Return the cart item count corresponding to current user if they exist otherwise create an empty order'''
+    '''Return the cart item count corresponding to
+    current user if they exist otherwise create an empty order'''
 
     customer = check_user_auth(request)
     if customer is not False:
@@ -66,9 +67,11 @@ def navbar(request, name=None):
 
     if name is not None:
         restaurant = Restaurant.objects.get(name=name)
-        customer_bookings = Booking.objects.filter(customer=customer, restaurant=restaurant).order_by('date')
+        customer_bookings = Booking.objects.filter(
+            customer=customer, restaurant=restaurant).order_by('date')
     else:
-        customer_bookings = Booking.objects.filter(customer=customer).order_by('date')
+        customer_bookings = Booking.objects.filter(
+            customer=customer).order_by('date')
 
     context = {'cart_count': cart_count}
     if customer_bookings:
@@ -76,7 +79,7 @@ def navbar(request, name=None):
     return context
 
 
-def booking_validation(form, customer, restaurant):    
+def booking_validation(form, customer, restaurant):
     new_booking = form.save(commit=False)
     booking_date = new_booking.date
     booking_time = new_booking.time
@@ -92,7 +95,7 @@ def booking_validation(form, customer, restaurant):
             email=new_booking.email,
             restaurant=restaurant)
 
-    # Don't allow bookings 3 hours before or after an existing booking 
+    # Don't allow bookings 3 hours before or after an existing booking
     # belonging to the current customer
     for booking in customer_bookings:
         if booking.date == booking_date:
@@ -105,4 +108,3 @@ def booking_validation(form, customer, restaurant):
                 return False
 
     return new_booking
-

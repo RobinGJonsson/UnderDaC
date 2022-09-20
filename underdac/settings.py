@@ -31,7 +31,9 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['underdac.herokuapp.com', 'localhost', '8080-robingjonsson-underdac-640c8tie6zy.ws-eu64.gitpod.io']
+ALLOWED_HOSTS = ['underdac.herokuapp.com',
+                 'localhost',
+                 '8080-robingjonsson-underdac-640c8tie6zy.ws-eu64.gitpod.io']
 
 
 # Application definition
@@ -46,7 +48,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
-    'cloudinary_storage', 
+    'cloudinary_storage',
     'django.contrib.staticfiles',
     'crispy_forms',
     'cloudinary',
@@ -161,7 +163,6 @@ STATIC_URL = "static/"
 # Enable WhiteNoise's GZip compression of static assets.
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
-# STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 MEDIA_URL = '/media/'
@@ -174,17 +175,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Email settings
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_POST = 'smtp.gmail.com'
-#EMAIL_PORT = '587'
-#EMAIL_HOST_USER = 'c.robin.g.j@gmail.com'
-#EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASSWORD')
 EMAIL_USE_TLS = False
-# EMAIL_USE_SSL = False
-
 EMAIL_HOST = 'localhost'
 EMAIL_PORT = 1025
 
 # AUTH_USER_MODEL = 'restaurant.Customer'
 ACCOUNT_SIGNUP_FORM_CLASS = 'restaurant.forms.SignupForm'
-
-TIME_INPUT_FORMATS = ('%H:%M',)

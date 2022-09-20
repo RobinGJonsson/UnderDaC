@@ -179,7 +179,7 @@ The user can select the page language in the top right corner of the navbar. Upo
 | Color Contrast   | a11y | Pass |
 
 ### Lighthouse Report
-* Ran Lighthouse reports audits to gauge performance, accessibility, and SEO. Gain actionable and reportable insights in real time.
+* Ran Lighthouse reports audits to gauge performance, accessibility, and SEO.
  <details>
   <summary>Click here to see the Lighthouse Report</summary>
 
@@ -191,7 +191,7 @@ The user can select the page language in the top right corner of the navbar. Upo
   <details>
   <summary>Checked using W3C Markup Validator ensuring there were no errors or warnings present. Click here to see the W3C Markup Validator result</summary>
 
-  ![](docs/w3c_html_validator_result.PNG)
+  ![](docs/html_validator.png)
 
   </details>
 
@@ -199,7 +199,7 @@ The user can select the page language in the top right corner of the navbar. Upo
   <details>
   <summary>Checked using W3C CSS Validator ensuring there were no errors or warnings present. Click here to see the W3C CSS Validator result</summary>
 
-  ![](docs/w3c_css_validator_result.PNG)
+  ![](docs/css_validator.png)
 
   </details>
 
@@ -213,17 +213,14 @@ The user can select the page language in the top right corner of the navbar. Upo
 
   ### JSHint 
   <details>
-  <summary>Checked JavaScript source code complies with coding rules</summary>
-
-  ![](docs/jshint_result.PNG)
-
+  <summary>I used JSHint to validate the JavaScript</summary>
   </details>
 
    ### Color Contrast Accessibility Validator 
   <details>
   <summary>Checked color contrast analysis accessibility</summary>
 
-  ![](docs/color_contrast_accessibility_validator.PNG)
+  ![](docs/contrast_validator.png)
 
   </details> 
 

@@ -51,7 +51,8 @@ def contact(request):
                 contact.customer = request.user
             contact.save()
             messages.add_message(request, messages.INFO,
-                                 'Your Message Has Been Sent, We Will Get Back To You Shortly')
+                                 '''Your Message Has Been Sent, We Will Get 
+                                 Back To You Shortly''')
             return redirect('/home/')
 
     context['form'] = form
@@ -137,7 +138,10 @@ def restaurant_booking(request, name):
             new_booking = booking_validation(form, customer, restaurant)
             if not new_booking:
                 messages.add_message(request, messages.WARNING,
-                                     'The Time of Your Booking is Too Close to Another Booking You Have. Bookings Must Be at Least 3 Hours Apart')
+                                     '''The Time of Your Booking is 
+                                     Too Close to Another Booking You 
+                                     Have. Bookings Must Be at 
+                                     Least 3 Hours Apart''')
                 return redirect(f'/restaurant_booking/{name}/')
 
             if customer:
@@ -148,13 +152,16 @@ def restaurant_booking(request, name):
             # Send email confirmation
             send_mail(
                 f'{new_booking.restaurant} Booking Confirmation',
-                f'Hello {new_booking.first_name} your booking to {new_booking.restaurant} has been made for {new_booking.date} at {new_booking.time}',
+                f'''Hello {new_booking.first_name} your booking to 
+                {new_booking.restaurant} has been made for
+                 {new_booking.date} at {new_booking.time}''',
                 'c.robin.g.j@gmail.com',
                 [str(new_booking.email)],
                 fail_silently=False,
             )
             messages.add_message(request, messages.INFO,
-                                 'The Booking Confirmation Has Been Sent to Your Email')
+                                 '''The Booking Confirmation Has
+                                  Been Sent to Your Email''')
             return (redirect(f'/restaurant_booking/{name}'))
 
     context.update({'restaurant': restaurant,
@@ -240,7 +247,9 @@ def update_booking(request, pk):
             new_booking = booking_validation(form, customer, restaurant)
             if not new_booking:
                 messages.add_message(request, messages.WARNING,
-                                     'The Time of Your Booking is Too Close to Another Booking You Have. Bookings Must Be at Least 3 Hours Apart')
+                                     '''The Time of Your Booking is Too Close 
+                                     to Another Booking You Have. Bookings Must
+                                      Be at Least 3 Hours Apart''')
                 return redirect(f'/restaurant_booking/{restaurant.name}/')
             new_booking.save()
             messages.add_message(request, messages.INFO,
