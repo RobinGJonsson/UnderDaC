@@ -1,5 +1,4 @@
 {% load static %}
-{% load i18n %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -19,7 +18,7 @@
 
   <!--Mapbox-->
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.js'></script>
-  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet' />
+  <link href='https://api.mapbox.com/mapbox-gl-js/v2.9.2/mapbox-gl.css' rel='stylesheet'>
 
   <!--Custom CSS-->
   <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
@@ -84,7 +83,6 @@
               <a href="{% url 'account_signup' %}" class="nav-link">Register</a>
             </li>
             {% endif %}
-            </li>
 
             <!--Link to cart-->
             <li class="nav-item">
@@ -184,7 +182,6 @@
     </div>
   </footer>
 </body>
-
 <script>
   alertWindow = document.querySelectorAll('#msg')
 

@@ -21,9 +21,7 @@
                 <p class="card-text">
                     {{ item.description }}
                     <strong>
-                        <h3><span class="text-decoration-line-through">${{ item.price }}</span>
-                            <span>{{ item.half_price }}</span>
-                        </h3>
+                        <h3><span class="text-decoration-line-through">${{ item.price }} {{ item.half_price }}</span></h3>
                     </strong>
                 </p>
                 {% else %}
