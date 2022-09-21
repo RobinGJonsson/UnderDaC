@@ -22,8 +22,6 @@ for (let btn of updateCartBtns) {
 
 
 function addCookieItem(itemID, action) {
-    console.log('Not logged in..');
-
     // Add 1 or create a cart with a quantity of 1
     if (action == 'add'){
         if (cart[itemID] == undefined){

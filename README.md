@@ -291,7 +291,7 @@ The user can select the page language in the top right corner of the navbar. Upo
 ### Final Deployment 
 
 * Create a runtime.txt `python-3.8.13`
-* Create a Procfile `web: gunicorn heardit.wsgi`
+* Create a Procfile `web: gunicorn underdac.wsgi`
 * When development is complete change the debug setting to: `DEBUG = False` in settings.py
 * In Heroku settings, delete the config vars for `DISABLE_COLLECTSTATIC = 1`
 
