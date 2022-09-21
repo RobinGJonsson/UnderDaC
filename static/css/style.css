@@ -91,11 +91,7 @@ a {
 }
 
 .chg-quantity {
-    position: absolute;
-    top: 0;
-    left: 25px;
-    border-radius: 5px;
-    
+    border-radius: 5px;   
 }
 
 .chg-quantity-arrow {
@@ -114,7 +110,6 @@ a {
 }
 
 /*-------------- Checkout page*/
-
 
 
 .input-field input, 
@@ -205,5 +200,11 @@ a {
 
     .logo-brand-link {
         display: block;
+    }
+}
+
+@media (max-width: 990px) {
+    .logo-img {
+        left: 40px;
     }
 }

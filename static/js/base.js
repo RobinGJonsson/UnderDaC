@@ -1,6 +1,3 @@
-//Let's JS access the user 
-let user = '{{ request.user }}';
-
 //Auto close bootstrap messages
 alertWindow = document.querySelectorAll('#msg');
 
@@ -33,12 +30,11 @@ function getCookie(name) {
   }
   
   let cart = JSON.parse(getCookie('cart'));
-  
+
   //If there is no cart, set it to an empty object
   if (cart == undefined){
     cart = {};
     console.log('Cart Created!', cart);
     document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/";
   }
-  console.log('Cart:', cart);
-
+  

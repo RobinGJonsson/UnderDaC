@@ -40,10 +40,10 @@
         <div class="col-2">
             <p>${{ item.item.price|floatformat:2 }}</p>
         </div>
-        <div class="col-2 position-relative">
-            <p>{{ item.quantity }}</p>
+        <div class="col-2 d-flex">
+            <div>{{ item.quantity }}</div>
             <!--Change item quantity buttons-->
-            <div class="chg-quantity bg-light">
+            <div class="chg-quantity bg-light me-5 ms-auto mb-2">
                 <img data-item="{{ item.item.id }}" data-action="add" class="chg-quantity-arrow update-cart"
                     src="{% static 'images/arrow-up.png' %}" alt="Change quantity up">
                 <img data-item="{{ item.item.id }}" data-action="subtract" class="chg-quantity-arrow update-cart"

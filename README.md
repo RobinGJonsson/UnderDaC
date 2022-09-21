@@ -180,12 +180,6 @@ The user can select the page language in the top right corner of the navbar. Upo
 
 ### Lighthouse Report
 * Ran Lighthouse reports audits to gauge performance, accessibility, and SEO.
- <details>
-  <summary>Click here to see the Lighthouse Report</summary>
-
-  ![](docs/lighthouse_result.PNG)
-
-  </details>
 
 ### The W3C Markup Validator
   <details>
@@ -204,17 +198,10 @@ The user can select the page language in the top right corner of the navbar. Upo
   </details>
 
   ### PEP8 online 
-  <details>
   <summary>Checked Python code is formatted according to the PEP 8 standards</summary>
 
-  ![](docs/pep8online_result.PNG)
-
-  </details>
-
   ### JSHint 
-  <details>
   <summary>I used JSHint to validate the JavaScript</summary>
-  </details>
 
    ### Color Contrast Accessibility Validator 
   <details>
@@ -223,6 +210,73 @@ The user can select the page language in the top right corner of the navbar. Upo
   ![](docs/contrast_validator.png)
 
   </details> 
+
+
+### Manual Testing
+* Manual testing was completed for each case and edge case scanerio
+* The site was also manually tested on various browsers (Google Chrome, Safari, Microsoft Edge and Firefox.) and on different screen sizes.
+* Dev tools was used often to identify errors within HTML and CSS code, with the console feature to identify errors in Javascript code.
+* I also used lighthouse reports to see the performance, quality, and correctness of the website.
+
+### Scenerios and results
+|   | Pass/Fail |
+| ------------- | :----: |
+| Clicking the navbar logo homepage takes the user to the homepage  |  Pass |
+| Clicking menu in the navbar takes the user to the menu page   |  Pass |
+| Clicking book table in the navbar opens a dropdown with restaurant options that each takes the user to the corresponding restaurant's booking page    |  Pass |
+| Clicking contact us in the navbar takes the user to the contact page   |  Pass |
+| Clicking the profile icon in navbar opens a dropdown with two options (my reservations and my details) that each takes the user to the corresponding page   |  Pass |
+| Clicking the cart icon in the navbar takes the user to the cart page   |  Pass |
+| Clicking the booking notification in the navbar takes the user to the my bookings page   |  Pass |
+| Clicking checkout in the cart page takes the user to the checkout page   |  Pass |
+| Clicking logout in the navbar page takes the user to the signout page   |  Pass |
+| Clicking login in the navbar page  takes the user to the login page   |  Pass |
+| Clicking register in the navbar page takes the user to the signup page   |  Pass |
+| Clicking the map buttons in the home page opens a map of the restaurants address   |  Pass |
+| Clicking book table on the home page banner takes the user to the restaurant booking page   |  Pass |
+| Clicking today's special in the home page  takes the user to the menu page    |  Pass |
+| Clicking the name of each restaurant in the home page restaurant display takes the user to the corresponding restaurant booking page   |  Pass |
+| Clicking each social media link in the footer opens a new tab and takes the user to the corresponing social media webpage   |  Pass |
+| Clicking the flag button in the navbar opens up a dropdown of language selections   |  Pass |
+| Clicking add to order on a menu item adds the item to the cart and updates the cart count   |  Pass |
+| Clicking the different restaurant buttons on the restaurant booking page takes the user to the corresponding restaurant booking page   |  Pass |
+| Clicking change booking on a reservation in the restaurant booking page loads the corresponding form of the booking prepopulated with the details of that booking, and a notification appears on top of the page     |  Pass |
+| The reservation form on the restaurant booking page is prefilled with the user information if the user is logged in    |  Pass  |
+| Clicking delete booking on a reservation in the restaurant booking page deletes it from the page and from the database, and a notification appears on top of the page     |  Pass |
+| Filling out the form in the restaurant booking page and then clicking "make reservation", if the form is valid and the booking isn't closer than 3 hours from another booking in the same restaurant with the same user, the booking is saved to the data base, an email confirmation is sent to the email submited and the booking will appear on the restaurant_booking page and in the my reservations page. A notification appears on top of the page     |  Pass |
+| Filling out the contact form in the contact page and clicking send, if the form is valid i gets saved to the database, and a notification appears on top of the page    |  Pass |
+| If the user is logged in, the email field in the contact form is prefilled    |  Pass |
+| Clicking change quantity arrows in the cart page updates the item's quantity. If the quantity goes to 0 the item is removed from the cart   |  Pass |
+| Clicking delivery button displays extra form fields to fill out   |  Pass |
+| Not having any active reservations doesn't display the notification in the navbar    |  Pass |
+| Being logged in displays the profile icon and the logout button. Not being logged displays the login and the resgister buttons in the navbar    |  Pass |
+| Bookings can be made as a non-registered user    |  Pass |
+| Adding items to cart as a non-registered user    |  Fail |
+| Viewing items on cart page as a non-registered user    |  Fail |
+| Cheking out as a non-registered user    |  Fail |
+| Ability to translate page with the language select options    |  Fail |
+
+
+
+### Responsiveness Browser Compatibility
+
+|  | Chrome | Firefox | Edge | Safari | Pass/Fail |
+| ------------- |-------------| -----|  ---------- |  -----| :----: |
+| Expected Appearance   | yes | yes  | yes  | yes | Pass |
+| Expected Layout   | yes | yes  | yes  | yes | Pass |
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -261,8 +315,10 @@ The user can select the page language in the top right corner of the navbar. Upo
 ## Bugs 
 - Getting all cookies from a request 
 - Closing the pop up message from before it the time out is over causes an exception because now there is nothing to close
-- Maps don't resize on home page
+
 
 ## Fixed Bugs
 - Static files doesn't get uploaded with heroku
-- Could not deploy to heroku because the main folder "underdac" was called "UnderDaC" in the Procfile and the settings 
+- Could not deploy to heroku because the main folder "underdac" was called "UnderDaC" in the Procfile and the settings
+- The maps wouldn't fit and resize inside the accordian as expected. The solution was to not specify a width and only specify the height of the map and also remove the padding of its container.
+- Cart items were changing order when the quantity was changed with the quantity arrows. This was fixed by ordering them by id in the cart view

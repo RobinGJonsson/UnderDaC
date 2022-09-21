@@ -5,9 +5,9 @@
 
 {% block content %}
 
-<div class="row">
+<div class="row mt-5">
     <!--Display all customer's details-->
-    <div class="col-md-8 offset-md-2">
+    <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
         <div class="card">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Name: {{ customer_details.first_name }} {{ customer_details.last_name }}
@@ -17,12 +17,18 @@
                 <li class="list-group-item">Address: {{ customer_details.address }}</li>
             </ul>
             <div class="card-footer">
-                <!--Button to change user details-->
-                <a href="{% url 'update_details' %}" class="btn btn-success">Change
-                    Information</a>
-                <!--Button to delete user account-->
-                <button class="btn btn-danger float-end" data-bs-toggle="modal"
-                    data-bs-target="#delete_modal">Delete</button>
+                <div class="row py-2 px-3">
+                    <div class="col-6">
+                        <!--Button to change user details-->
+                        <a href="{% url 'update_details' %}" class="btn btn-success">Change
+                            Information</a>
+                    </div>
+                    <div class="col-6">
+                        <!--Button to delete user account-->
+                        <button class="btn btn-danger float-end" data-bs-toggle="modal"
+                            data-bs-target="#delete_modal">Delete</button>
+                    </div>
+                </div>
                 <!--Modal asking if the user is sure about delteing their account-->
                 <div class="modal fade text-dark" id="delete_modal" tabindex="-1">
                     <div class="modal-dialog">
@@ -39,8 +45,8 @@
                             <div class="pb-3 px-4">
                                 <button type="button" class="btn btn-secondary float-start"
                                     data-bs-dismiss="modal">Close</button>
-                                <a href="{% url 'delete_account' %}"><button
-                                        class="btn btn-danger float-end" type="submit">Delete Account</button></a>
+                                <a href="{% url 'delete_account' %}"><button class="btn btn-danger float-end"
+                                        type="submit">Delete Account</button></a>
                             </div>
                         </div>
                     </div>

@@ -30,7 +30,6 @@ def menu(request):
     if request.method == 'POST':
         messages.add_message(request, messages.INFO,
                              'Item Added To Your Order')
-        return redirect('/')
 
     return render(request, 'menu.html', context)
 
@@ -78,7 +77,7 @@ def cart(request):
     context = navbar(request)
     cart_info = cart_data(request)
 
-    items = cart_info['items']
+    items = cart_info['items'].order_by('id')
     order = cart_info['order']
 
     context.update({'items': items,
