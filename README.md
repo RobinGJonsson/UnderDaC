@@ -267,6 +267,33 @@ The user can select the page language in the top right corner of the navbar. Upo
 
 
 
+## Deployment
+* This project was developed using a GitPod workspace. The code was committed to Git and pushed to GitHub using the terminal.
+
+* Log in to [Heroku](https://id.heroku.com/login) or create an account
+* On the main page click New and Create New App
+* Note: new app name must be unique
+* Next select your region, I chose Europe.
+* Click Create App button
+* Click in resources and select Heroku Postgres database
+* Click Reveal Config Vars and add new config "SECRET_KEY"
+* Click Reveal Config Vars and add new config "CLOUDINARY_URL"
+* Click Reveal Config Vars and add new config "DISABLE_COLLECTSTATIC = 1"
+* The next page is the project’s Deploy Tab. Click on the Settings Tab and scroll down to Config Vars
+* Next, go to Buildpack section click Add Buildpack select python and Save Changes
+* Scroll to the top of the page and choose the Deploy tab
+* Select Github as the deployment method
+* Confirm you want to connect to GitHub
+* Search for the repository name and click the connect button
+* Scroll to the bottom of the deploy page and select the preferred deployment type
+* Click either Enable Automatic Deploys for automatic deployment when you push updates to Github
+
+### Final Deployment 
+
+* Create a runtime.txt `python-3.8.13`
+* Create a Procfile `web: gunicorn heardit.wsgi`
+* When development is complete change the debug setting to: `DEBUG = False` in settings.py
+* In Heroku settings, delete the config vars for `DISABLE_COLLECTSTATIC = 1`
 
 
 

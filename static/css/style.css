@@ -20,6 +20,8 @@ a {
     background-repeat: no-repeat; 
     background-size: cover;
     background-position: center;
+    box-shadow: 0 0 8px 8px #212529 inset;
+
 }
 
 .banner-1 {
@@ -58,7 +60,6 @@ a {
 .specials-header,
 .booking-header {
     padding: 30px;
-    position: absolute;
     background-color: hsla(50, 100%, 59%, 0.9);
     border-radius: 50%;
     display: flex;

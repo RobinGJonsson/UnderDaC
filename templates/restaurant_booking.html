@@ -46,7 +46,7 @@
                     <div class="card bg-dark text-light">
                         <div class="card-body customer-booking">
                             <h5 class="card-title">Restaurant {{ booking.restaurant }}</h5>
-                            <img class="img-fluid card-img" src={{booking.restaurant.image.url}} alt="Image of restaurant">
+                            <img src={{booking.restaurant.image.url}} class="img-fluid card-img" alt="Image of restaurant">
                             <!-- Description -->
                             <p class="card-text text-start lh-lg">
                                 <strong>Date:</strong> {{ booking.date }}
@@ -71,7 +71,6 @@
         {% endif %}
     </div>
 </div>
-<br>
 <!--Display the customers bookings in this restaurant if they have any-->
 <div class="container">
     <div class="row border-top border-3 border-light">
