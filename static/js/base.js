@@ -39,6 +39,6 @@ if (cart == undefined){
   document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/";
 }
 
-console.log(cart)
+console.log('Cart:', cart)
 
 

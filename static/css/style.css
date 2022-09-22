@@ -25,11 +25,11 @@ a {
 }
 
 .banner-1 {
-    background-image: url('https://res.cloudinary.com/dcyv0gszf/image/upload/v1663501587/home-specials_gfbnwg.webp');
+    background-image: url('/static/images/home-specials.webp');
 }
 
 .banner-2 {
-    background-image: url('https://res.cloudinary.com/dcyv0gszf/image/upload/v1663501563/kids-offer_xusxyf.webp'); 
+    background-image: url('/static/images/kids-offer.webp'); 
 }
 
 

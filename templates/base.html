@@ -31,7 +31,7 @@
     let user = '{{ request.user }}';
     let csrftoken = '{{ csrf_token }}';
   </script>
-  <script src="https://res.cloudinary.com/dcyv0gszf/raw/upload/v1663762211/UnderDaC/base_vyitjx.js" defer></script>
+  <script src="{% static 'js/base.js' %}" defer></script>
 </head>
 
 <body class="bg-dark text-light">
@@ -40,8 +40,7 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container">
         <!--Logo-->
-        <a href="{% url 'home' %}" class="navbar-brand logo-img-link" aria-label="Main Logo"><img src="https://res.cloudinary.com/dcyv0gszf/image/upload/v1663501639/logo_wnvckb.png"
-          alt="Main logo" class="logo-img"></a>
+        <a href="{% url 'home' %}" class="navbar-brand logo-img-link" aria-label="Main Logo"><img src="{% static 'images/logo.png' %}" alt="Main logo" class="logo-img"></a>
         <a href="{% url 'home' %}" class="navbar-brand logo-brand-link">UnderDaC</a>
         <!--Toggle hamburger button-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navmenu">
