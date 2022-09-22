@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}404 Error{% endblock %}
+
+{% block content %}
+
+<div class="row">
+    <div class="col-8 mt-3 offset-2">
+        <br>
+        <h3>404 - Page not found :(</h3>
+        <p>
+            <br>
+            <br>
+            <strong>Ooops something went wrong.
+                Please <a href="{% url 'home' %}">here</a> to go back to the homepage</strong>
+        </p>
+    </div>
+</div>
+
+{% endblock %}
