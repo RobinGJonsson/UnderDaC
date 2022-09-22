@@ -149,10 +149,9 @@ The user can select the page language in the top right corner of the navbar. Upo
   * [Python]
 
 ### Frameworks, Libraries & Programs Used
-* [amiresponsive](http://ami.responsivedesign.is/) to see how responsive the site is on different devices.
 * [LucidChart](https://lucidchart.com/) was used to create the Wireframes.
 * [MapBox](https://www.mapbox.com/)) was used to for generating maps.
-* [Cloudinary](https://cloudinary.com/) was used to upload, store, manage, manipulate, and deliver images.
+* [Cloudinary](https://cloudinary.com/) was used to upload, store, manage, manipulate, and deliver files and images.
 * [Django](https://www.djangoproject.com/) was the framework used for this project
 * [Bootstrap 5](https://getbootstrap.com/)) was used for icons and most styling on the site
 * [Git](https://git-scm.com/) was used for version control by utilizing the Gitpod terminal to commit to Git and Push to GitHub.
@@ -163,7 +162,6 @@ The user can select the page language in the top right corner of the navbar. Upo
 * [Heroku](https://www.heroku.com/) used to deploy this app.
 * [ShareX](https://www.sharex.com/) Images for this project were sourced from ShareX.
 * [a11y](https://color.a11y.com/) Color Contrast Accessibility Validator.
-
 
 
 ## Testing
@@ -223,7 +221,7 @@ The user can select the page language in the top right corner of the navbar. Upo
 | ------------- | :----: |
 | Clicking the navbar logo homepage takes the user to the homepage  |  Pass |
 | Clicking menu in the navbar takes the user to the menu page   |  Pass |
-| Clicking book table in the navbar opens a dropdown with restaurant options that each takes the user to the corresponding restaurant's booking page    |  Pass |
+| Clicking book table in the navbar takes the user to the booking page    |  Pass |
 | Clicking contact us in the navbar takes the user to the contact page   |  Pass |
 | Clicking the profile icon in navbar opens a dropdown with two options (my reservations and my details) that each takes the user to the corresponding page   |  Pass |
 | Clicking the cart icon in the navbar takes the user to the cart page   |  Pass |
@@ -266,6 +264,17 @@ The user can select the page language in the top right corner of the navbar. Upo
 | Expected Layout   | yes | yes  | yes  | yes | Pass |
 
 
+## Bugs 
+- Cookies that exist on the webpage doesn't exist in request
+- Closing the pop up message before the time out is over causes an exception because now there is nothing to close
+
+
+## Fixed Bugs
+- Static files doesn't get uploaded with heroku. Solved by putting static files in cloudinary
+- Could not deploy to heroku because the main folder "underdac" was called "UnderDaC" in the Procfile and the settings
+- The maps wouldn't fit and resize inside the accordian as expected. The solution was to not specify a width and only specify the height of the map and also remove the padding of its container.
+- Cart items were changing order when the quantity was changed with the quantity arrows. This was fixed by ordering them by id in the cart view
+
 
 ## Deployment
 * This project was developed using a GitPod workspace. The code was committed to Git and pushed to GitHub using the terminal.
@@ -290,26 +299,29 @@ The user can select the page language in the top right corner of the navbar. Upo
 
 ### Final Deployment 
 
-* Create a runtime.txt `python-3.8.13`
 * Create a Procfile `web: gunicorn underdac.wsgi`
 * When development is complete change the debug setting to: `DEBUG = False` in settings.py
 * In Heroku settings, delete the config vars for `DISABLE_COLLECTSTATIC = 1`
 
 
+### Forking This Project
 
+* Open [GitHub](https://github.com/RobinGJonsson/UnderDaC)
+* Find the 'Fork' button at the top right of the page
+* Once you click the button the fork will be in your repository
 
+### Cloning This Project
 
+* Clone this project by following the steps:
 
-
-
-
-
-
-
-
-
-
-
+* Open [GitHub](https://github.com/RobinGJonsson/UnderDaC)
+* You will be provided with three options to choose from, HTTPS, SSH or GitHub CLI, click the clipboard icon in order
+to copy the URL
+* Once you click the button the fork will be in your repository
+* Open a new terminal
+* Change the current working directory to the location that you want the cloned directory
+* Type 'git clone' and paste the URL copied in step 3
+* Press 'Enter' and the project is cloned
 
 
 ## Media
@@ -330,22 +342,15 @@ The user can select the page language in the top right corner of the navbar. Upo
 
 
 ## Credit
-- Tech with tim
-- Dennis Ivy 
-- Pretty printed 
-- Caleb Curry 
-- The net ninja
-
+### Youtube
+* Tech with tim: https://www.youtube.com/watch?v=sm1mokevMWk&t=6099s
+* Dennis Ivy: https://www.youtube.com/playlist?list=PL-51WBLyFTg0omnamUjL1TCVov7yDTRng 
+* Code Institute - [Hello Django](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/dc049b343a9b474f8d75822c5fda1582/121ef050096f4546a1c74327a9113ea6/) - Task Manager Walkthrough
+* Code Institute - [I think therefore I blog](https://learn.codeinstitute.net/courses/course-v1:CodeInstitute+FST101+2021_T1/courseware/b31493372e764469823578613d11036b/fe4299adcd6743328183aab4e7ec5d13/
+) - Django blog project Walkthrough
 - getCookie function in base.js taken from https://www.w3schools.com/js/js_cookies.asp
 
 
-## Bugs 
-- Getting all cookies from a request 
-- Closing the pop up message from before it the time out is over causes an exception because now there is nothing to close
+This project is for educational use only and was created for the Code Institute Module.
 
 
-## Fixed Bugs
-- Static files doesn't get uploaded with heroku
-- Could not deploy to heroku because the main folder "underdac" was called "UnderDaC" in the Procfile and the settings
-- The maps wouldn't fit and resize inside the accordian as expected. The solution was to not specify a width and only specify the height of the map and also remove the padding of its container.
-- Cart items were changing order when the quantity was changed with the quantity arrows. This was fixed by ordering them by id in the cart view

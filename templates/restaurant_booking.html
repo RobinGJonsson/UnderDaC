@@ -6,21 +6,19 @@
 {% block content %}
 
 
-<div class="row my-3">
+<div class="row my-3 justify-content-center">
     <div class="col">
         <h2 class="display-3 text-center">Restaurants</h2>
-        <hr>
-        <div class="row text-center">
-            <div class="col my-1">
-                <a href="{% url 'restaurant_booking' 'Atlantic' %}" class="btn btn-danger btn-lg">The Atlantic</a>
-            </div>
-            <div class="col my-1">
-                <a href="{% url 'restaurant_booking' 'Indian' %}" class="btn btn-danger btn-lg">The Indian</a>
-            </div>
-            <div class="col my-1">
-                <a href="{% url 'restaurant_booking' 'Pacific' %}" class="btn btn-danger btn-lg">The Pacific</a>
-            </div>
-        </div>
+    </div>
+    <hr>
+    <div class="d-grid gap-2 col-7 col-sm-3">
+        <a href="{% url 'restaurant_booking' 'Atlantic' %}" class="my-2 btn btn-danger">The Atlantic</a>
+    </div>
+    <div class="d-grid gap-2 col-7 col-sm-3">
+        <a href="{% url 'restaurant_booking' 'Indian' %}" class="my-2 btn btn-danger">The Indian</a>
+    </div>
+    <div class="d-grid gap-2 col-7 col-sm-3">
+        <a href="{% url 'restaurant_booking' 'Pacific' %}" class="my-2 btn btn-danger">The Pacific</a>
     </div>
 </div>
 <div class="row">
@@ -91,13 +89,13 @@
             <br><br><br>
             <div class="my-5 ms-lg-3 display-6"><strong>Call Us:</strong> {{ restaurant.phone }}</div>
             <div class="my-5 ms-lg-3 display-6"><strong>Address:</strong> {{ restaurant.address }}</div>
-            <div class="row ms-lg-3">
-                <div class="col p-0">
+            <div class="row ms-md-1 ms-lg-3">
+                <div class="col-lg-6 p-0">
                     <div class="mt-2 fs-4">
                         <strong>Open Hours: </strong>
                     </div>
                 </div>
-                <div class="col pt-3 border border-1 border-light">
+                <div class="col-lg-6 pt-3 border border-1 border-light">
                     <div>
                         <p>Monday - Friday: <span class="float-end">{{ restaurant.open_times_weekdays }}</span></p>
                     </div>

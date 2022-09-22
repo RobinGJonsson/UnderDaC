@@ -61,10 +61,20 @@ def contact(request):
 def checkout(request):
     context = navbar(request)
     cart_info = cart_data(request)
+    customer = request.user
 
     restaurants = Restaurant.objects.all()
     items = cart_info['items']
     order = cart_info['order']
+
+    if request.method == 'POST':
+        order = Order.objects.get(customer=customer, complete=False)
+        delivery_info = DeliveryInfo.objects.create(customer=customer,
+                                                    order=order,
+                                                    address=request.address,
+                                                    city=request.city)
+
+        delivery_info.save()
 
     context.update({'items': items,
                     'order': order,
@@ -90,7 +100,7 @@ def process_order(request):
     data = json.loads(request.body)
 
     if request.user.is_authenticated:
-        customer = request.user.customer
+        customer = request.user
         order, created = Order.objects.get_or_create(
             customer=customer, complete=False)
 
@@ -106,11 +116,13 @@ def process_order(request):
             DeliveryInfo.objects.create(
                 customer=customer,
                 order=order,
-                firstName=data['userFormData']['fname'],
-                lastName=data['userFormData']['lname'],
+                first_name=data['userFormData']['fname'],
+                last_name=data['userFormData']['lname'],
                 address=data['deliveryFormData']['address'],
                 city=data['deliveryFormData']['city']
             ).save()
+        
+        print('Order Completed')
 
     else:
         print('User is not logged in')
@@ -184,6 +196,7 @@ def my_details(request):
 def update_cart(request):
     # Unpack json data collected from add to cart buttons
     data = json.loads(request.body)
+    print(data)
     itemID = data['itemID']
     action = data['action']
 

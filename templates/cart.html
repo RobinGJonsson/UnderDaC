@@ -22,35 +22,36 @@
             {% endif %}
         </div>
     </div>
+    <hr>
     <!--Header row-->
-    <div class="row border-bottom border-light">
-        <div class="col-3"></div>
-        <div class="col-3">Item</div>
-        <div class="col-2">Price</div>
-        <div class="col-2">Quantity</div>
-        <div class="col-2">Total</div>
+    <div class="row border-bottom border-light text-end text-sm-start d-none d-sm-flex">
+        <div class="col-sm-3"></div>
+        <div class="col-sm-3">Item</div>
+        <div class="col-sm-2">Price</div>
+        <div class="col-sm-2">Quantity</div>
+        <div class="col-sm-2">Total</div>
     </div>
     <!--Loop through cart each cart item and give it a row-->
     {% for item in items %}
-    <div class="row mt-3 border-bottom border-light">
-        <div class="col-3"><img class="cart-img" src="{{ item.item.image.url }}" alt=""></div>
-        <div class="col-3">
+    <div class="row p-3 border-bottom border-light text-end text-sm-start">
+        <div class="col-sm-3 position-relative"><img class="cart-img  rounded" src="{{ item.item.image.url }}" alt=""></div>
+        <div class="col-sm-3">
             <p>{{ item.item.name }}</p>
         </div>
-        <div class="col-2">
+        <div class="col-sm-2">
             <p>${{ item.item.price|floatformat:2 }}</p>
         </div>
-        <div class="col-2 d-flex">
+        <div class="col-sm-2 d-flex justify-content-end">
             <div>{{ item.quantity }}</div>
             <!--Change item quantity buttons-->
-            <div class="chg-quantity bg-light me-5 ms-auto mb-2">
+            <span class="chg-quantity bg-light ms-2">
                 <img data-item="{{ item.item.id }}" data-action="add" class="chg-quantity-arrow update-cart"
                     src="{% static 'images/arrow-up.png' %}" alt="Change quantity up">
                 <img data-item="{{ item.item.id }}" data-action="subtract" class="chg-quantity-arrow update-cart"
                     src="{% static 'images/arrow-down.png' %}" alt="Change quantity down">
-            </div>
+            </span>
         </div>
-        <div class="col-2">
+        <div class="col-sm-2">
             <p>${{ item.get_total|floatformat:2 }}</p>
         </div>
     </div>

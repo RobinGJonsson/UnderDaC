@@ -1,3 +1,4 @@
+
 //Auto close bootstrap messages
 alertWindow = document.querySelectorAll('#msg');
 
@@ -29,12 +30,15 @@ function getCookie(name) {
     return null; 
   }
   
-  let cart = JSON.parse(getCookie('cart'));
+let cart = JSON.parse(getCookie('cart'));
 
-  //If there is no cart, set it to an empty object
-  if (cart == undefined){
-    cart = {};
-    console.log('Cart Created!', cart);
-    document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/";
-  }
-  
+//If there is no cart, set it to an empty object
+if (cart == undefined){
+  cart = {};
+  console.log('Cart Created!', cart);
+  document.cookie ='cart=' + JSON.stringify(cart) + ";domain=;path=/";
+}
+
+console.log(cart)
+
+

@@ -6,7 +6,7 @@
 
 <!--Give each menu category a row-->
 {% for category in categories %}
-<div class="row mx-5">
+<div class="row mx-lg-5">
     <h1 class="text-light text-center">{{category}}</h1>
     <!--Loop through each menu item and place them on the row if it has the right menu category-->
     {% for item in menu_items %}
@@ -23,7 +23,7 @@
                 </p>
                 <h3>
                     <strong>
-                        ${{ item.price }}<span class="text-decoration-line-through">{{ item.half_price }}</span>
+                        $<span class="text-decoration-line-through">{{ item.price }}</span> {{ item.half_price }}
                     </strong>
                 </h3>
                 {% else %}
@@ -35,11 +35,13 @@
                 </h3>
                 {% endif %}
                 <!--Add item to cart-->
+                {% if user.is_authenticated %}
                 <form method="POST">
                     {% csrf_token %}
                     <input data-item="{{item.id}}" data-action="add" class="btn btn-primary update-cart" type="submit"
-                        value="Add To Order" name="hello">
+                        value="Add To Order">
                 </form>
+                {% endif %}
             </div>
         </div>
     </div>

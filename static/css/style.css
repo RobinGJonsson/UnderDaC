@@ -89,10 +89,13 @@ a {
 
 .cart-img {
     width: 40%;
+    min-width: 100px;
+    min-height: 75px;
 }
 
 .chg-quantity {
-    border-radius: 5px;   
+    border-radius: 5px; 
+    max-height: 35px;  
 }
 
 .chg-quantity-arrow {
@@ -193,6 +196,14 @@ a {
 
 
 /*----------Media Queries*/
+
+@media (max-width: 576px){
+    .cart-img {
+        position: absolute;
+        left: 12px;
+        top: 35px
+    }
+}
 
 @media (max-width: 768px) {
     .logo-img-link {

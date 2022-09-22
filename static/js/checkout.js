@@ -15,15 +15,11 @@ form.addEventListener('submit', function(e) {
     e.preventDefault();
     console.log('Form submited..');
 
-    document.querySelector('.submit-form').classList.add('d-none');
-    document.querySelector('.payment-options').classList.remove('d-none');
-
-    document.querySelector('.make-payment').addEventListener('click', function() {
-        submitFormData();
-    });
+    submitFormData();
 });
 
 function submitFormData() {
+    console.log('Processing')
     let userFormData = {
         'fname':null,
         'lname':null,
