@@ -220,7 +220,7 @@ a {
     .cart-img {
         position: absolute;
         left: 12px;
-        top: 35px
+        max-width: 125px;
     }
 }
 

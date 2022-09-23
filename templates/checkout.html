@@ -22,16 +22,16 @@
             <div class="row p-3 border-bottom border-light text-end text-sm-start">
                 <div class="col-sm-3 position-relative"><img class="cart-img rounded" src="{{ item.item.image.url }}" alt=""></div>
                 <div class="col-sm-3">
-                    <p>{{ item.item.name }}</p>
+                    <p class="my-0">{{ item.item.name }}</p>
                 </div>
                 <div class="col-sm-2">
-                    <p>${{ item.item.price|floatformat:2 }}</p>
+                    <p class="my-0">${{ item.item.price|floatformat:2 }}</p>
                 </div>
                 <div class="col-sm-2">
-                    <p>{{ item.quantity }}</p>
+                    <p class="my-0">{{ item.quantity }}</p>
                 </div>
                 <div class="col-sm-2">
-                    <p>${{ item.get_total }}</p>
+                    <p class="my-0">${{ item.get_total }}</p>
                 </div>
             </div>
             {% endfor %}

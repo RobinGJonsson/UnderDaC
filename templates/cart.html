@@ -7,12 +7,12 @@
     <br>
     <br>
     <div class="row">
-        <div class="col-3">
+        <div class="col-sm-3 col-6">
             <!--Total item count-->
             <p class="fs-4">Items: <strong>{{ order.get_cart_item_count }}</strong></p>
             <!--Total price-->
         </div>
-        <div class="col-5">
+        <div class="col-sm-5 col-6">
             <p class="fs-4">Total: <strong>${{ order.get_cart_total_price|floatformat:2 }}</strong></p>
         </div>
         <div class="col float-end">
@@ -37,10 +37,10 @@
         <div class="col-sm-3 position-relative"><img class="cart-img  rounded" src="{{ item.item.image.url }}" alt="">
         </div>
         <div class="col-sm-3">
-            <p>{{ item.item.name }}</p>
+            <p class="my-0">{{ item.item.name }}</p>
         </div>
         <div class="col-sm-2">
-            <p>${{ item.item.price|floatformat:2 }}</p>
+            <p class="my-0">${{ item.item.price|floatformat:2 }}</p>
         </div>
         <div class="col-sm-2 d-flex justify-content-sm-start justify-content-end">
             <div>{{ item.quantity }}</div>
@@ -54,7 +54,7 @@
             </span>
         </div>
         <div class="col-sm-2">
-            <p>${{ item.get_total|floatformat:2 }}</p>
+            <p class="my-0">${{ item.get_total|floatformat:2 }}</p>
         </div>
     </div>
     {% endfor %}

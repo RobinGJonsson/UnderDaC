@@ -28,13 +28,12 @@
 </div>
 <!--Display restaurant information-->
 <div class="row border-top border-3 border-light">
-    <div class="col fs-5">
+    <div class="col">
         <div class="container text-center">
             <img class="mw-100" src="{{ restaurant.image.url }}" alt="Picture of the restaurant">
         </div>
         {% if customer_bookings %}
-        <hr>
-        <div class="row mt-3 border-top border-3 border-light">
+        <div class="row border-top border-3 border-light">
             <div class="col-md-8 offset-md-2">
                 <div class="container mt-3">
                     <center>
@@ -42,23 +41,29 @@
                     </center>
                     {% for booking in customer_bookings %}
                     <div class="card bg-dark text-light">
-                        <div class="card-body customer-booking">
+                        <div class="card-body customer-booking text-start">
                             <h5 class="card-title">Restaurant {{ booking.restaurant }}</h5>
-                            <img src={{booking.restaurant.image.url}} class="img-fluid card-img" alt="Image of restaurant">
-                            <!-- Description -->
-                            <p class="card-text text-start lh-lg">
-                                <strong>Date:</strong> {{ booking.date }}
-                                <br>
-                                <strong>Time:</strong> {{ booking.time }}
-                                <br>
-                                <strong>Number of Guests: </strong>{{ booking.guest_count }}
-                                <br>
-                            </p>
+                            <div class="row justify-content-between">
+                                <div class="col-6 pe-0 card-small-screen">
+                                    <!-- Description -->
+                                    <p class="mt-3 card-text lh-lg">
+                                        <strong>Date:</strong> {{ booking.date }}
+                                        <br>
+                                        <strong>Time:</strong> {{ booking.time }}
+                                        <br>
+                                        <strong>Number of Guests: </strong>{{ booking.guest_count }}
+                                        <br>
+                                    </p>
+                                </div>
+                                <div class="col-6 ps-1 text-end card-small-screen">
+                                    <img class="img-fluid card-img" src={{booking.restaurant.image.url}} alt="Image of restaurant">
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-footer">
-                            <a href="{% url 'update_booking' booking.id %}" class="btn btn-info">Change Booking</a>
-                            <a href="{% url 'delete_booking' booking.id booking.restaurant.name %}"
-                                class="btn btn-danger float-end">Delete Booking</a>
+                        <div class="card-footer booking-footer">
+                            <a href="{% url 'update_booking' booking.id %}" class="btn btn-info booking-footer-content mb-2">Change Booking</a>
+                            <a href="{% url 'delete_booking' booking.id None %}"
+                                class="btn btn-danger float-end booking-footer-content mb-2">Delete Booking</a>
                         </div>
                     </div>
                     <br>
