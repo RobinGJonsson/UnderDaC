@@ -7,7 +7,6 @@ a {
     cursor: pointer;
 }
 
-
 .card {
     --bs-card-border-color: #41464b;    
 }
@@ -81,7 +80,6 @@ a {
 
 .customer-booking img {
     max-width: 200px;
-    float: right;
 }
 
 /*-------------- Cart page */
@@ -195,6 +193,28 @@ a {
 
 
 /*----------Media Queries*/
+
+@media (max-width: 400px){
+
+    .customer-booking {
+        text-align: center !important;
+    }
+
+    .card-small-screen {
+        width: 100%;
+        text-align: center !important;
+    }
+
+    .booking-footer-content {
+        float: none !important;
+        width: 75%;
+    }
+
+    .booking-footer {
+        text-align: center;
+    }
+}
+
 
 @media (max-width: 576px){
     .cart-img {
