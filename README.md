@@ -3,9 +3,6 @@
 ## Introduction
 UnderDaC is a small restaurant chain focusing on seafood with each restaurant focusing on a particular major ocean. On the website you can reserve tables and place orders for pickup or delivery, the user is also able to create an account for faster booking and checkout. All information that is saved to the database will be readable, editable, updateable, and deletable by the creator and/or the admin accounts. 
 
-## Showcase
-Picture of the website on different devices
-
 ### Live Website
 A deployed link to the website can be found [here](https://underdac.herokuapp.com/)
 
