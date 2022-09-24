@@ -95,16 +95,13 @@ def tables_available(new_booking, restaurant):
         if hour_time_dif <= 3:
             restaurant_guests_already_booked += booking.guest_count
 
-    print(restaurant.tables * 2)
-    print(restaurant_guests_already_booked)
-
     try:
         tables_available = (
             (restaurant.tables * 2) - restaurant_guests_already_booked) / 2
     except ZeroDivisionError:
         tables_available = restaurant.tables
     print('Tables availabe: ', tables_available)
-    
+
     if tables_available / (new_booking.guest_count / 2) < 1:
         return False
     else:

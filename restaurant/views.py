@@ -153,7 +153,7 @@ def restaurant_booking(request, name):
                                      '''Unfortunatly There Are No 
                                      Tables Available at Your Chosen Time''')
                 return redirect(f'/restaurant_booking/{name}/')
-            if new_booking == 'Too close':
+            if new_booking == 'Too Close':
                 messages.add_message(request, messages.WARNING,
                                      '''The Time of Your Booking is 
                                      Too Close to Another Booking You 
@@ -169,7 +169,9 @@ def restaurant_booking(request, name):
             # Send email confirmation
             send_mail(
                 f'{new_booking.restaurant} Booking Confirmation',
-                f'Hello {new_booking.first_name} your booking to {new_booking.restaurant} has been made for {new_booking.date} at {new_booking.time}',
+                f'''Hello {new_booking.first_name} your booking to 
+                {new_booking.restaurant} has been made for {new_booking.date}
+                 at {new_booking.time}''',
                 'robin__94@hotmail.se',
                 [str(new_booking.email)],
                 fail_silently=False,
