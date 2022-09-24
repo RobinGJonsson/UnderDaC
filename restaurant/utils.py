@@ -79,6 +79,38 @@ def navbar(request, name=None):
     return context
 
 
+def tables_available(new_booking, restaurant):
+    date = new_booking.date
+    time = new_booking.time
+
+    print('restaurant: ', restaurant)
+    print('booking: ', new_booking)
+    restaurant_guests_already_booked = 0
+
+    for booking in Booking.objects.filter(date=date):
+
+        hour_time_dif = abs((
+            booking.time.hour*60 + booking.time.minute) - (
+                time.hour*60 + time.minute)) / 60
+        if hour_time_dif <= 3:
+            restaurant_guests_already_booked += booking.guest_count
+
+    print(restaurant.tables * 2)
+    print(restaurant_guests_already_booked)
+
+    try:
+        tables_available = (
+            (restaurant.tables * 2) - restaurant_guests_already_booked) / 2
+    except ZeroDivisionError:
+        tables_available = restaurant.tables
+    print('Tables availabe: ', tables_available)
+    
+    if tables_available / (new_booking.guest_count / 2) < 1:
+        return False
+    else:
+        return True
+
+
 def booking_validation(form, customer, restaurant):
     new_booking = form.save(commit=False)
     booking_date = new_booking.date
@@ -99,12 +131,13 @@ def booking_validation(form, customer, restaurant):
     # belonging to the current customer
     for booking in customer_bookings:
         if booking.date == booking_date:
-            booking.time.hour*60 + booking.time.minute
-            booking_time.hour*60 + booking_time.minute
             hour_time_dif = abs((
                 booking.time.hour*60 + booking.time.minute
             ) - (booking_time.hour*60 + booking_time.minute)) / 60
             if hour_time_dif <= 3 and (new_booking.id != booking.id):
-                return False
-
-    return new_booking
+                return 'Too Close'
+    
+    if tables_available(new_booking, restaurant):
+        return new_booking
+    else:
+        return 'No Tables'

@@ -51,7 +51,7 @@ def contact(request):
                 contact.customer = request.user
             contact.save()
             messages.add_message(request, messages.INFO,
-                                 '''Your Message Has Been Sent, We Will Get 
+                                 '''Your Message Has Been Sent, We Will Get
                                  Back To You Shortly''')
             return redirect('/home/')
 
@@ -122,7 +122,7 @@ def process_order(request):
                 address=data['deliveryFormData']['address'],
                 city=data['deliveryFormData']['city']
             ).save()
-        
+
         print('Order Completed')
 
     else:
@@ -148,7 +148,12 @@ def restaurant_booking(request, name):
         form = BookingForm(request.POST)
         if form.is_valid():
             new_booking = booking_validation(form, customer, restaurant)
-            if not new_booking:
+            if new_booking == 'No Tables':
+                messages.add_message(request, messages.WARNING,
+                                     '''Unfortunatly There Are No 
+                                     Tables Available at Your Chosen Time''')
+                return redirect(f'/restaurant_booking/{name}/')
+            if new_booking == 'Too close':
                 messages.add_message(request, messages.WARNING,
                                      '''The Time of Your Booking is 
                                      Too Close to Another Booking You 

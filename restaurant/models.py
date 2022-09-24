@@ -24,6 +24,7 @@ class Restaurant(models.Model):
     map_num = models.IntegerField(null=True)
     open_times_weekdays = models.CharField(max_length=200, null=True)
     open_times_weekends = models.CharField(max_length=200, null=True)
+    tables = models.IntegerField(null=True) # Two seats per table
 
     def __str__(self):
         return self.name
