@@ -132,11 +132,6 @@ After any action that is sent from the user, the user will get a notification at
 ### Reservations
 After a reservation has been made the submitted email in the reservation will recive an email confirmation.
 
-### Language selection
-The user can select the page language in the top right corner of the navbar. Upon clicking a dropdown the language options will appear.
-
-![Preview](docs/language_select.png)
-
 
 ## Technologies Used
 ### Languages Used
@@ -246,10 +241,6 @@ The user can select the page language in the top right corner of the navbar. Upo
 | Not having any active reservations doesn't display the notification in the navbar    |  Pass |
 | Being logged in displays the profile icon and the logout button. Not being logged displays the login and the register buttons in the navbar    |  Pass |
 | Bookings can be made as a non-registered user    |  Pass |
-| Adding items to cart as a non-registered user    |  Fail |
-| Viewing items on the cart page as a non-registered user    |  Fail |
-| Checking out as a non-registered user    |  Fail |
-| Ability to translate the page with the language select options    |  Fail |
 
 
 
@@ -271,6 +262,7 @@ The user can select the page language in the top right corner of the navbar. Upo
 - Could not deploy to Heroku because the main folder "underdac" was called "UnderDaC" in the Procfile and the settings
 - The maps wouldn't fit and resize inside the accordion as expected. The solution was to not specify a width and only specify the height of the map and also remove the padding of its container.
 - Cart items were changing order when the quantity was changed with the quantity arrows. This was fixed by ordering them by id in the cart view
+- Could not send emails with "sendgrid". The problem as far as I know was that I needed to install "django-sendgrid-v5".
 
 
 ## Deployment

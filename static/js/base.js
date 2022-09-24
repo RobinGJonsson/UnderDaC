@@ -1,4 +1,24 @@
 
+
+// Card flip activation for maps in homepage
+let mapBtns = document.querySelectorAll('.map-btn');
+
+for (let btn of mapBtns) {
+    btn.addEventListener('click', function() {
+        let mapId = this.dataset.mapnum;
+        cardId = 'flip-card-inner-' + mapId;
+
+        card = document.getElementById(cardId);
+
+        if (card.classList.contains('flip')) {
+            card.classList.remove('flip');
+        }
+        else {
+            card.classList.add('flip');
+        }
+    })
+}
+
 //Auto close bootstrap messages
 alertWindow = document.querySelectorAll('#msg');
 

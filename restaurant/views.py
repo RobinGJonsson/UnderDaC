@@ -30,6 +30,7 @@ def menu(request):
     if request.method == 'POST':
         messages.add_message(request, messages.INFO,
                              'Item Added To Your Order')
+        return redirect('/menu/')
 
     return render(request, 'menu.html', context)
 
@@ -163,10 +164,8 @@ def restaurant_booking(request, name):
             # Send email confirmation
             send_mail(
                 f'{new_booking.restaurant} Booking Confirmation',
-                f'''Hello {new_booking.first_name} your booking to 
-                {new_booking.restaurant} has been made for
-                 {new_booking.date} at {new_booking.time}''',
-                'c.robin.g.j@gmail.com',
+                f'Hello {new_booking.first_name} your booking to {new_booking.restaurant} has been made for {new_booking.date} at {new_booking.time}',
+                'robin__94@hotmail.se',
                 [str(new_booking.email)],
                 fail_silently=False,
             )

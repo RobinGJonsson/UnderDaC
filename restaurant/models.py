@@ -8,7 +8,7 @@ class Customer(models.Model):
     customer = models.OneToOneField(User, null=True, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=200, null=True, blank=True)
     last_name = models.CharField(max_length=200, null=True, blank=True)
-    phone = models.CharField(max_length=200, null=True, blank=True)
+    phone = models.CharField(max_length=150, null=True, blank=True)
     address = models.CharField(max_length=200, null=True, blank=True)
     email = models.EmailField(null=True, unique=True)
 
