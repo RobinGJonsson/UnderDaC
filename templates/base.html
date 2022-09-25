@@ -49,6 +49,8 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <!--Top Navbar menu-->
+        <!--Don't displpay if user is in non-native views-->
+        {% if cart_count %}
         <div class="collapse navbar-collapse navmenu justify-content-end">
           <ul class="navbar-nav">
 
@@ -106,6 +108,7 @@
             </li>
           </ul>
         </div>
+        {% endif %}
       </div>
     </nav>
     <!--Lower navbar-->

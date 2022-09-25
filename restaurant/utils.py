@@ -3,6 +3,7 @@ import json
 
 
 def check_user_auth(request):
+    ''' Returns the user if  the user is authenticated otherwise it returns Fasle '''
     # Check if user is logged in
     if request.user.is_authenticated:
         customer = request.user
@@ -61,6 +62,9 @@ def cart_data(request):
 
 
 def navbar(request, name=None):
+    '''Returns the context necessary to populate the 
+    navbar with dynamic information'''
+
     customer = check_user_auth(request)
     cart_info = cart_data(request)
     cart_count = cart_info['cart_count']
@@ -80,27 +84,28 @@ def navbar(request, name=None):
 
 
 def tables_available(new_booking, restaurant):
+    ''' Returns True if there are tables available and False if there aren't'''
     date = new_booking.date
     time = new_booking.time
 
-    print('restaurant: ', restaurant)
-    print('booking: ', new_booking)
     restaurant_guests_already_booked = 0
 
     for booking in Booking.objects.filter(date=date):
-
+        # Get the hour difference between the new booking and the other bookings on the same date
         hour_time_dif = abs((
             booking.time.hour*60 + booking.time.minute) - (
                 time.hour*60 + time.minute)) / 60
+
+        # If the hour difference is less than three hours we assume the table is free
         if hour_time_dif <= 3:
             restaurant_guests_already_booked += booking.guest_count
 
+    # Catch exception if there are no guests already booked 
     try:
         tables_available = (
             (restaurant.tables * 2) - restaurant_guests_already_booked) / 2
     except ZeroDivisionError:
         tables_available = restaurant.tables
-    print('Tables availabe: ', tables_available)
 
     if tables_available / (new_booking.guest_count / 2) < 1:
         return False
@@ -109,6 +114,10 @@ def tables_available(new_booking, restaurant):
 
 
 def booking_validation(form, customer, restaurant):
+    '''Returns the booking if there are tables available and the 
+    customer doesn't have an active booking within 3 hours of the 
+    new booking, otherwise it will return a string describing why not.
+    '''
     new_booking = form.save(commit=False)
     booking_date = new_booking.date
     booking_time = new_booking.time
