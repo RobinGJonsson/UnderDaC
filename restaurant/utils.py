@@ -3,13 +3,22 @@ import json
 
 
 def check_user_auth(request):
-    ''' Returns the user if  the user is authenticated otherwise it returns Fasle '''
+    ''' Returns the user if  the user is authenticated 
+    otherwise it returns False '''
     # Check if user is logged in
     if request.user.is_authenticated:
         customer = request.user
         return customer
     else:
         return False
+
+
+def hour_dif(time1, time2):
+    time1_minutes = time1.hour*60 + time1.minute
+    time2_minutes = time2.hour*60 + time2.minute
+
+    hour_dif = abs(time1_minutes - time2_minutes) / 60
+    return hour_dif
 
 
 def cart_data(request):
@@ -85,22 +94,17 @@ def navbar(request, name=None):
 
 def tables_available(new_booking, restaurant):
     ''' Returns True if there are tables available and False if there aren't'''
-    date = new_booking.date
-    time = new_booking.time
 
     restaurant_guests_already_booked = 0
 
-    for booking in Booking.objects.filter(date=date):
-        # Get the hour difference between the new booking and the other bookings on the same date
-        hour_time_dif = abs((
-            booking.time.hour*60 + booking.time.minute) - (
-                time.hour*60 + time.minute)) / 60
+    for booking in Booking.objects.filter(date=new_booking.date):
+        hour_difference = hour_dif(booking.time, new_booking.time)
 
         # If the hour difference is less than three hours we assume the table is free
-        if hour_time_dif <= 3:
+        if hour_difference <= 3:
             restaurant_guests_already_booked += booking.guest_count
 
-    # Catch exception if there are no guests already booked 
+    # Catch exception if there are no guests already booked
     try:
         tables_available = (
             (restaurant.tables * 2) - restaurant_guests_already_booked) / 2
@@ -119,8 +123,6 @@ def booking_validation(form, customer, restaurant):
     new booking, otherwise it will return a string describing why not.
     '''
     new_booking = form.save(commit=False)
-    booking_date = new_booking.date
-    booking_time = new_booking.time
 
     if customer:
         customer_bookings = Booking.objects.filter(
@@ -135,14 +137,14 @@ def booking_validation(form, customer, restaurant):
 
     # Don't allow bookings 3 hours before or after an existing booking
     # belonging to the current customer
+
     for booking in customer_bookings:
-        if booking.date == booking_date:
-            hour_time_dif = abs((
-                booking.time.hour*60 + booking.time.minute
-            ) - (booking_time.hour*60 + booking_time.minute)) / 60
-            if hour_time_dif <= 3 and (new_booking.id != booking.id):
+        if booking.date == new_booking.date:
+            hour_difference = hour_dif(booking.time, new_booking.time)
+
+            if hour_difference <= 3 and (new_booking.id != booking.id):
                 return 'Too Close'
-    
+
     if tables_available(new_booking, restaurant):
         return new_booking
     else:
