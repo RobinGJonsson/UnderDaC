@@ -26,17 +26,17 @@
     <!--Header row-->
     <div class="row border-bottom border-light text-end text-sm-start d-none d-sm-flex">
         <div class="col-sm-3"></div>
-        <div class="col-sm-3">Item</div>
+        <div class="col-sm-2">Item</div>
         <div class="col-sm-2">Price</div>
         <div class="col-sm-2">Quantity</div>
         <div class="col-sm-2">Total</div>
     </div>
     <!--Loop through cart each cart item and give it a row-->
     {% for item in items %}
-    <div class="row py-3 pe-3 border-bottom border-light text-end text-sm-start">
+    <div class="row py-3 border-bottom border-light text-end text-sm-start">
         <div class="col-sm-3 position-relative"><img class="cart-img  rounded" src="{{ item.item.image.url }}" alt="">
         </div>
-        <div class="col-sm-3">
+        <div class="col-sm-2">
             <p class="my-0">{{ item.item.name }}</p>
         </div>
         <div class="col-sm-2">
@@ -53,12 +53,15 @@
                     alt="Change quantity down">
             </span>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 col-md-1">
             <p class="my-0">${{ item.get_total|floatformat:2 }}</p>
+        </div>
+        <div class="col-sm-1 col-md-2 position-relative">
+            <button class="update-cart delete-all float-end btn btn-danger btn-sm" type="button" data-item="{{ item.item.id }}" data-action="deleteAll">Remove</button>
         </div>
     </div>
     {% endfor %}
 </div>
-<script src="https://res.cloudinary.com/dcyv0gszf/raw/upload/v1663763491/static/js/cart.aa0bc6c2aa8d.js"></script>
+<script src="{% static 'js/cart.js' %}"></script>
 
 {% endblock %}

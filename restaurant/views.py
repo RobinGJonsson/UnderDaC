@@ -225,12 +225,14 @@ def update_cart(request):
         order_item.quantity = (order_item.quantity + 1)
     elif action == 'subtract':
         order_item.quantity = (order_item.quantity - 1)
-
+    elif action == 'deleteAll':
+        order_item.quantity = 0
+        
     order_item.save()
 
     if order_item.quantity <= 0:
         order_item.delete()
-    return JsonResponse('Item was added', safe=False)
+    return JsonResponse('Item was updated', safe=False)
 
 
 def update_details(request):

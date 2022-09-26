@@ -143,9 +143,6 @@ a {
 	opacity: .6;
 }
 
-.table {
-    --bs-table-color: #fff;
-}
 
 /*-------------- Checkout page*/
 
@@ -231,6 +228,43 @@ a {
 
 /*----------Media Queries*/
 
+@media (max-width: 990px) {
+    .logo-img {
+        left: 40px;
+    }
+
+    .delete-all {
+        position: absolute;
+        right: 10%;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-img-link {
+        display: none;
+    }
+
+    .logo-brand-link {
+        display: block;
+    }
+
+    .delete-all {
+        right: 0;
+    }
+}
+
+@media (max-width: 576px){
+    .cart-img {
+        position: absolute;
+        left: 12px;
+        max-width: 125px;
+    }
+
+    .delete-all {
+        position: static;
+    }
+}
+
 @media (max-width: 400px){
 
     .customer-booking {
@@ -249,30 +283,5 @@ a {
 
     .booking-footer {
         text-align: center;
-    }
-}
-
-
-@media (max-width: 576px){
-    .cart-img {
-        position: absolute;
-        left: 12px;
-        max-width: 125px;
-    }
-}
-
-@media (max-width: 768px) {
-    .logo-img-link {
-        display: none;
-    }
-
-    .logo-brand-link {
-        display: block;
-    }
-}
-
-@media (max-width: 990px) {
-    .logo-img {
-        left: 40px;
     }
 }
