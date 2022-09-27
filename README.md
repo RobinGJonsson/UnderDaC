@@ -222,7 +222,7 @@ After a reservation has been made the submitted email in the reservation will re
 | Clicking logout in the navbar page takes the user to the signout page   |  Pass |
 | Clicking login in the navbar page takes the user to the login page   |  Pass |
 | Clicking register in the navbar page takes the user to the signup page   |  Pass |
-| Clicking the map buttons on the home page opens a map of the restaurant's address   |  Pass |
+| Clicking the map buttons on the home page flips the restaurant card and displays a map of the restaurant's address   |  Pass |
 | Clicking "book table" on the home page banner takes the user to the restaurant booking page   |  Pass |
 | Clicking today's special on the home page takes the user to the menu page    |  Pass |
 | Clicking the name of each restaurant in the home page restaurant display takes the user to the corresponding restaurant booking page   |  Pass |
@@ -237,10 +237,14 @@ After a reservation has been made the submitted email in the reservation will re
 | Filling out the contact form on the contact page and clicking send, if the form is valid it gets saved to the database, and a notification appears on top of the page    |  Pass |
 | If the user is logged in, the email field in the contact form is prefilled    |  Pass |
 | Clicking change quantity arrows on the cart page update the item's quantity. If the quantity goes to 0 the item is removed from the cart   |  Pass |
+| Clicking the remove button in the cart page deletes the item from the cart and the database   |  Pass |
 | Clicking the delivery button displays extra form fields to fill out   |  Pass |
 | Not having any active reservations doesn't display the notification in the navbar    |  Pass |
 | Being logged in displays the profile icon and the logout button. Not being logged displays the login and the register buttons in the navbar    |  Pass |
 | Bookings can be made as a non-registered user    |  Pass |
+| Entering an incrrrect url will display a custom 404 page    |  Pass |
+
+
 
 
 
@@ -253,8 +257,7 @@ After a reservation has been made the submitted email in the reservation will re
 
 
 ## Bugs 
-- Cookies that exist on the webpage don't exist in the request
-- Closing the message banner before the time out is over causes an exception because now there is nothing to close
+- Cant' access the cart cookie from the view, when requesting cookies from the view it only recives cookies like csrf_token etc. 
 
 
 ## Fixed Bugs

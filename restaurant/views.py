@@ -13,6 +13,7 @@ def home(request):
     restaurants = Restaurant.objects.all()
 
     context = navbar(request)
+    print(context['cart_count'])
     context['restaurants'] = restaurants
     return render(request, 'home.html', context)
 
