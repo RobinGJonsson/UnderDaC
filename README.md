@@ -62,7 +62,7 @@ A deployed link to the website can be found [here](https://underdac.herokuapp.co
 ## Existing Features
 
 ### Navbar
-The main navbar contains a logo, a top navbar, and a bottom navbar. If the user is logged in, then the top navbar contains a logout button and a profile button, and if the user has an active booking it also displays a notification to remind the user of the upcoming reservation. If the user is not logged in it will display a login and a sign-up button. And whether or not the user is logged in it will always display the language selection and a cart. The bottom navbar contains links to all the main pages of the site; Home, Menu, Booking Table and Contact Us.
+The main navbar contains a logo, a top navbar, and a bottom navbar. If the user is logged in, then the top navbar contains a logout button and a profile button, and if the user has an active booking it also displays a notification to remind the user of the upcoming reservation. If the user is not logged in it will display a login and sign-up button. And whether or not the user is logged in it will always display the language selection and a cart. The bottom navbar contains links to all the main pages of the site; Home, Menu, Booking Table and Contact Us.
 
 ![Preview](docs/navbar.png)
 
@@ -130,7 +130,7 @@ After any action that is sent from the user, the user will get a notification at
 ![Preview](docs/notification.png)
 
 ### Reservations
-After a reservation has been made the submitted email in the reservation will recive an email confirmation.
+After a reservation has been made the submitted email in the reservation will receive an email confirmation.
 
 
 ## Technologies Used
@@ -237,12 +237,12 @@ After a reservation has been made the submitted email in the reservation will re
 | Filling out the contact form on the contact page and clicking send, if the form is valid it gets saved to the database, and a notification appears on top of the page    |  Pass |
 | If the user is logged in, the email field in the contact form is prefilled    |  Pass |
 | Clicking change quantity arrows on the cart page update the item's quantity. If the quantity goes to 0 the item is removed from the cart   |  Pass |
-| Clicking the remove button in the cart page deletes the item from the cart and the database   |  Pass |
+| Clicking the remove button on the cart page deletes the item from the cart and the database   |  Pass |
 | Clicking the delivery button displays extra form fields to fill out   |  Pass |
 | Not having any active reservations doesn't display the notification in the navbar    |  Pass |
 | Being logged in displays the profile icon and the logout button. Not being logged displays the login and the register buttons in the navbar    |  Pass |
 | Bookings can be made as a non-registered user    |  Pass |
-| Entering an incrrrect url will display a custom 404 page    |  Pass |
+| Entering an incorrect URL will display a custom 404 page    |  Pass |
 
 
 
@@ -257,7 +257,7 @@ After a reservation has been made the submitted email in the reservation will re
 
 
 ## Bugs 
-- Cant' access the cart cookie from the view, when requesting cookies from the view it only recives cookies like csrf_token etc. 
+- Cant' access the cart cookie from the view, when requesting cookies from the view it only receives cookies like csrf_token etc. 
 
 
 ## Fixed Bugs

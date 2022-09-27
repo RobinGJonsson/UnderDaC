@@ -68,15 +68,6 @@
             <li class="nav-item">
               <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
             </li>
-            <li class="nav-item mt-2">
-              <div class="dropdown">
-                <i class="bi bi-person-fill" data-bs-toggle="dropdown" type="button"></i>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                  <li><a class="dropdown-item" href="{% url 'my_bookings' %}">My Reservations</a></li>
-                  <li><a class="dropdown-item" href="{% url 'my_details' %}">My Details</a></li>
-                </ul>
-              </div>
-            </li>
             <!--If the user is not logged in, display login or register options-->
             {% else %}
             <li class="nav-item">
@@ -95,6 +86,16 @@
               </a>
             </li>
             {% endif %}
+            <li class="nav-item mt-2">
+              <div class="dropdown">
+                <span class="nav-link d-inline">Account <i class="bi bi-person-fill text-light data-bs-toggle="dropdown" type="button"></i></span>
+                <ul class="dropdown-menu dropdown-menu-dark">
+                  <li class="dropdown-item">Logged in as {{ user.first_name|capfirst }}</li>
+                  <li><a class="dropdown-item" href="{% url 'my_bookings' %}">My Reservations</a></li>
+                  <li><a class="dropdown-item" href="{% url 'my_details' %}">My Details</a></li>
+                </ul>
+              </div>
+            </li>
             <!--Page Language selection-->
             <li class="nav-item d-none">
               <div class="dropdown">

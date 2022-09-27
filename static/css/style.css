@@ -226,6 +226,13 @@ a {
 }
 
 
+/*Bootstrap classes */
+.dropdown-menu[data-bs-popper] {
+    left: -140px;
+    width: fit-content;
+  }
+  
+
 /*----------Media Queries*/
 
 @media (max-width: 990px) {

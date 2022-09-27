@@ -1,4 +1,4 @@
-from .models import Contact, Booking, Customer, DeliveryInfo
+from .models import Contact, Booking, Customer
 import datetime
 from django import forms
 from django.core.validators import MinValueValidator
