@@ -262,9 +262,12 @@ a {
 @media (max-width: 576px){
     .cart-img {
         position: absolute;
-        left: 0;
-        translate: 10% 25%;
+        left: 5%;
         max-width: 150px;
+    }
+
+    .translate-cart-img {
+        transform: translateY(25%);
     }
 
     .delete-all {
@@ -292,7 +295,7 @@ a {
         text-align: center;
     }
 
-    .cart-img {
-        translate: 10% 50%;
+    .translate-cart-img {
+        transform: translateY(50%);
     }
 }

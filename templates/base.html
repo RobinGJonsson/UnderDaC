@@ -32,7 +32,7 @@
     let user = '{{ request.user }}';
     let csrftoken = '{{ csrf_token }}';
   </script>
-  <script src="{% static 'js/base.js' %}"></script>
+  <script src="{% static 'js/base.js' %}" defer></script>
 </head>
 
 <body class="bg-dark text-light">
@@ -91,7 +91,7 @@
               <span class="nav-link"  data-bs-toggle="dropdown" type="button">Account <i class="bi bi-person-fill text-light"></i></span>
               <div class="dropdown">
                 <ul class="dropdown-menu dropdown-menu-dark">
-                  <li class="dropdown-item">Logged in as {{ user.first_name|capfirst }}</li>
+                  <li class="px-3 text-decoration-underline">Logged in as {{ user.first_name|capfirst }}</li>
                   <li><a class="dropdown-item" href="{% url 'my_bookings' %}">My Reservations</a></li>
                   <li><a class="dropdown-item" href="{% url 'my_details' %}">My Details</a></li>
                 </ul>
