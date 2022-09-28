@@ -9,6 +9,12 @@ A deployed link to the website can be found [here](https://underdac.herokuapp.co
 # Table of Contents
 - [Table of Contents](#table-of-contents)
 - [Introduction](#introduction)
+- [Design](#design)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+- [Testing](#testing)
+- [Deployment](#deployment)
+- [Media](#media)
 - [Credits](#credits)
 
 
@@ -132,6 +138,8 @@ After any action that is sent from the user, the user will get a notification at
 ### Reservations
 After a reservation has been made the submitted email in the reservation will receive an email confirmation.
 
+[Back to top](#table-of-contents)
+
 
 ## Technologies Used
 ### Languages Used
@@ -155,6 +163,7 @@ After a reservation has been made the submitted email in the reservation will re
 * [ShareX](https://www.sharex.com/) Images for this project were sourced from ShareX.
 * [a11y](https://color.a11y.com/) Color Contrast Accessibility Validator.
 
+[Back to top](#table-of-contents)
 
 ## Testing
 
@@ -245,9 +254,6 @@ After a reservation has been made the submitted email in the reservation will re
 | Entering an incorrect URL will display a custom 404 page    |  Pass |
 
 
-
-
-
 ### Responsiveness Browser Compatibility
 
 |  | Chrome | Firefox | Edge | Safari | Pass/Fail |
@@ -257,8 +263,7 @@ After a reservation has been made the submitted email in the reservation will re
 
 
 ## Bugs 
-- Cant' access the cart cookie from the view, when requesting cookies from the view it only receives cookies like csrf_token etc. 
-
+- There are no known bugs present at the moment of writing this README
 
 ## Fixed Bugs
 - Static files don't get uploaded with Heroku. Solved by putting static files in cloudinary
@@ -267,6 +272,7 @@ After a reservation has been made the submitted email in the reservation will re
 - Cart items were changing order when the quantity was changed with the quantity arrows. This was fixed by ordering them by id in the cart view
 - Could not send emails with "sendgrid". The problem as far as I know was that I needed to install "django-sendgrid-v5".
 
+[Back to top](#table-of-contents)
 
 ## Deployment
 * This project was developed using a GitPod workspace. The code was committed to Git and pushed to GitHub using the terminal.
@@ -345,4 +351,5 @@ to copy the URL
 
 This project is for educational use only and was created for the Code Institute Module.
 
+[Back to top](#table-of-contents)
 

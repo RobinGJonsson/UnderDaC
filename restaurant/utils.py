@@ -3,7 +3,7 @@ import json
 
 
 def check_user_auth(request):
-    ''' Returns the user if  the user is authenticated 
+    ''' Returns the user if  the user is authenticated
     otherwise it returns False '''
     # Check if user is logged in
     if request.user.is_authenticated:
