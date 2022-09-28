@@ -79,10 +79,11 @@
             {% endif %}
 
             <!--Link to cart-->
-            {% if cart_count != 0 %}
+            {% if cart_count %}
             <li class="nav-item">
-              <a href="{% url 'cart' %}" class="nav-link" aria-label="Cart button"><i class="bi bi-cart"></i>
-                <span class="cart-item-count">{% if cart_count %}{{ cart_count }}{% else %}0{% endif %}</span>
+              <a href="{% url 'cart' %}" class="nav-link" aria-label="Cart button">
+                <i class="bi bi-cart"></i>
+                <span class="cart-item-count">{{ cart_count }}</span>
               </a>
             </li>
             {% endif %}

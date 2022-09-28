@@ -71,15 +71,17 @@ a {
 /*------------Navbar*/
 
 .cart-item-count {
-    display: inline-block;
-    text-align: center;
-    line-height: 18px;
+    position: absolute;
+    top: -2px;
+    left: 20px;
     background-color: rgb(237, 29, 29);
     color: #fff;
-    width: 15px;
-    height: 18px;
+    width: fit-content;
+    min-width: 15px;
+    padding: 4px;
+    text-align: center;
+    line-height: 10px;
     border-radius: 50%;
-    vertical-align: top;
 }
 
 /*------------Home page */
