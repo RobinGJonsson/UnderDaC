@@ -252,6 +252,8 @@ After a reservation has been made the submitted email in the reservation will re
 | Being logged in displays the profile icon and the logout button. Not being logged displays the login and the register buttons in the navbar    |  Pass |
 | Bookings can be made as a non-registered user    |  Pass |
 | Entering an incorrect URL will display a custom 404 page    |  Pass |
+| Trying to book before the current time and date, and outside of the restaurant open times is not possible and notifies the user of this     |  Pass |
+
 
 
 ### Responsiveness Browser Compatibility
