@@ -1,7 +1,7 @@
 from .models import Order, Booking, MenuItem, Restaurant
 import json
 import datetime
-import time
+from django.contrib import messages
 
 
 def check_user_auth(request):
@@ -171,3 +171,31 @@ def booking_validation(form, customer, restaurant):
         return new_booking
     else:
         return {'message': 'No Tables'}
+
+
+def displpay_msg(request, msg_key, current_time=None,
+                 level=messages.WARNING):
+    msg_dict = {
+        'No Tables': '''Unfortunatly There Are No 
+                        Tables Available at Your Chosen Time''',
+        'Too Close': '''The Time of Your Booking is 
+                        Too Close to Another Booking You 
+                        Have. Bookings Must Be at 
+                        Least 3 Hours Apart''',
+        'Invalid Time': f'''Please Pick a Time after 
+                            {current_time}''',
+        'Not Open': '''We Are Unfortunatly Not Open at 
+                       Your Chosen Time, Please Chose a 
+                       Different Time''',
+        'Booking Success': '''The Booking Confirmation Has
+                            Been Sent to Your Email''',
+        'Booking Update': '''Your Booking Has Been Updated''',
+        'Add Item': 'Item Added To Your Order',
+        'Contact': '''Your Message Has Been Sent, We Will Get
+                      Back To You Shortly''',
+        'Update Details': 'Your Details Have Been Updated',
+        'Delete Booking': 'Your Booking Has Been Deleted',
+        'Delete Account': 'Your Account Has Been Deleted'
+    }
+
+    messages.add_message(request, level, msg_dict[msg_key])

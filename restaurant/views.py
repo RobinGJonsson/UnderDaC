@@ -1,7 +1,7 @@
 import json
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
-from .utils import cart_data, check_user_auth, navbar, booking_validation
+from .utils import cart_data, check_user_auth, navbar, booking_validation, displpay_msg
 from .forms import BookingForm, ContactForm, SignupForm
 from .models import Restaurant, Order, OrderItem, MenuItem, DeliveryInfo, Booking, Customer
 from django.contrib import messages
@@ -28,8 +28,7 @@ def menu(request):
                     'categories': categories})
 
     if request.method == 'POST':
-        messages.add_message(request, messages.INFO,
-                             'Item Added To Your Order')
+        displpay_msg(request, 'Add Item')
         return redirect('/menu/')
 
     return render(request, 'menu.html', context)
@@ -50,9 +49,7 @@ def contact(request):
             if request.user.is_authenticated:
                 contact.customer = request.user
             contact.save()
-            messages.add_message(request, messages.INFO,
-                                 '''Your Message Has Been Sent, We Will Get
-                                 Back To You Shortly''')
+            displpay_msg(request, 'Contact', level=messages.INFO)
             return redirect('/home/')
 
     context['form'] = form
@@ -127,7 +124,7 @@ def process_order(request):
 
     else:
         print('User is not logged in')
-    return JsonResponse('Payment Complete', safe=False)    
+    return JsonResponse('Payment Complete', safe=False)
 
 
 def restaurant_booking(request, name):
@@ -148,32 +145,15 @@ def restaurant_booking(request, name):
         form = BookingForm(request.POST)
         if form.is_valid():
             new_booking = booking_validation(form, customer, restaurant)
+
             if type(new_booking) is dict:
-                if new_booking['message'] == 'No Tables':
-                    messages.add_message(request, messages.WARNING,
-                                        '''Unfortunatly There Are No 
-                                        Tables Available at Your Chosen Time''')
-                    return redirect(f'/restaurant_booking/{name}/')
-                if new_booking['message'] == 'Too Close':
-                    messages.add_message(request, messages.WARNING,
-                                        '''The Time of Your Booking is 
-                                        Too Close to Another Booking You 
-                                        Have. Bookings Must Be at 
-                                        Least 3 Hours Apart''')
-                    return redirect(f'/restaurant_booking/{name}/')
+                if 'current_time' in new_booking.keys():
+                    current_time = new_booking['current_time']
+                else:
+                    current_time = None
 
-                if new_booking['message'] == 'Invalid Time':
-                    messages.add_message(request, messages.WARNING,
-                                        f'''Please Pick a Time after 
-                                        {new_booking['current_time']}''')
-                    return redirect(f'/restaurant_booking/{name}/')
-
-                if new_booking['message'] == 'Not Open':
-                    messages.add_message(request, messages.WARNING,
-                                        '''We Are Unfortunatly Not Open at 
-                                        Your Chosen Time, Please Chose a 
-                                        Different Time''')
-                    return redirect(f'/restaurant_booking/{name}/')
+                displpay_msg(request, new_booking['message'], current_time)
+                return redirect(f'/restaurant_booking/{name}/')
 
             if customer:
                 new_booking.customer = customer
@@ -190,9 +170,9 @@ def restaurant_booking(request, name):
                 [str(new_booking.email)],
                 fail_silently=False,
             )
-            messages.add_message(request, messages.INFO,
-                                 '''The Booking Confirmation Has
-                                  Been Sent to Your Email''')
+
+            displpay_msg(request, 'Booking Success', level=messages.INFO)
+
             return (redirect(f'/restaurant_booking/{name}'))
 
     context.update({'restaurant': restaurant,
@@ -259,8 +239,7 @@ def update_details(request):
         form = SignupForm(request.POST, instance=customer_details)
         if form.is_valid:
             form.save()
-            messages.add_message(request, messages.INFO,
-                                 'Your Details Have Been Updated')
+            displpay_msg(request, 'Update Details', level=messages.INFO)
             return redirect('/my_details/')
 
     context.update({'form': form,
@@ -279,36 +258,21 @@ def update_booking(request, pk):
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
             new_booking = booking_validation(form, customer, restaurant)
+            
             if type(new_booking) is dict:
-                if new_booking['message'] == 'No Tables':
-                    messages.add_message(request, messages.WARNING,
-                                        '''Unfortunatly There Are No 
-                                        Tables Available at Your Chosen Time''')
-                    return redirect(f'/restaurant_booking/{name}/')
-                if new_booking['message'] == 'Too Close':
-                    messages.add_message(request, messages.WARNING,
-                                        '''The Time of Your Booking is 
-                                        Too Close to Another Booking You 
-                                        Have. Bookings Must Be at 
-                                        Least 3 Hours Apart''')
-                    return redirect(f'/restaurant_booking/{name}/')
+                if 'current_time' in new_booking.keys():
+                    current_time = new_booking['current_time']
+                else:
+                    current_time = None
 
-                if new_booking['message'] == 'Invalid Time':
-                    messages.add_message(request, messages.WARNING,
-                                        f'''Please Pick a Time after 
-                                        {new_booking['current_time']}''')
-                    return redirect(f'/restaurant_booking/{name}/')
+                displpay_msg(request, new_booking['message'], current_time)
+                
+                return redirect(f'/restaurant_booking/{restaurant.name}/')
 
-                if new_booking['message'] == 'Not Open':
-                    messages.add_message(request, messages.WARNING,
-                                        '''We Are Unfortunatly Not Open at 
-                                        Your Chosen Time, Please Chose a 
-                                        Different Time''')
-                    return redirect(f'/restaurant_booking/{name}/')
-                    
             new_booking.save()
-            messages.add_message(request, messages.INFO,
-                                 'Your Booking Has Been Updated')
+            
+            displpay_msg(request, 'Booking Update', level=messages.INFO)
+            
             return redirect(f'/restaurant_booking/{restaurant.name}/')
 
     context.update({'form': form,
@@ -321,8 +285,7 @@ def delete_booking(request, pk, name=None):
     booking = Booking.objects.get(id=pk)
     booking.delete()
 
-    messages.add_message(request, messages.INFO,
-                         'Your Booking Has Been Deleted')
+    displpay_msg(request, 'Delete Booking', level=messages.INFO)
 
     if name == 'None':
         return redirect('/my_bookings/')
@@ -335,7 +298,6 @@ def delete_account(request):
     logout(request)
     user.delete()
 
-    messages.add_message(request, messages.INFO,
-                         'Your Account Has Been Deleted')
+    displpay_msg(request, 'Delete Account', level=messages.INFO)
 
     return redirect('/')
