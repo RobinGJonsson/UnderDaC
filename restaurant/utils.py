@@ -149,20 +149,20 @@ def booking_validation(form, customer, restaurant):
             email=new_booking.email,
             restaurant=restaurant)
 
+    # Check that booking time is not passed and that it is not outside of open times
+    if new_booking.date == now.date():
+        if new_booking.time < now.time():
+            return {'message': 'Invalid Time',
+                    'current_time': now.time().strftime('%H:%M')}
+
     # Don't allow bookings 3 hours before or after an existing booking
     # belonging to the current customer
-
     for booking in customer_bookings:
         if booking.date == new_booking.date:
             hour_difference = hour_dif(booking.time, new_booking.time)
 
             if hour_difference <= 3 and (new_booking.id != booking.id):
                 return {'message': 'Too Close'}
-
-            # Check that booking time is not passed and that it is not outside of open times
-            if new_booking.time < now.time():
-                return {'message': 'Invalid Time',
-                        'current_time': now.time().strftime('%H:%M')}
 
     if new_booking.time < open_hour or new_booking.time > closing_hour:
         return {'message': 'Not Open'}

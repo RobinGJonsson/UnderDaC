@@ -146,6 +146,7 @@ def restaurant_booking(request, name):
         if form.is_valid():
             new_booking = booking_validation(form, customer, restaurant)
 
+            # Check if it's a python dict, if it isn't it is a valid booking
             if type(new_booking) is dict:
                 if 'current_time' in new_booking.keys():
                     current_time = new_booking['current_time']
@@ -172,7 +173,6 @@ def restaurant_booking(request, name):
             )
 
             displpay_msg(request, 'Booking Success', level=messages.INFO)
-
             return (redirect(f'/restaurant_booking/{name}'))
 
     context.update({'restaurant': restaurant,
@@ -249,30 +249,29 @@ def update_details(request):
 
 def update_booking(request, pk):
     customer = check_user_auth(request)
-    booking = Booking.objects.get(id=pk)
-    form = BookingForm(instance=booking)
-    restaurant = booking.restaurant
+    old_booking = Booking.objects.get(id=pk)
+    form = BookingForm(instance=old_booking)
+    restaurant = old_booking.restaurant
     context = navbar(request, name=restaurant.name)
 
     if request.method == 'POST':
-        form = BookingForm(request.POST, instance=booking)
+        form = BookingForm(request.POST, instance=old_booking)
         if form.is_valid():
             new_booking = booking_validation(form, customer, restaurant)
             
+            # Check if it's a python dict, if it isn't it is a valid booking
             if type(new_booking) is dict:
                 if 'current_time' in new_booking.keys():
                     current_time = new_booking['current_time']
                 else:
                     current_time = None
 
-                displpay_msg(request, new_booking['message'], current_time)
-                
+                displpay_msg(request, new_booking['message'], current_time)     
                 return redirect(f'/restaurant_booking/{restaurant.name}/')
 
             new_booking.save()
             
             displpay_msg(request, 'Booking Update', level=messages.INFO)
-            
             return redirect(f'/restaurant_booking/{restaurant.name}/')
 
     context.update({'form': form,
