@@ -27,7 +27,7 @@ if (alertWindow.length > 0) {
     let messages = document.querySelector('#msg');
     let alert = new bootstrap.Alert(messages);
     alert.close();
-  }, 3000);
+  }, 5000);
 }
 
 function getCookie(name) {
