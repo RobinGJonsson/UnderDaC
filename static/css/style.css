@@ -234,6 +234,12 @@ a {
   }
   
 
+/* Notifications */
+.notification {
+    min-width: 50%; 
+    width: fit-content;
+}
+
 /*----------Media Queries*/
 
 @media (max-width: 990px) {

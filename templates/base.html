@@ -141,8 +141,13 @@
     <!--Alert pop-up-->
     <div class="update-cart-alert"></div>
     <div class="container">
-      <div class="row">
-        <div class="col-md-6 offset-md-3">
+      <div class="notification mx-auto">
+          <div class="alert alert-info alert-dismissable fade show" id="msg" role="alert">
+            Your Booking Has Been Deleted
+            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+          
+        </div>
           {% for message in messages %}
           <div class="alert alert-{{ message.tags }} alert-dismissable fade show" id="msg" role="alert">
             {{ message | safe }}
