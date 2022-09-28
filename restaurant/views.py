@@ -28,7 +28,7 @@ def menu(request):
                     'categories': categories})
 
     if request.method == 'POST':
-        displpay_msg(request, 'Add Item')
+        displpay_msg(request, 'Add Item', level=messages.INFO)
         return redirect('/menu/')
 
     return render(request, 'menu.html', context)
