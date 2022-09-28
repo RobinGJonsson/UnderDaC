@@ -33,16 +33,16 @@
     </div>
     <!--Loop through cart each cart item and give it a row-->
     {% for item in items %}
-    <div class="row py-3 border-bottom border-light text-end text-sm-start">
-        <div class="col-sm-3 position-relative"><img class="cart-img  rounded" src="{{ item.item.image.url }}" alt="">
+    <div class="row py-3 px-2 border-bottom border-light text-end text-sm-start">
+        <div class="col-sm-3 py-1 position-relative"><img class="cart-img  rounded" src="{{ item.item.image.url }}" alt="">
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 py-1">
             <p class="my-0">{{ item.item.name }}</p>
         </div>
-        <div class="col-sm-2">
+        <div class="col-sm-2 py-1">
             <p class="my-0">${{ item.item.price|floatformat:2 }}</p>
         </div>
-        <div class="col-sm-2 d-flex justify-content-sm-start justify-content-end">
+        <div class="col-sm-2 py-1 d-flex justify-content-sm-start justify-content-end">
             <div>{{ item.quantity }}</div>
             <!--Change item quantity buttons-->
             <span class="chg-quantity bg-light ms-2">
@@ -53,10 +53,10 @@
                     alt="Change quantity down">
             </span>
         </div>
-        <div class="col-sm-2 col-md-1">
+        <div class="col-sm-2 col-md-1 py-1">
             <p class="my-0">${{ item.get_total|floatformat:2 }}</p>
         </div>
-        <div class="col-sm-1 col-md-2 position-relative">
+        <div class="col-sm-1 col-md-2 py-1 position-relative">
             <button class="update-cart delete-all float-end btn btn-danger btn-sm" type="button" data-item="{{ item.item.id }}" data-action="deleteAll">Remove</button>
         </div>
     </div>

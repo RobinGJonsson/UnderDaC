@@ -123,8 +123,7 @@ a {
 
 .cart-img {
     width: 40%;
-    min-width: 100px;
-    min-height: 75px;
+    min-width: 125px;
 }
 
 .chg-quantity {
@@ -263,8 +262,9 @@ a {
 @media (max-width: 576px){
     .cart-img {
         position: absolute;
-        left: 12px;
-        max-width: 125px;
+        left: 0;
+        translate: 10% 25%;
+        max-width: 150px;
     }
 
     .delete-all {
@@ -290,5 +290,9 @@ a {
 
     .booking-footer {
         text-align: center;
+    }
+
+    .cart-img {
+        translate: 10% 50%;
     }
 }
