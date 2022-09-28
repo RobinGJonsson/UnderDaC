@@ -127,7 +127,7 @@ def process_order(request):
 
     else:
         print('User is not logged in')
-    return JsonResponse('Payment Complete', safe=False)
+    return JsonResponse('Payment Complete', safe=False)    
 
 
 def restaurant_booking(request, name):
@@ -148,18 +148,32 @@ def restaurant_booking(request, name):
         form = BookingForm(request.POST)
         if form.is_valid():
             new_booking = booking_validation(form, customer, restaurant)
-            if new_booking == 'No Tables':
-                messages.add_message(request, messages.WARNING,
-                                     '''Unfortunatly There Are No 
-                                     Tables Available at Your Chosen Time''')
-                return redirect(f'/restaurant_booking/{name}/')
-            if new_booking == 'Too Close':
-                messages.add_message(request, messages.WARNING,
-                                     '''The Time of Your Booking is 
-                                     Too Close to Another Booking You 
-                                     Have. Bookings Must Be at 
-                                     Least 3 Hours Apart''')
-                return redirect(f'/restaurant_booking/{name}/')
+            if type(new_booking) is dict:
+                if new_booking['message'] == 'No Tables':
+                    messages.add_message(request, messages.WARNING,
+                                        '''Unfortunatly There Are No 
+                                        Tables Available at Your Chosen Time''')
+                    return redirect(f'/restaurant_booking/{name}/')
+                if new_booking['message'] == 'Too Close':
+                    messages.add_message(request, messages.WARNING,
+                                        '''The Time of Your Booking is 
+                                        Too Close to Another Booking You 
+                                        Have. Bookings Must Be at 
+                                        Least 3 Hours Apart''')
+                    return redirect(f'/restaurant_booking/{name}/')
+
+                if new_booking['message'] == 'Invalid Time':
+                    messages.add_message(request, messages.WARNING,
+                                        f'''Please Pick a Time after 
+                                        {new_booking['current_time']}''')
+                    return redirect(f'/restaurant_booking/{name}/')
+
+                if new_booking['message'] == 'Not Open':
+                    messages.add_message(request, messages.WARNING,
+                                        '''We Are Unfortunatly Not Open at 
+                                        Your Chosen Time, Please Chose a 
+                                        Different Time''')
+                    return redirect(f'/restaurant_booking/{name}/')
 
             if customer:
                 new_booking.customer = customer
@@ -227,7 +241,7 @@ def update_cart(request):
         order_item.quantity = (order_item.quantity - 1)
     elif action == 'deleteAll':
         order_item.quantity = 0
-        
+
     order_item.save()
 
     if order_item.quantity <= 0:
@@ -265,12 +279,33 @@ def update_booking(request, pk):
         form = BookingForm(request.POST, instance=booking)
         if form.is_valid():
             new_booking = booking_validation(form, customer, restaurant)
-            if not new_booking:
-                messages.add_message(request, messages.WARNING,
-                                     '''The Time of Your Booking is Too Close 
-                                     to Another Booking You Have. Bookings Must
-                                      Be at Least 3 Hours Apart''')
-                return redirect(f'/restaurant_booking/{restaurant.name}/')
+            if type(new_booking) is dict:
+                if new_booking['message'] == 'No Tables':
+                    messages.add_message(request, messages.WARNING,
+                                        '''Unfortunatly There Are No 
+                                        Tables Available at Your Chosen Time''')
+                    return redirect(f'/restaurant_booking/{name}/')
+                if new_booking['message'] == 'Too Close':
+                    messages.add_message(request, messages.WARNING,
+                                        '''The Time of Your Booking is 
+                                        Too Close to Another Booking You 
+                                        Have. Bookings Must Be at 
+                                        Least 3 Hours Apart''')
+                    return redirect(f'/restaurant_booking/{name}/')
+
+                if new_booking['message'] == 'Invalid Time':
+                    messages.add_message(request, messages.WARNING,
+                                        f'''Please Pick a Time after 
+                                        {new_booking['current_time']}''')
+                    return redirect(f'/restaurant_booking/{name}/')
+
+                if new_booking['message'] == 'Not Open':
+                    messages.add_message(request, messages.WARNING,
+                                        '''We Are Unfortunatly Not Open at 
+                                        Your Chosen Time, Please Chose a 
+                                        Different Time''')
+                    return redirect(f'/restaurant_booking/{name}/')
+                    
             new_booking.save()
             messages.add_message(request, messages.INFO,
                                  'Your Booking Has Been Updated')

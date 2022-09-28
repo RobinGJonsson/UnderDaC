@@ -1,5 +1,7 @@
 from .models import Order, Booking, MenuItem, Restaurant
 import json
+import datetime
+import time
 
 
 def check_user_auth(request):
@@ -14,6 +16,8 @@ def check_user_auth(request):
 
 
 def hour_dif(time1, time2):
+    '''Returns the hour difference between 2 time objects'''
+
     time1_minutes = time1.hour*60 + time1.minute
     time2_minutes = time2.hour*60 + time2.minute
 
@@ -123,6 +127,16 @@ def booking_validation(form, customer, restaurant):
     new booking, otherwise it will return a string describing why not.
     '''
     new_booking = form.save(commit=False)
+    now = datetime.datetime.now()
+
+    # Get if the correct open times of the day
+    open_times = restaurant.open_times_weekdays if now.weekday(
+    ) < 5 else restaurant.open_times_weekends
+    open_times = open_times.split(' - ')
+
+    # Convert the opening hours to open and closing times
+    open_hour = datetime.datetime.strptime(open_times[0], '%H').time()
+    closing_hour = datetime.datetime.strptime(open_times[1], '%H').time()
 
     if customer:
         customer_bookings = Booking.objects.filter(
@@ -143,9 +157,17 @@ def booking_validation(form, customer, restaurant):
             hour_difference = hour_dif(booking.time, new_booking.time)
 
             if hour_difference <= 3 and (new_booking.id != booking.id):
-                return 'Too Close'
+                return {'message': 'Too Close'}
+
+            # Check that booking time is not passed and that it is not outside of open times
+            if new_booking.time < now.time():
+                return {'message': 'Invalid Time',
+                        'current_time': now.time().strftime('%H:%M')}
+
+    if new_booking.time < open_hour or new_booking.time > closing_hour:
+        return {'message': 'Not Open'}
 
     if tables_available(new_booking, restaurant):
         return new_booking
     else:
-        return 'No Tables'
+        return {'message': 'No Tables'}

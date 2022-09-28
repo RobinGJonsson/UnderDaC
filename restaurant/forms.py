@@ -15,6 +15,7 @@ class BookingForm(forms.ModelForm):
     # Only allow to pick dates from today and forward
     date = forms.DateField(widget=forms.TextInput(attrs={'type': 'date'}),
                            validators=[MinValueValidator(datetime.date.today)])
+                           
     time = forms.TimeField(widget=forms.TextInput(attrs={'type': 'time'}))
 
     class Meta:
