@@ -41,8 +41,9 @@
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
       <div class="container">
         <!--Logo-->
-        <a href="{% url 'home' %}" class="navbar-brand logo-img-link" aria-label="Main Logo"><img src="https://res.cloudinary.com/dcyv0gszf/image/upload/v1663501639/logo_wnvckb.png"
-          alt="Main logo" class="logo-img"></a>
+        <a href="{% url 'home' %}" class="navbar-brand logo-img-link" aria-label="Main Logo"><img
+            src="https://res.cloudinary.com/dcyv0gszf/image/upload/v1663501639/logo_wnvckb.png" alt="Main logo"
+            class="logo-img"></a>
         <a href="{% url 'home' %}" class="navbar-brand logo-brand-link">UnderDaC</a>
         <!--Toggle hamburger button-->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navmenu">
@@ -58,8 +59,10 @@
             {% if customer_bookings %}
             <div class="nav-item mx-4">
               <a href="{% url 'my_bookings' %}" class="nav-link">
-                <p class="mb-0">Hello {{ user.first_name|capfirst }}, don't forget your booking at The {{ customer_bookings.0.restaurant.name }}</p>
-                <p class="text-center mb-0">{{ customer_bookings.0.date }}, {{customer_bookings.0.time}}</p></a>
+                <p class="mb-0">Hello {{ user.first_name|capfirst }}, don't forget your booking at The
+                  {{ customer_bookings.0.restaurant.name }}</p>
+                <p class="text-center mb-0">{{ customer_bookings.0.date }}, {{customer_bookings.0.time}}</p>
+              </a>
             </div>
             {% endif %}
 
@@ -89,7 +92,8 @@
             {% endif %}
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <span class="nav-link"  data-bs-toggle="dropdown" type="button">Account <i class="bi bi-person-fill text-light"></i></span>
+              <span class="nav-link" data-bs-toggle="dropdown" type="button">Account <i
+                  class="bi bi-person-fill text-light"></i></span>
               <div class="dropdown">
                 <ul class="dropdown-menu dropdown-menu-dark">
                   <li class="px-3 text-decoration-underline">Logged in as {{ user.first_name|capfirst }}</li>
@@ -102,7 +106,8 @@
             <!--Page Language selection-->
             <li class="nav-item d-none">
               <div class="dropdown">
-                <button class="btn lang selected-lang" data-bs-toggle="dropdown" type="button" aria-label="Language selection"></button>
+                <button class="btn lang selected-lang" data-bs-toggle="dropdown" type="button"
+                  aria-label="Language selection"></button>
                 <ul class="dropdown-menu dropdown-menu-dark">
                   <li><a class="dropdown-item lang sv" aria-label="swedish flag" href="#">Svenska</a></li>
                   <li><a class="dropdown-item lang us" href="#" aria-label="american flag">English</a></li>
@@ -139,27 +144,27 @@
       </div>
     </nav>
     <!--Alert pop-up-->
-    <div class="container">
+    <div class="container position-fixed">
       <div class="update-cart-alert notification mx-auto"></div>
       <div class="notification mx-auto">
-          {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} alert-dismissable fade show" id="msg" role="alert">
-            {{ message | safe }}
-            <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-          {% endfor %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissable fade show" id="msg" role="alert">
+          {{ message | safe }}
+          <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
         </div>
+        {% endfor %}
       </div>
+    </div>
     </div>
   </header>
   <main>
     <div class="container-fluid">
-    {% block content %}
-    {% endblock %}
+      {% block content %}
+      {% endblock %}
     </div>
   </main>
   <!--Footer-->
-  <footer class="mt-5 bg-dark text-light">
+  <footer class="mt-5 bg-dark text-light" id="footer">
     <div class="container">
       <div class="row">
         <div class="col">
@@ -168,16 +173,18 @@
                 class="bi bi-github mx-4 footer-icon"></i></a>
             <a href="https://linkedin.com/in/robin-jönsson-4374641a6" target="_blank" aria-label="linkedin link"><i
                 class="bi bi-linkedin mx-4 footer-icon"></i></a>
-            <a href="https://facebook.com/" target="_blank" aria-label="faceboook link"><i class="bi bi-facebook mx-4 footer-icon"></i></a>
-            <a href="https://instagram.com/" target="_blank" aria-label="instagram link"><i class="bi bi-instagram mx-4 footer-icon"></i></a>
+            <a href="https://facebook.com/" target="_blank" aria-label="faceboook link"><i
+                class="bi bi-facebook mx-4 footer-icon"></i></a>
+            <a href="https://instagram.com/" target="_blank" aria-label="instagram link"><i
+                class="bi bi-instagram mx-4 footer-icon"></i></a>
           </div>
         </div>
       </div>
       <div class="row">
         <div class="col">
           <div class="copyright text-center">
-              <p><small>© UnderDaC 2022</small></p>
-              <p><small>Developed by Robin Jonsson</small></p>
+            <p><small>© UnderDaC 2022</small></p>
+            <p><small>Developed by Robin Jonsson</small></p>
           </div>
         </div>
       </div>

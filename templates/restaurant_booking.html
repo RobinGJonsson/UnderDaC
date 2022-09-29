@@ -37,7 +37,8 @@
             <div class="col-md-8 offset-md-2">
                 <div class="container mt-3">
                     <center>
-                        <h2 class="mt-4 mb-3 text-decoration-underline">Your Reservations at the {{ restaurant.name }}</h2>
+                        <h2 class="mt-4 mb-3 text-decoration-underline">Your Reservations at the {{ restaurant.name }}
+                        </h2>
                     </center>
                     {% for booking in customer_bookings %}
                     <div class="card bg-dark text-light">
@@ -56,12 +57,14 @@
                                     </p>
                                 </div>
                                 <div class="col-6 ps-1 text-end card-small-screen">
-                                    <img class="img-fluid card-img" src={{booking.restaurant.image.url}} alt="Image of restaurant">
+                                    <img class="img-fluid card-img" src={{booking.restaurant.image.url}}
+                                        alt="Image of restaurant">
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer booking-footer">
-                            <a href="{% url 'update_booking' booking.id %}" class="btn btn-info booking-footer-content mb-2">Change Booking</a>
+                            <a href="{% url 'update_booking' booking.id %}"
+                                class="btn btn-info booking-footer-content mb-2">Change Booking</a>
                             <a href="{% url 'delete_booking' booking.id restaurant.name %}"
                                 class="btn btn-danger float-end booking-footer-content mb-2">Delete Booking</a>
                         </div>
@@ -75,7 +78,7 @@
     </div>
 </div>
 <!--Display the customers bookings in this restaurant if they have any-->
-<div class="container">
+<div class="container" id="form-section">
     <div class="row border-top border-3 border-light">
         <div class="col-md-6">
             {% if update %}
@@ -84,10 +87,11 @@
             <h2 class="text-center mt-3">Make a Reservation</h2>
             {% endif %}
             <hr>
-            <form method="POST" id="booking_form">
+            <form method="POST">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <input class="mt-3 btn btn-success" type="submit" value="{% if update %}Update Reservation{% else %}Make Reservation{% endif %}">
+                <input class="mt-3 btn btn-success" type="submit"
+                    value="{% if update %}Update Reservation{% else %}Make Reservation{% endif %}">
             </form>
         </div>
         <div class="col-md-6">
@@ -114,4 +118,3 @@
     </div>
 </div>
 {% endblock %}
-
