@@ -146,9 +146,9 @@
     <!--Alert pop-up-->
     <div class="container notification">
       {% for message in messages %}
-      <div class="alert alert-{{ message.tags }} alert-dismissable fade show" id="msg" role="alert">
+      <div class="alert alert-{{ message.tags }} alert-dismissable fade show d-flex justify-content-between" id="msg" role="alert">
         {{ message | safe }}
-        <button type="button" class="btn-close float-end" data-bs-dismiss="alert" aria-label="Close"></button>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
         {% endfor %}
       </div>

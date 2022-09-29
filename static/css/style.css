@@ -286,6 +286,10 @@ a {
     .delete-all {
         position: static;
     }
+
+    .notification {
+        width: 60%;
+    }
 }
 
 @media (max-width: 400px){
@@ -310,5 +314,9 @@ a {
 
     .translate-cart-img {
         transform: translateY(50%);
+    }
+
+    .notification {
+        width: 100%;
     }
 }
