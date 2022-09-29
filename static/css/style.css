@@ -241,7 +241,7 @@ a {
     right: 50%;
     transform: translateX(50%);
     z-index: 1;
-    min-width: 50%;
+    min-width: 30%;
     width: fit-content;
 }
 
